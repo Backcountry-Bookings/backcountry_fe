@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import { Route, Routes } from 'react-router-dom';
 import Dashboard from '../Dashboard/Dashboard';
 import Results from '../Results/Results';
