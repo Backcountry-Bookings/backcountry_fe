@@ -1,0 +1,14 @@
+$darkGreen: #283618;
+$lightGreen: #606C38;
+$brown: #44270D;
+$white: #FBFAF5;
+$orange: #F9A03F;
+$logoFont: 'Permanent Marker', cursive;
+$mainFont: 'Kalam', cursive;
+
+@mixin centered($direction, $justifyContent) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justifyContent;
+  align-items: center;
+}
