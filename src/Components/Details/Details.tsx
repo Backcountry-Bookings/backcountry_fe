@@ -88,7 +88,33 @@ const Details = () => {
           <h3>Reviews</h3>
           <hr className="divider-cg-reviews" />
         </div>
+        <section className="total-star-section">
+          <div className="total-star-img-section">
+            <img className="total-star-imgs" src="/assets/Star.png" alt="star" />
+            <img className="total-star-imgs" src="/assets/Star.png" alt="star" />
+            <img className="total-star-imgs" src="/assets/Star.png" alt="star" />
+            <img className="total-star-imgs" src="/assets/Star.png" alt="star" />
+          </div>
+          <p>4 of 5 Stars</p>
+        </section>
+        <section className="user-review-section">
+          <div className="user-review">
+            <div className="user-review-header">
+              <div className="user-stars">
+                <img className="user-stars" src="/assets/Star.png" alt="star" />
+                <img className="user-stars" src="/assets/Star.png" alt="star" />
+                <img className="user-stars" src="/assets/Star.png" alt="star" />
+                <img className="user-stars" src="/assets/Star.png" alt="star" />
+              </div>
+              <p>Luke C</p>
+            </div>
+            <p className="user-comment">Sites are close to each other, but the water is close. The amenities are good and mountain biking trails are very close.</p>
+          </div>
+        </section>
       </section>
+      <div className="detail-btns">
+        <button>Back to search results</button>
+      </div>
     </section>
   );
 };

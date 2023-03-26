@@ -6,6 +6,10 @@ h3 {
   font-size: 1.5rem;
 }
 
+p {
+  font-size: 1.3rem;
+}
+
 .detail-main {
   height: -moz-fit-content;
   height: fit-content;
@@ -52,7 +56,6 @@ h3 {
   width: 100vw;
   background-color: #606C38;
   text-align: center;
-  font-size: 1.3rem;
   padding: 2vh;
 }
 
@@ -133,4 +136,47 @@ h3 {
 
 .cg-reviews-header {
   padding: 0vh 0vw 3vh 7vw;
+}
+
+.total-star-section {
+  padding: 0vh 0vw 0vh 6vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+.total-star-section p {
+  font-size: 1.5rem;
+  margin-left: 15px;
+  font-weight: 700;
+}
+
+.total-star-imgs {
+  padding: 2px;
+  height: 3rem;
+}
+
+.user-review-section {
+  padding: 2vh 0vw 4vh 6vw;
+}
+
+.user-review-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.user-review-header p {
+  font-size: 1.5rem;
+  margin-left: 15px;
+  font-weight: 700;
+}
+
+.user-stars {
+  height: 2rem;
+}
+
+.user-comment {
+  padding-right: 2vw;
 }/*# sourceMappingURL=Details.css.map */
