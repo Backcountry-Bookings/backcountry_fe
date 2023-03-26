@@ -77,6 +77,17 @@ const Details = () => {
             <li>Biking</li>
           </ul>
         </section>
+        <div className="detail-btns">
+          <button>Directions</button>
+          <button>Go to booking site</button>
+          <button>Add to favorites</button>
+        </div>
+      </section>
+      <section className="cg-review-section">
+        <div className="cg-reviews-header">
+          <h3>Reviews</h3>
+          <hr className="divider-cg-reviews" />
+        </div>
       </section>
     </section>
   );
