@@ -1,0 +1,16 @@
+@use '../../../abstract/variables' as *;
+
+.nav-main {
+  height: 10vh;
+  background-color: $darkGreen;
+  @include centered(column, center);
+}
+
+.site-title {
+  color: $white;
+  font-size: 2rem;
+}
+
+.title-link {
+  text-decoration: none;
+}
