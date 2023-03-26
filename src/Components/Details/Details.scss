@@ -1,5 +1,13 @@
 @use '../../../abstract/variables' as *;
 
+h2 {
+  font-size: 1.8rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+}
+
 .detail-main {
   height: fit-content;
   width: 100vw;
@@ -18,7 +26,6 @@
   @include centered(column, center);
 
   h2 {
-    font-size: 1.8rem;
     margin: 2vh 10vw 2vh 10vw;
   }
 }
@@ -28,7 +35,7 @@
   width: 100vw;
   background-color: $lightGreen;
   text-align: center;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   padding: 2vh;
 }
 
@@ -56,10 +63,6 @@
 
 .cg-details-header {
   padding: 3vh;
-
-  h3 {
-    font-size: 1.5rem;
-  }
 }
 
 .cg-details-copy-section {
@@ -69,4 +72,25 @@
 .cg-details-copy {
   font-size: 1.3rem;
   padding: 1rem 7vw 0rem 7vw;
+}
+
+.cg-activities-section {
+  height: fit-content;
+  padding: 3vh 0vw 3vh 0vw;
+}
+
+.divider-cg-activities {
+  width: 103px;
+  height: 0px;
+  border: 1px solid #F9A03F;
+}
+
+.cg-activities-header {
+  padding: 0vh 0vw 1vh 7vw;
+}
+
+.cg-activities-list {
+  list-style-type: circle;
+  padding-left: 12vw;
+  font-size: 1.3rem;
 }

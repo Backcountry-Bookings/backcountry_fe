@@ -60,9 +60,23 @@ const Details = () => {
           <p className="cg-details-copy">
             Wheelchair Access: Two ADA sites are offered for those customers
             with a disability or otherwise limited mobility who would benefit
-            from the accessibility design features.{" "}
+            from the accessibility design features.
           </p>
         </div>
+        <section className="cg-activities-section">
+          <div className="cg-activities-header">
+            <h3>Activities</h3>
+            <hr className="divider-cg-activities" />
+          </div>
+          <ul className="cg-activities-list">
+            <li>Wildlife viewing</li>
+            <li>Hiking</li>
+            <li>Fishing</li>
+            <li>Camping</li>
+            <li>Boating</li>
+            <li>Biking</li>
+          </ul>
+        </section>
       </section>
     </section>
   );
