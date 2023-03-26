@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Dashboard from '../Dashboard/Dashboard';
 import Results from '../Results/Results';
-import Details from '../Detail/Details';
+import Details from '../Details/Details';
 import Navbar from '../Navbar/Navbar';
 import './App.css';
 
