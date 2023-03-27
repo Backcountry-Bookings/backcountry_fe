@@ -1,1 +1,33 @@
 @use '../../../abstract/variables' as *;
+
+html {
+    background-color: $darkGreen;
+    color: $white;
+    font: $mainFont;
+}
+
+.search {
+    width: 50vw;
+    height: 25px;
+    border: 2px solid $orange;
+    border-radius: 8px;
+}
+
+.search-button {
+    font: $mainFont;
+    width: 30vw;
+    height: 25px;
+    background-color: $darkGreen;
+    color: $white;
+    border: solid 2px $orange;
+    border-radius: 8px;
+}
+
+.campfire {
+    width: 100vw;
+}
+
+.fav-campgrounds-title {
+    text-decoration: underline;
+    text-decoration-color: $orange ;
+}
