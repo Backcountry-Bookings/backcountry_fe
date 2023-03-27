@@ -1,6 +1,17 @@
+import { useState } from "react";
 import "./Details.css";
 
 const Details = () => {
+  // const [campgroundReviews, setCampgroundReviews] = useState([])
+  const [reviewStarRating, setReviewStarRating] = useState(0)
+  const [reviewSiteNumber, setReviewSiteNumber] = useState('')
+  const [reviewComment, setReviewComment] = useState('')
+
+  const submitNewReview = () => {
+    // Will need to create new Review component here 
+    // and add to array loaded on mount in state
+  }
+
   return (
     <section className="detail-main">
       <img
@@ -97,6 +108,16 @@ const Details = () => {
           </div>
           <p>4 of 5 Stars</p>
         </section>
+        <form className="user-review-form">
+          <h3>Review this campground</h3>
+          <label htmlFor="star-rating"># of Stars</label>
+          <input name="star-rating" type="number" min="0" max="5" value={reviewStarRating} onChange={(event) => setReviewStarRating(+event.target.value)} />
+          <label htmlFor="site-number">Site Number</label>
+          <input name="site-number" type="text" value={reviewSiteNumber} onChange={(event) => setReviewSiteNumber(event.target.value)} />
+          <label htmlFor="comment">Your Review</label>
+          <input name="comment" type="text" value={reviewComment} onChange={(event) => setReviewComment(event.target.value)} />
+        </form>
+        <button id="submit-review-button" onClick={() => submitNewReview()}>Submit review</button>
         <section className="user-review-section">
           <div className="user-review">
             <div className="user-review-header">

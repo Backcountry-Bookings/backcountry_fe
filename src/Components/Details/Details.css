@@ -157,7 +157,7 @@ p {
 }
 
 .user-review-section {
-  padding: 2vh 0vw 4vh 6vw;
+  padding: 4vh 0vw 4vh 6vw;
 }
 
 .user-review-header {
@@ -179,4 +179,16 @@ p {
 
 .user-comment {
   padding-right: 2vw;
+}
+
+.user-review-form {
+  width: 80vw;
+  padding: 0vh 0vw 3vh 7vw;
+  display: flex;
+  flex-direction: column;
+}
+
+#submit-review-button {
+  width: 50vw;
+  margin: 0vh 0vw 0vh 7vw;
 }/*# sourceMappingURL=Details.css.map */
