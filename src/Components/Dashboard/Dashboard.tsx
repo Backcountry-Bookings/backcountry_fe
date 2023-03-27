@@ -17,6 +17,7 @@ const Dashboard = () => {
                     Search
                 </button>
             </div>
+            <br />
             <div>
                 <h2 className='fav-campgrounds-title'>Your Favorite Campgrounds</h2>
                 <img className='campfire' src={campfire} alt='A campfire'></img>
