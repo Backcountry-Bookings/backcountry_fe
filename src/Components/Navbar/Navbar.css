@@ -1,0 +1,17 @@
+.nav-main {
+  height: 10vh;
+  background-color: #283618;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.site-title {
+  color: #FBFAF5;
+  font-size: 2rem;
+}
+
+.title-link {
+  text-decoration: none;
+}/*# sourceMappingURL=Navbar.css.map */
