@@ -29,3 +29,20 @@ html {
   text-decoration: underline;
   text-decoration-color: #F9A03F;
 }/*# sourceMappingURL=Dashboard.css.map */
+
+.mySwiper {
+  width: 100%;
+  height: 50vh;
+}
+
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
