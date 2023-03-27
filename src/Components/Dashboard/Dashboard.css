@@ -1,1 +1,31 @@
-/*# sourceMappingURL=Dashboard.css.map */
+html {
+  background-color: #283618;
+  color: #FBFAF5;
+  font: "Kalam", cursive;
+}
+
+.search {
+  width: 50vw;
+  height: 25px;
+  border: 2px solid #F9A03F;
+  border-radius: 8px;
+}
+
+.search-button {
+  font: "Kalam", cursive;
+  width: 30vw;
+  height: 25px;
+  background-color: #283618;
+  color: #FBFAF5;
+  border: solid 2px #F9A03F;
+  border-radius: 8px;
+}
+
+.campfire {
+  width: 100vw;
+}
+
+.fav-campgrounds-title {
+  text-decoration: underline;
+  text-decoration-color: #F9A03F;
+}/*# sourceMappingURL=Dashboard.css.map */
