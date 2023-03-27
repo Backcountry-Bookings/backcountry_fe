@@ -5,8 +5,8 @@ html {
 }
 
 .search {
-  width: 50vw;
-  height: 25px;
+  width: 60vw;
+  height: 35px;
   border: 2px solid #F9A03F;
   border-radius: 8px;
 }
@@ -14,7 +14,7 @@ html {
 .search-button {
   font: "Kalam", cursive;
   width: 30vw;
-  height: 25px;
+  height: 30px;
   background-color: #283618;
   color: #FBFAF5;
   border: solid 2px #F9A03F;
