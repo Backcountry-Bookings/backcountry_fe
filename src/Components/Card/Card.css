@@ -1,1 +1,32 @@
-/*# sourceMappingURL=Card.css.map */
+.card {
+  background-color: #FBFAF5;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 5px;
+}
+
+.card-image {
+  width: 90%;
+  margin-top: 5%;
+  border-radius: 5px;
+}
+
+.card-name,
+.card-cost {
+  color: #283618;
+}
+
+.card-button {
+  background-color: #606C38;
+  width: 80%;
+  height: 30px;
+  border: 2px solid #F9A03F;
+  color: #FBFAF5;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  margin-top: 10px;
+  font-size: large;
+  font-weight: bold;
+}/*# sourceMappingURL=Card.css.map */

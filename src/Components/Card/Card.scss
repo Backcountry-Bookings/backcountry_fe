@@ -1,1 +1,35 @@
 @use '../../../abstract/variables' as *;
+
+.card {
+    background-color: $white;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.card-image {
+    width: 90%;
+    margin-top: 5%;
+    border-radius: 5px;
+}
+
+.card-name,
+.card-cost {
+    color: $darkGreen;
+}
+
+.card-button {
+    background-color: $lightGreen;
+    width: 80%;
+    height: 30px;
+    border: 2px solid $orange;
+    color: $white;
+    border-radius: 5px ;
+    margin-bottom: 5px;
+    margin-top: 10px;
+    font-size: large;
+    font-weight: bold;
+}
+
