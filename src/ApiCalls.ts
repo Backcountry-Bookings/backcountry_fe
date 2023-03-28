@@ -1,6 +1,7 @@
-export async function fetchUserData(pathName: string) {
+export async function fetchUserData(pathType: string, searchValue: string) {
+    console.log(`https://backcountry-bookings-be.herokuapp.com/api/v1/campsites?${pathType}=${searchValue}`)
     try {
-      const response = await fetch(`https://backcountry-bookings-be.herokuapp.com/api/v1/campsites?q=aspenglen`);
+      const response = await fetch(`https://backcountry-bookings-be.herokuapp.com/api/v1/campsites?${pathType}=${searchValue}`);
       if (!response.ok) {
         throw new Error(`Request failed with status ${response.status}`);
       }
@@ -12,6 +13,8 @@ export async function fetchUserData(pathName: string) {
       throw error;
     }
   }
+
+
 
 
   
