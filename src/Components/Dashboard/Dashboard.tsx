@@ -2,7 +2,7 @@ import "./Dashboard.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper";
 import { fetchUserData } from "../../ApiCalls";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 //Styling Stuff
 import campfire from "../../Assets/campfire.gif";
