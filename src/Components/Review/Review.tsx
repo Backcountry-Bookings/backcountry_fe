@@ -14,7 +14,7 @@ const Review = ( props: {data: ReviewObj} ) => {
   const createStars = () => {
     let starArr = []
     for (let i = 0; i < +props.data.starRating; i++) {
-      starArr.push(<ReviewStar />);
+      starArr.push(<ReviewStar key={`rev${props.data.id}-star${i + 1}`} />);
     }
     return starArr;
   }

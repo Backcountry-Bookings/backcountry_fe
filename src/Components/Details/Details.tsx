@@ -27,10 +27,6 @@ const Details = () => {
   const [reviewSiteNumber, setReviewSiteNumber] = useState('')
   const [reviewComment, setReviewComment] = useState('')
 
-  // useEffect(() => {
-  //   const reviewDisplay = 
-  // }, [campgroundReviews])
-
   const submitNewReview = () => {
     const newReview: NewReview = {
       id: campgroundReviews.length + 1,
@@ -39,7 +35,11 @@ const Details = () => {
       siteNum: reviewSiteNumber,
       comment: reviewComment, 
     };
-    setCampgroundReviews([newReview, ...reviews])
+    setCampgroundReviews([newReview, ...campgroundReviews])
+    setReviewUserName('')
+    setReviewStarRating('')
+    setReviewSiteNumber('')
+    setReviewComment('')
   }
 
   return (
