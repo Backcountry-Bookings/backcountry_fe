@@ -20,6 +20,7 @@ const Details = () => {
   const [reviewStarRating, setReviewStarRating] = useState('')
   const [reviewSiteNumber, setReviewSiteNumber] = useState('')
   const [reviewComment, setReviewComment] = useState('')
+  const [reviewSubmitError, setReviewSubmitError] = useState('')
 
   const submitNewReview = () => {
     const newReview: ReviewObj = {
@@ -29,6 +30,15 @@ const Details = () => {
       siteNum: reviewSiteNumber,
       comment: reviewComment, 
     };
+
+    console.log(+newReview.starRating)
+
+    if (+newReview.starRating > 5 ||  Number.isNaN(+newReview.starRating)) {
+      setReviewSubmitError('Please enter a valid number 0 - 5 for your star rating')
+      setTimeout(() => setReviewSubmitError(''), 2000)
+      return;
+    }
+
     setCampgroundReviews([newReview, ...campgroundReviews])
     setReviewUserName('')
     setReviewStarRating('')
@@ -136,11 +146,16 @@ const Details = () => {
         </section>
         <form className="user-review-form">
           <h3>Review this campground</h3>
-          <input name="userName" type="text" value={reviewUserName} onChange={(event) => setReviewUserName(event.target.value)} placeholder="Enter your name" />
-          <input name="starRating" type="number" min="0" max="5" step="1" value={reviewStarRating} onChange={(event) => setReviewStarRating(event.target.value)} placeholder="Select # of stars" />
-          <input name="siteNumber" type="text" value={reviewSiteNumber} onChange={(event) => setReviewSiteNumber(event.target.value)} placeholder="Site number" />
-          <input name="comment" type="text" value={reviewComment} onChange={(event) => setReviewComment(event.target.value)} placeholder="Leave your review" />
+          <label htmlFor="userName">Name</label>
+          <input name="userName" type="text" maxLength={15} value={reviewUserName} onChange={(event) => setReviewUserName(event.target.value)} placeholder="Rick V" />
+          <label htmlFor="Star Rating">Rate your stay on a scale of 0 to 5 stars</label>
+          <input name="starRating" type="text" maxLength={1} value={reviewStarRating} onChange={(event) => setReviewStarRating(event.target.value)} placeholder="5" />
+          <label htmlFor="Star Rating">What site did you stay in?</label>
+          <input name="siteNumber" type="text" maxLength={10} value={reviewSiteNumber} onChange={(event) => setReviewSiteNumber(event.target.value)} placeholder="A-31" />
+          <label htmlFor="Star Rating">Leave your review</label>
+          <input name="comment" type="text" maxLength={1000} value={reviewComment} onChange={(event) => setReviewComment(event.target.value)} placeholder="I loved this campground!" />
         </form>
+        <p className="review-error">{reviewSubmitError}</p>
         <button id="submit-review-button" onClick={() => submitNewReview()}>Submit review</button>
         <section className="user-review-section">
           {campgroundReviews.map((rev) => {

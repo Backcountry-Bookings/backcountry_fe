@@ -155,6 +155,12 @@ p {
   height: 3rem;
 }
 
+.cg-review-section {
+  background-color: $lightGreen;
+  margin-bottom: 4vh;
+  padding-top: 3vh;
+}
+
 .user-review-section {
   padding: 4vh 0vw 4vh 6vw;
 }
@@ -168,10 +174,9 @@ p {
   input {
     max-width: 400px;
     padding: 5px;
-    margin-top: 15px;
+    margin: 5px 0px 10px 0px;
     border-radius: 5px;
     border: none;
-    box-shadow: 0px 0px 0px 2px $orange;
   }
 }
 
@@ -179,4 +184,11 @@ p {
   width: 50vw;
   max-width: 400px;
   margin: 0vh 0vw 0vh 7vw;
+  background-color: $darkGreen;
+}
+
+.review-error {
+  padding-left: 7vw;
+  color: $orange;
+  font-size: 2rem;
 }
