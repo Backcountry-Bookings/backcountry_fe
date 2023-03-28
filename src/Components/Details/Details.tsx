@@ -7,20 +7,21 @@ import { ReviewObj } from "../Review/Review";
 const reviews = [
   {
     id: 1,
-    name: 'Luke C',
-    starRating: '4',
-    siteNum: 'A-31',
-    comment: 'Sites are close to each other, but the water is close. The amenities are good and mountain biking trails are very close.'
+    name: "Luke C",
+    starRating: "4",
+    siteNum: "A-31",
+    comment:
+      "Sites are close to each other, but the water is close. The amenities are good and mountain biking trails are very close.",
   },
-]
+];
 
 const Details = () => {
-  const [campgroundReviews, setCampgroundReviews] = useState(reviews)
-  const [reviewUserName, setReviewUserName] = useState('')
-  const [reviewStarRating, setReviewStarRating] = useState('')
-  const [reviewSiteNumber, setReviewSiteNumber] = useState('')
-  const [reviewComment, setReviewComment] = useState('')
-  const [reviewSubmitError, setReviewSubmitError] = useState('')
+  const [campgroundReviews, setCampgroundReviews] = useState(reviews);
+  const [reviewUserName, setReviewUserName] = useState("");
+  const [reviewStarRating, setReviewStarRating] = useState("");
+  const [reviewSiteNumber, setReviewSiteNumber] = useState("");
+  const [reviewComment, setReviewComment] = useState("");
+  const [reviewSubmitError, setReviewSubmitError] = useState("");
 
   const submitNewReview = () => {
     const newReview: ReviewObj = {
@@ -28,23 +29,25 @@ const Details = () => {
       name: reviewUserName,
       starRating: reviewStarRating,
       siteNum: reviewSiteNumber,
-      comment: reviewComment, 
+      comment: reviewComment,
     };
 
-    console.log(+newReview.starRating)
+    console.log(+newReview.starRating);
 
-    if (+newReview.starRating > 5 ||  Number.isNaN(+newReview.starRating)) {
-      setReviewSubmitError('Please enter a valid number 0 - 5 for your star rating')
-      setTimeout(() => setReviewSubmitError(''), 2000)
+    if (+newReview.starRating > 5 || Number.isNaN(+newReview.starRating)) {
+      setReviewSubmitError(
+        "Please enter a valid number 0 - 5 for your star rating"
+      );
+      setTimeout(() => setReviewSubmitError(""), 2000);
       return;
     }
 
-    setCampgroundReviews([newReview, ...campgroundReviews])
-    setReviewUserName('')
-    setReviewStarRating('')
-    setReviewSiteNumber('')
-    setReviewComment('')
-  }
+    setCampgroundReviews([newReview, ...campgroundReviews]);
+    setReviewUserName("");
+    setReviewStarRating("");
+    setReviewSiteNumber("");
+    setReviewComment("");
+  };
 
   return (
     <section className="detail-main">
@@ -137,29 +140,77 @@ const Details = () => {
         </div>
         <section className="total-star-section">
           <div className="total-star-img-section">
-            <img className="total-star-imgs" src="/assets/Star.png" alt="star" />
-            <img className="total-star-imgs" src="/assets/Star.png" alt="star" />
-            <img className="total-star-imgs" src="/assets/Star.png" alt="star" />
-            <img className="total-star-imgs" src="/assets/Star.png" alt="star" />
+            <img
+              className="total-star-imgs"
+              src="/assets/Star.png"
+              alt="star"
+            />
+            <img
+              className="total-star-imgs"
+              src="/assets/Star.png"
+              alt="star"
+            />
+            <img
+              className="total-star-imgs"
+              src="/assets/Star.png"
+              alt="star"
+            />
+            <img
+              className="total-star-imgs"
+              src="/assets/Star.png"
+              alt="star"
+            />
           </div>
           <p>4 of 5 Stars</p>
         </section>
         <form className="user-review-form">
           <h3>Review this campground</h3>
           <label htmlFor="userName">Name</label>
-          <input name="userName" type="text" maxLength={15} value={reviewUserName} onChange={(event) => setReviewUserName(event.target.value)} placeholder="Rick V" />
-          <label htmlFor="Star Rating">Rate your stay on a scale of 0 to 5 stars</label>
-          <input name="starRating" type="text" maxLength={1} value={reviewStarRating} onChange={(event) => setReviewStarRating(event.target.value)} placeholder="5" />
+          <input
+            name="userName"
+            type="text"
+            maxLength={15}
+            value={reviewUserName}
+            onChange={(event) => setReviewUserName(event.target.value)}
+            placeholder="Rick V"
+          />
+          <label htmlFor="Star Rating">
+            Rate your stay on a scale of 0 to 5 stars
+          </label>
+          <input
+            name="starRating"
+            type="text"
+            maxLength={1}
+            value={reviewStarRating}
+            onChange={(event) => setReviewStarRating(event.target.value)}
+            placeholder="5"
+          />
           <label htmlFor="Star Rating">What site did you stay in?</label>
-          <input name="siteNumber" type="text" maxLength={10} value={reviewSiteNumber} onChange={(event) => setReviewSiteNumber(event.target.value)} placeholder="A-31" />
+          <input
+            name="siteNumber"
+            type="text"
+            maxLength={10}
+            value={reviewSiteNumber}
+            onChange={(event) => setReviewSiteNumber(event.target.value)}
+            placeholder="A-31"
+          />
           <label htmlFor="Star Rating">Leave your review</label>
-          <input name="comment" type="text" maxLength={1000} value={reviewComment} onChange={(event) => setReviewComment(event.target.value)} placeholder="I loved this campground!" />
+          <input
+            name="comment"
+            type="text"
+            maxLength={1000}
+            value={reviewComment}
+            onChange={(event) => setReviewComment(event.target.value)}
+            placeholder="I loved this campground!"
+          />
         </form>
         <p className="review-error">{reviewSubmitError}</p>
-        <button id="submit-review-button" onClick={() => submitNewReview()}>Submit review</button>
+        <button id="submit-review-button" onClick={() => submitNewReview()}>
+          Submit review
+        </button>
         <section className="user-review-section">
           {campgroundReviews.map((rev) => {
-            return <Review data={rev} key={rev.id} />
+            return <Review data={rev} key={rev.id} />;
           })}
         </section>
       </section>
