@@ -1,0 +1,21 @@
+.user-review {
+  height: -moz-fit-content;
+  height: fit-content;
+  padding-bottom: 2vh;
+}
+.user-review p {
+  padding-right: 2vw;
+}
+
+.user-review-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.user-review-header p {
+  font-size: 1.5rem;
+  margin-left: 15px;
+  font-weight: 700;
+}/*# sourceMappingURL=Review.css.map */

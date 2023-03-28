@@ -1,0 +1,21 @@
+@use '../../../abstract/variables' as *;
+
+.user-review {
+  height: fit-content;
+  padding-bottom: 2vh;
+
+  p {
+    padding-right: 2vw;
+  }
+}
+
+.user-review-header {
+  @include centered(row, flex-start);
+  margin-bottom: 1rem;
+  
+  p {
+    font-size: 1.5rem;
+    margin-left: 15px;
+    font-weight: 700;
+  }
+}
