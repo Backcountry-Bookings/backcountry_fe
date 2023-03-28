@@ -1,15 +1,45 @@
 import { useState } from "react";
 import "./Details.css";
+import Review from "../Review/Review";
+
+const reviews = [
+  {
+    id: 1,
+    name: 'Luke C',
+    starRating: '4',
+    siteNum: 'A-31',
+    comment: 'Sites are close to each other, but the water is close. The amenities are good and mountain biking trails are very close.'
+  },
+]
+
+type NewReview = {
+  id: number;
+  name: string;
+  starRating: string;
+  siteNum: string;
+  comment: string;
+}
 
 const Details = () => {
-  // const [campgroundReviews, setCampgroundReviews] = useState([])
-  const [reviewStarRating, setReviewStarRating] = useState(0)
+  const [campgroundReviews, setCampgroundReviews] = useState(reviews)
+  const [reviewUserName, setReviewUserName] = useState('')
+  const [reviewStarRating, setReviewStarRating] = useState('')
   const [reviewSiteNumber, setReviewSiteNumber] = useState('')
   const [reviewComment, setReviewComment] = useState('')
 
+  // useEffect(() => {
+  //   const reviewDisplay = 
+  // }, [campgroundReviews])
+
   const submitNewReview = () => {
-    // Will need to create new Review component here 
-    // and add to array loaded on mount in state
+    const newReview: NewReview = {
+      id: campgroundReviews.length + 1,
+      name: reviewUserName,
+      starRating: reviewStarRating,
+      siteNum: reviewSiteNumber,
+      comment: reviewComment, 
+    };
+    setCampgroundReviews([newReview, ...reviews])
   }
 
   return (
@@ -110,27 +140,16 @@ const Details = () => {
         </section>
         <form className="user-review-form">
           <h3>Review this campground</h3>
-          <label htmlFor="star-rating"># of Stars</label>
-          <input name="star-rating" type="number" min="0" max="5" value={reviewStarRating} onChange={(event) => setReviewStarRating(+event.target.value)} />
-          <label htmlFor="site-number">Site Number</label>
-          <input name="site-number" type="text" value={reviewSiteNumber} onChange={(event) => setReviewSiteNumber(event.target.value)} />
-          <label htmlFor="comment">Your Review</label>
-          <input name="comment" type="text" value={reviewComment} onChange={(event) => setReviewComment(event.target.value)} />
+          <input name="userName" type="text" value={reviewUserName} onChange={(event) => setReviewUserName(event.target.value)} placeholder="Enter your name" />
+          <input name="starRating" type="number" min="0" max="5" value={reviewStarRating} onChange={(event) => setReviewStarRating(event.target.value)} placeholder="Enter 0 - 5" />
+          <input name="siteNumber" type="text" value={reviewSiteNumber} onChange={(event) => setReviewSiteNumber(event.target.value)} placeholder="Site number" />
+          <input name="comment" type="text" value={reviewComment} onChange={(event) => setReviewComment(event.target.value)} placeholder="Leave your review" />
         </form>
         <button id="submit-review-button" onClick={() => submitNewReview()}>Submit review</button>
         <section className="user-review-section">
-          <div className="user-review">
-            <div className="user-review-header">
-              <div className="user-stars">
-                <img className="user-stars" src="/assets/Star.png" alt="star" />
-                <img className="user-stars" src="/assets/Star.png" alt="star" />
-                <img className="user-stars" src="/assets/Star.png" alt="star" />
-                <img className="user-stars" src="/assets/Star.png" alt="star" />
-              </div>
-              <p>Luke C</p>
-            </div>
-            <p className="user-comment">Sites are close to each other, but the water is close. The amenities are good and mountain biking trails are very close.</p>
-          </div>
+           {campgroundReviews.map((rev) => {
+            return <Review data={rev} key={rev.id} />
+           })}
         </section>
       </section>
       <div className="detail-btns">

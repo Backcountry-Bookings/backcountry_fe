@@ -147,34 +147,19 @@ p {
   padding: 4vh 0vw 4vh 6vw;
 }
 
-// .user-review {
-
-// }
-
-.user-review-header {
-  @include centered(row, flex-start);
-  margin-bottom: 1rem;
-  
-  p {
-    font-size: 1.5rem;
-    margin-left: 15px;
-    font-weight: 700;
-  }
-}
-
-.user-stars {
-  height: 2rem;
-}
-
-.user-comment {
-  padding-right: 2vw;
-}
-
 .user-review-form {
   width: 80vw;
   padding: 0vh 0vw 3vh 7vw;
   display: flex;
   flex-direction: column;
+
+  input {
+    padding: 5px;
+    margin-top: 15px;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 0px 0px 0px 2px $orange;
+  }
 }
 
 #submit-review-button {
