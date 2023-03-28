@@ -21,6 +21,7 @@ p {
   button {
     height: 6vh;
     width: 75vw;
+    max-width: 600px;
     background-color: $lightGreen;
     color: $white;
     font-size: 1.5rem;
@@ -34,9 +35,15 @@ p {
   }
 }
 
-.cg-image {
-  height: 30vh;
+.cg-images-container {
+  @include centered(column, center);
   width: 100vw;
+}
+
+.cg-images {
+  height: 30vh;
+  width: 100%;
+  max-width: 420px;
 }
 
 .cg-name {
@@ -50,11 +57,16 @@ p {
 }
 
 .cg-desc-section {
+  @include centered(column, center);
   height: fit-content;
   width: 100vw;
   background-color: $lightGreen;
   text-align: center;
   padding: 2vh;
+}
+
+.cg-desc {
+  max-width: 600px;
 }
 
 .cg-map-section {
@@ -80,7 +92,7 @@ p {
 }
 
 .cg-details-header {
-  padding: 3vh;
+  padding: 0vh 0vw 1vh 7vw;
 }
 
 .cg-details-copy-section {
@@ -128,7 +140,7 @@ p {
 }
 
 .total-star-section {
-  padding: 0vh 0vw 0vh 6vw;
+  padding: 0vh 0vw 0vh 7vw;
   @include centered(row, flex-start);
 
   p {
@@ -154,6 +166,7 @@ p {
   flex-direction: column;
 
   input {
+    max-width: 400px;
     padding: 5px;
     margin-top: 15px;
     border-radius: 5px;
@@ -164,5 +177,6 @@ p {
 
 #submit-review-button {
   width: 50vw;
+  max-width: 400px;
   margin: 0vh 0vw 0vh 7vw;
 }

@@ -1,7 +1,9 @@
 import { useState } from "react";
 import "./Details.css";
 import Review from "../Review/Review";
+import { ReviewObj } from "../Review/Review";
 
+// This is sample data that will be replaced with props passed in
 const reviews = [
   {
     id: 1,
@@ -12,14 +14,6 @@ const reviews = [
   },
 ]
 
-type NewReview = {
-  id: number;
-  name: string;
-  starRating: string;
-  siteNum: string;
-  comment: string;
-}
-
 const Details = () => {
   const [campgroundReviews, setCampgroundReviews] = useState(reviews)
   const [reviewUserName, setReviewUserName] = useState('')
@@ -28,7 +22,7 @@ const Details = () => {
   const [reviewComment, setReviewComment] = useState('')
 
   const submitNewReview = () => {
-    const newReview: NewReview = {
+    const newReview: ReviewObj = {
       id: campgroundReviews.length + 1,
       name: reviewUserName,
       starRating: reviewStarRating,
@@ -44,11 +38,13 @@ const Details = () => {
 
   return (
     <section className="detail-main">
-      <img
-        className="cg-image"
-        src="https://www.nps.gov/common/uploads/structured_data/3FAA6E89-1DD8-B71B-0B170E56BD4ED00D.jpg"
-        alt="campground hero shot"
-      />
+      <div className="cg-images-container">
+        <img
+          className="cg-images"
+          src="https://www.nps.gov/common/uploads/structured_data/3FAA6E89-1DD8-B71B-0B170E56BD4ED00D.jpg"
+          alt="campground hero shot"
+        />
+      </div>
       <div className="cg-name">
         <h2>Aspenglen Campground</h2>
       </div>
@@ -141,15 +137,15 @@ const Details = () => {
         <form className="user-review-form">
           <h3>Review this campground</h3>
           <input name="userName" type="text" value={reviewUserName} onChange={(event) => setReviewUserName(event.target.value)} placeholder="Enter your name" />
-          <input name="starRating" type="number" min="0" max="5" value={reviewStarRating} onChange={(event) => setReviewStarRating(event.target.value)} placeholder="Enter 0 - 5" />
+          <input name="starRating" type="number" min="0" max="5" step="1" value={reviewStarRating} onChange={(event) => setReviewStarRating(event.target.value)} placeholder="Select # of stars" />
           <input name="siteNumber" type="text" value={reviewSiteNumber} onChange={(event) => setReviewSiteNumber(event.target.value)} placeholder="Site number" />
           <input name="comment" type="text" value={reviewComment} onChange={(event) => setReviewComment(event.target.value)} placeholder="Leave your review" />
         </form>
         <button id="submit-review-button" onClick={() => submitNewReview()}>Submit review</button>
         <section className="user-review-section">
-           {campgroundReviews.map((rev) => {
+          {campgroundReviews.map((rev) => {
             return <Review data={rev} key={rev.id} />
-           })}
+          })}
         </section>
       </section>
       <div className="detail-btns">

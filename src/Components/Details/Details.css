@@ -20,6 +20,7 @@ p {
 .detail-main button {
   height: 6vh;
   width: 75vw;
+  max-width: 600px;
   background-color: #606C38;
   color: #FBFAF5;
   font-size: 1.5rem;
@@ -32,9 +33,18 @@ p {
   margin-bottom: 4vh;
 }
 
-.cg-image {
-  height: 30vh;
+.cg-images-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 100vw;
+}
+
+.cg-images {
+  height: 30vh;
+  width: 100%;
+  max-width: 420px;
 }
 
 .cg-name {
@@ -51,12 +61,20 @@ p {
 }
 
 .cg-desc-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   height: -moz-fit-content;
   height: fit-content;
   width: 100vw;
   background-color: #606C38;
   text-align: center;
   padding: 2vh;
+}
+
+.cg-desc {
+  max-width: 600px;
 }
 
 .cg-map-section {
@@ -87,7 +105,7 @@ p {
 }
 
 .cg-details-header {
-  padding: 3vh;
+  padding: 0vh 0vw 1vh 7vw;
 }
 
 .cg-details-copy-section {
@@ -139,7 +157,7 @@ p {
 }
 
 .total-star-section {
-  padding: 0vh 0vw 0vh 6vw;
+  padding: 0vh 0vw 0vh 7vw;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -167,6 +185,7 @@ p {
   flex-direction: column;
 }
 .user-review-form input {
+  max-width: 400px;
   padding: 5px;
   margin-top: 15px;
   border-radius: 5px;
@@ -176,5 +195,6 @@ p {
 
 #submit-review-button {
   width: 50vw;
+  max-width: 400px;
   margin: 0vh 0vw 0vh 7vw;
 }/*# sourceMappingURL=Details.css.map */

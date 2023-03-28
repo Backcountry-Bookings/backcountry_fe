@@ -1,7 +1,11 @@
 import './Review.css'
 import ReviewStar from '../ReviewStar/ReviewStar';
 
-type ReviewObj = {
+interface Props {
+  data: ReviewObj;
+}
+
+export interface ReviewObj {
   id: number;
   name: string;
   starRating: string;
@@ -9,12 +13,12 @@ type ReviewObj = {
   comment: string;
 }
 
-const Review = ( props: {data: ReviewObj} ) => {
+const Review = ( {data}: Props ) => {
 
   const createStars = () => {
     let starArr = []
-    for (let i = 0; i < +props.data.starRating; i++) {
-      starArr.push(<ReviewStar key={`rev${props.data.id}-star${i + 1}`} />);
+    for (let i = 0; i < +data.starRating; i++) {
+      starArr.push(<ReviewStar key={`rev${data.id}-star${i + 1}`} />);
     }
     return starArr;
   }
@@ -25,10 +29,10 @@ const Review = ( props: {data: ReviewObj} ) => {
         <div className="user-stars">
           {createStars()}
         </div>
-        <p>{props.data.name}</p>
+        <p>{data.name}</p>
       </div>
-      <p>Site: {props.data.siteNum}</p>
-      <p>{props.data.comment}</p>
+      <p>Site: {data.siteNum}</p>
+      <p>{data.comment}</p>
     </div>
   )
 }
