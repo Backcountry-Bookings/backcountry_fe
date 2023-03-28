@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
 import './Review.css'
+import ReviewStar from '../ReviewStar/ReviewStar';
 
 type ReviewObj = {
   id: number;
@@ -11,21 +11,19 @@ type ReviewObj = {
 
 const Review = ( props: {data: ReviewObj} ) => {
 
-  // useEffect(() => {
-  //   let starElement = <img className="user-stars" src="/assets/Star.png" alt="star" />;
-  //   let starCount = props.data.starRating;
-
-  // })
+  const createStars = () => {
+    let starArr = []
+    for (let i = 0; i < +props.data.starRating; i++) {
+      starArr.push(<ReviewStar />);
+    }
+    return starArr;
+  }
 
   return ( 
     <div className="user-review">
-      {/* THESE STARS ARE STATIC, REPLACE WITH DYNAMIC? */}
       <div className="user-review-header">
         <div className="user-stars">
-          <img className="user-stars" src="/assets/Star.png" alt="star" />
-          <img className="user-stars" src="/assets/Star.png" alt="star" />
-          <img className="user-stars" src="/assets/Star.png" alt="star" />
-          <img className="user-stars" src="/assets/Star.png" alt="star" />
+          {createStars()}
         </div>
         <p>{props.data.name}</p>
       </div>
