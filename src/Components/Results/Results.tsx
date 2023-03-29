@@ -3,6 +3,7 @@ import "./Results.css";
 
 interface Props {
   searchResults: SearchResults;
+  setSelectedCampground: Function;
 }
 
 interface SearchResults {
@@ -16,6 +17,9 @@ export interface CampData {
     name: string;
     description: string;
     images: Images[];
+    cost: {
+      cost: string;
+    }[];
   };
 }
 
@@ -28,11 +32,11 @@ interface Images {
   url: string;
 }
 
-const Results = ({ searchResults }: Props) => {
+const Results = ({ searchResults, setSelectedCampground }: Props) => {
   const createCards = () => {
     if (searchResults.data === undefined) return;
     let campgroundCards = searchResults.data.map((camp) => {
-      return <Card campData={camp} key={camp.id} />;
+      return <Card campData={camp} key={camp.id}/>;
     });
     return campgroundCards;
   };

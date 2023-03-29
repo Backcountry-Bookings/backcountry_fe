@@ -8,14 +8,17 @@ import './App.css';
 
 function App() {
   const [searchResults, setSearchResults] = useState({data: []})
+  const [selectedCampground, setSelectedCampground] = useState({string: ''})
+
+
 
   return (
     <main className="app-main">
       <Navbar />
       <Routes>
         <Route path="/" element={<Dashboard setSearchResults={setSearchResults} /> } />
-        <Route path="/results" element={<Results searchResults={searchResults} />} />
-        <Route path="/details/:name" element={<Details />} />
+        <Route path="/results" element={<Results setSelectedCampground={setSelectedCampground} searchResults={searchResults} />} />
+        <Route path="/details/:id" element={<Details />} />
       </Routes>
     </main>
   );

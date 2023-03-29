@@ -1,5 +1,6 @@
 import './Card.css'
 import { CampData } from '../Results/Results';
+import { Link } from 'react-router-dom';
 
 interface Props {
   campData: CampData;
@@ -22,13 +23,17 @@ const Card = ( {campData}: Props ) => {
       return campData.attributes.images[0].altText;
     }
   }
+  
+  const cost = campData.attributes.cost?.[0]?.cost || 'N/A';
 
     return (
         <div className='card'>
             <img className='card-image' src={loadImage()} alt={loadAltText()}/>
             <h1 className='card-name'>{campData.attributes.name}</h1>
-            <p className='card-cost'>Campground Cost: $30 per night</p>
-            <button className='card-button'>More Info</button>
+            <p className='card-cost'>Campground Cost: ${cost}</p>
+            <Link className='card-button'to={`/details/${campData.id}`}>
+              More Info
+            </Link>
         </div>
     )
 }
