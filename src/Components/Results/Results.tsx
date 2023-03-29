@@ -4,6 +4,7 @@ import camper from '../../Assets/error.gif'
 
 interface Props {
   searchResults: SearchResults;
+  setSelectedCampground: Function;
   favoriteCamps: CampData[];
   setFavoriteCamps: Function;
 }
@@ -19,6 +20,9 @@ export interface CampData {
     name: string;
     description: string;
     images: Images[];
+    cost: {
+      cost: string;
+    }[];
   };
 }
 
@@ -31,7 +35,8 @@ export interface Images {
   url: string;
 }
 
-const Results = ({ searchResults, favoriteCamps, setFavoriteCamps }: Props) => {
+const Results = ({ searchResults, favoriteCamps, setFavoriteCamps, setSelectedCampground }: Props) => {
+
   const createCards = () => {
     if (!searchResults.data || searchResults.data.length === 0) {
       return (
@@ -43,7 +48,7 @@ const Results = ({ searchResults, favoriteCamps, setFavoriteCamps }: Props) => {
     }
 
     let campgroundCards = searchResults.data.map((camp) => {
-      return <Card campData={camp} key={camp.id} favoriteCamps={favoriteCamps} setFavoriteCamps={setFavoriteCamps} />;
+      return <Card campData={camp} key={camp.id} favoriteCamps={favoriteCamps} setSelectedCampground={setSelectedCampground} setFavoriteCamps={setFavoriteCamps} />;
     });
 
     return (
@@ -52,8 +57,6 @@ const Results = ({ searchResults, favoriteCamps, setFavoriteCamps }: Props) => {
       </section>
     );
   };
-
-
   return (
     <div>
       <section className="results-main">{createCards()}</section>

@@ -26,9 +26,10 @@ interface Props {
   setSearchResults: Function;
   favoriteCamps: CampData[];
   setFavoriteCamps: Function;
+  setSelectedCampground: Function;
 }
 
-const Dashboard = ( {setSearchResults, favoriteCamps, setFavoriteCamps}: Props) => {
+const Dashboard = ( {setSearchResults, favoriteCamps, setFavoriteCamps, setSelectedCampground}: Props) => {
     const [searchType, setSearchType] = useState('')
     const [search, setSearch] = useState<string>('')
     const [disableSearchbar, setDisableSearchbar] = useState(true)
@@ -86,7 +87,7 @@ const Dashboard = ( {setSearchResults, favoriteCamps, setFavoriteCamps}: Props) 
   const createFavorites = () => {
     if (favoriteCamps.length > 0) {
       let favCamps = favoriteCamps.map((camp) => {
-        return <Card campData={camp} key={camp.id} favoriteCamps={favoriteCamps} setFavoriteCamps={setFavoriteCamps}/>      
+        return <Card setSelectedCampground={setSelectedCampground} campData={camp} key={camp.id} favoriteCamps={favoriteCamps} setFavoriteCamps={setFavoriteCamps}/>      
       })
       return favCamps;
     }

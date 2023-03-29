@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Details.css";
 import Review from "../Review/Review";
 import { ReviewObj } from "../Review/Review";
@@ -15,13 +15,21 @@ const reviews = [
   },
 ];
 
-const Details = () => {
+interface Props {
+  selectedCampground: string
+}
+
+const Details = ({selectedCampground}: Props) => {
   const [campgroundReviews, setCampgroundReviews] = useState(reviews);
   const [reviewUserName, setReviewUserName] = useState("");
   const [reviewStarRating, setReviewStarRating] = useState("");
   const [reviewSiteNumber, setReviewSiteNumber] = useState("");
   const [reviewComment, setReviewComment] = useState("");
   const [reviewSubmitError, setReviewSubmitError] = useState("");
+
+  useEffect(() => {
+    console.log(selectedCampground)
+  })
 
   const submitNewReview = () => {
     const newReview: ReviewObj = {

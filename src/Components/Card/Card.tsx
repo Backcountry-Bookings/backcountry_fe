@@ -1,13 +1,16 @@
 import './Card.css'
 import { CampData } from '../Results/Results';
+import { Link } from 'react-router-dom';
+
 
 interface Props {
   campData: CampData;
   favoriteCamps: CampData[];
   setFavoriteCamps: Function;
+  setSelectedCampground: Function;
 }
 
-const Card = ( { campData, favoriteCamps, setFavoriteCamps }: Props ) => {
+const Card = ( { campData, favoriteCamps, setFavoriteCamps, setSelectedCampground }: Props ) => {
 
   const loadImage = () => {
     if (campData.attributes.images.length === 0) {
@@ -24,6 +27,8 @@ const Card = ( { campData, favoriteCamps, setFavoriteCamps }: Props ) => {
       return campData.attributes.images[0].altText;
     }
   }
+  
+  const cost = campData.attributes.cost?.[0]?.cost || 'N/A';
 
   const setFavoriteButton = () => {
     const favCampIds = favoriteCamps.map((camp) => camp.id);
@@ -47,8 +52,10 @@ const Card = ( { campData, favoriteCamps, setFavoriteCamps }: Props ) => {
         <div className='card'>
             <img className='card-image' src={loadImage()} alt={loadAltText()}/>
             <h1 className='card-name'>{campData.attributes.name}</h1>
-            <p className='card-cost'>Campground Cost: $30 per night</p>
-            <button className='card-button'>More Info</button>
+            <p className='card-cost'>Campground Cost: ${cost}</p>
+            <Link onClick={setSelectedCampground(campData.id)} className='card-button'to={`/details/${campData.id}`}>
+              More Info
+            </Link>
             {setFavoriteButton()}
         </div>
     )
