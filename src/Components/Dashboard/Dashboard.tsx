@@ -86,7 +86,7 @@ const Dashboard = ( {setSearchResults, favoriteCamps, setFavoriteCamps}: Props) 
   const createFavorites = () => {
     if (favoriteCamps.length > 0) {
       let favCamps = favoriteCamps.map((camp) => {
-        return <Card campData={camp} key={camp.id} />      
+        return <Card campData={camp} key={camp.id} favoriteCamps={favoriteCamps} setFavoriteCamps={setFavoriteCamps}/>      
       })
       return favCamps;
     }

@@ -67,7 +67,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Dashboard setSearchResults={setSearchResults} favoriteCamps={favoriteCamps} setFavoriteCamps={setFavoriteCamps} /> } />
-        <Route path="/results" element={<Results searchResults={searchResults} />} />
+        <Route path="/results" element={<Results searchResults={searchResults} favoriteCamps={favoriteCamps} setFavoriteCamps={setFavoriteCamps} />} />
         {/* ADD setFavoriteCamps={setFavoriteCamps} to props below */}
         <Route path="/details/:name" element={<Details />} />
       </Routes>
