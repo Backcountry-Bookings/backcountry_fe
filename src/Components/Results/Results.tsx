@@ -19,7 +19,7 @@ export interface CampData {
   };
 }
 
-interface Images {
+export interface Images {
   credit: string;
   crops: [] | string[];
   title: string;

@@ -8,12 +8,13 @@ import './App.css';
 
 function App() {
   const [searchResults, setSearchResults] = useState({data: []})
+  const [favoriteCamps, setFavoriteCamps] = useState([])
 
   return (
     <main className="app-main">
       <Navbar />
       <Routes>
-        <Route path="/" element={<Dashboard setSearchResults={setSearchResults} /> } />
+        <Route path="/" element={<Dashboard setSearchResults={setSearchResults} favoriteCamps={favoriteCamps} setFavoriteCamps={setFavoriteCamps} /> } />
         <Route path="/results" element={<Results searchResults={searchResults} />} />
         <Route path="/details/:name" element={<Details />} />
       </Routes>
