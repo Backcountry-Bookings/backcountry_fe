@@ -1,7 +1,7 @@
 import './Card.css'
 import { CampData } from '../Results/Results';
 import { Link } from 'react-router-dom';
-import { MouseEventHandler } from 'react';
+
 
 interface Props {
   campData: CampData;
