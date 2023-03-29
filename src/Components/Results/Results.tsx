@@ -1,5 +1,5 @@
-import Card from '../Card/Card';
-import './Results.css'
+import Card from "../Card/Card";
+import "./Results.css";
 
 interface Props {
   searchResults: SearchResults;
@@ -16,33 +16,28 @@ export interface CampData {
     name: string;
     description: string;
     images: Images[];
-  }
+  };
 }
 
 interface Images {
   credit: string;
-  crops: [] | string[],
+  crops: [] | string[];
   title: string;
   altText: string;
   caption: string;
   url: string;
 }
 
-const Results = ( {searchResults}: Props  ) => {
-
+const Results = ({ searchResults }: Props) => {
   const createCards = () => {
     if (searchResults.data === undefined) return;
     let campgroundCards = searchResults.data.map((camp) => {
-      return <Card campData={camp} key={camp.id} />
-    })
+      return <Card campData={camp} key={camp.id} />;
+    });
     return campgroundCards;
-  }
+  };
 
-    return (
-        <section className='results-main'>
-          {createCards()}
-        </section>
-    )
-}
+  return <section className="results-main">{createCards()}</section>;
+};
 
-export default Results
+export default Results;

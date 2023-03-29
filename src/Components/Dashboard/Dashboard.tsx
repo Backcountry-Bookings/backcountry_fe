@@ -97,7 +97,7 @@ const Dashboard = ( {setSearchResults}: Props) => {
                 <SwiperSlide className="swiper-slide"><img src={swiper9} alt="Lake with mountain in background in Lake Clark National Park" /></SwiperSlide>
             </Swiper>
             <div className="search-container">
-                <form>
+                <form className="search-form">
                     <select value={searchType} name="search-dropdown" id="search-dropdown" onChange={event => setSearchType(event.target.value)}>
                         <option value=''>Select method to search for campgrounds</option>
                         <option value="state_code">State Code</option>
