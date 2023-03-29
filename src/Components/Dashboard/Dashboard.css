@@ -9,7 +9,8 @@ html {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: -moz-fit-content;
+  height: fit-content;
   width: 100vw;
   background-color: #283618;
   color: #FBFAF5;
@@ -26,6 +27,8 @@ html {
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 2;
+  height: -moz-fit-content;
+  height: fit-content;
 }
 
 .search-form {
@@ -45,7 +48,8 @@ html {
 .search {
   width: 50vw;
   height: 25px;
-  margin-top: 4vh;
+  padding: 2px 2px 2px 6px;
+  margin-top: 2.5vh;
   box-shadow: 0px 0px 0px 2px #F9A03F;
   border: none;
   border-radius: 5px;
@@ -55,12 +59,17 @@ html {
 .search-button {
   font: "Kalam", cursive;
   width: 30vw;
-  height: 25px;
+  height: -moz-fit-content;
+  height: fit-content;
   background-color: #283618;
   color: #FBFAF5;
-  border: solid 2px #F9A03F;
-  border-radius: 8px;
+  box-shadow: 0px 0px 0px 2px #F9A03F;
+  border: none;
+  border-radius: 5px;
   margin-top: 1rem;
+  font-family: "Baloo Chettan 2", cursive;
+  font-weight: 700;
+  font-size: 1.3rem;
 }
 
 .campfire {
@@ -70,6 +79,7 @@ html {
 .fav-campgrounds-title {
   text-decoration: underline;
   text-decoration-color: #F9A03F;
+  margin-bottom: 2vh;
 }
 
 .mySwiper {
@@ -90,4 +100,14 @@ html {
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
+}
+
+.favorites-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: -moz-fit-content;
+  height: fit-content;
+  width: 100vw;
 }/*# sourceMappingURL=Dashboard.css.map */
