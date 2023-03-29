@@ -3,4 +3,12 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.error-gif {
+  width: 100vw;
+}
+
+.error-msg {
+  text-align: center;
 }/*# sourceMappingURL=Results.css.map */

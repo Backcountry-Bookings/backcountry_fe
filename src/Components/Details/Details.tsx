@@ -32,8 +32,6 @@ const Details = () => {
       comment: reviewComment,
     };
 
-    console.log(+newReview.starRating);
-
     if (+newReview.starRating > 5 || Number.isNaN(+newReview.starRating)) {
       setReviewSubmitError(
         "Please enter a valid number 0 - 5 for your star rating"
@@ -48,6 +46,13 @@ const Details = () => {
     setReviewSiteNumber("");
     setReviewComment("");
   };
+
+  const handlePhotoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const photo = event?.target.files;
+    if (photo !== null) {
+      console.log(photo[0])
+    }
+  }
 
   return (
     <section className="detail-main">
@@ -174,7 +179,7 @@ const Details = () => {
             onChange={(event) => setReviewUserName(event.target.value)}
             placeholder="Rick V"
           />
-          <label htmlFor="Star Rating">
+          <label htmlFor="starRating">
             Rate your stay on a scale of 0 to 5 stars
           </label>
           <input
@@ -185,7 +190,7 @@ const Details = () => {
             onChange={(event) => setReviewStarRating(event.target.value)}
             placeholder="5"
           />
-          <label htmlFor="Star Rating">What site did you stay in?</label>
+          <label htmlFor="siteNumber">What site did you stay in?</label>
           <input
             name="siteNumber"
             type="text"
@@ -194,7 +199,7 @@ const Details = () => {
             onChange={(event) => setReviewSiteNumber(event.target.value)}
             placeholder="A-31"
           />
-          <label htmlFor="Star Rating">Leave your review</label>
+          <label htmlFor="comment">Leave your review</label>
           <input
             name="comment"
             type="text"
@@ -203,6 +208,8 @@ const Details = () => {
             onChange={(event) => setReviewComment(event.target.value)}
             placeholder="I loved this campground!"
           />
+          <label htmlFor="photoUpload">Add a photo (optional)</label>
+          <input name="photoUpload" type='file' onChange={event => handlePhotoUpload(event)} />
         </form>
         <p className="review-error">{reviewSubmitError}</p>
         <button id="submit-review-button" onClick={() => submitNewReview()}>
