@@ -32,6 +32,8 @@ const Dashboard = ( {setSearchResults}: Props) => {
     const [search, setSearch] = useState<string>('')
     const [disableSearchbar, setDisableSearchbar] = useState(true)
     const [searchPlaceholder, setSearchPlaceholder] = useState('')
+    const [stateError, setStateError] = useState(false)
+    const [error, setError] = useState(false)
 
     const navigate = useNavigate();
 
@@ -52,26 +54,33 @@ const Dashboard = ( {setSearchResults}: Props) => {
       }
     }, [searchType])
 
-    const updateInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSearch(e.target.value)
+  const updateInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (search !== '' && searchType !== '') {
+      setStateError(false)
+      setError(false)
     }
+    setSearch(e.target.value)
+  }
 
-    const fetchCamps = () => {
-      if (search === '') return;
+  const fetchCamps = (event: React.MouseEvent<HTMLButtonElement> ) => {
+    event.preventDefault()
+    if (searchType === 'state_code' && search.length !== 2) {
+      setStateError(true)
 
-      // Commented out fetch for testing
-
-      // fetchCampgrounds(searchType, search)
-      // .then(result => {
-      //     console.log(result)
-      // }) 
-      // .catch(error => alert(error))
-      
-      setSearchResults(coTestResp)
-      
-      navigate("/results")
     }
-
+    else if (searchType === '' || search === '') {
+      setError(true)
+    }
+    else { 
+      setError(false)
+      setStateError(false)
+      fetchUserData(searchType, search)
+      .then(result => {
+        setSearchResults(result)
+        navigate("/results")
+      })
+     }
+  }
 
     return (
         <div className="dashboard">
@@ -111,8 +120,10 @@ const Dashboard = ( {setSearchResults}: Props) => {
                         onChange={updateInput}
                         disabled={disableSearchbar}
                     ></input>
-                  <button className="search-button" onClick={fetchCamps} disabled={disableSearchbar}>Search</button>
+                  <button className="search-button" onClick={(event) => fetchCamps(event)} disabled={disableSearchbar}>Search</button>
                 </form>
+                {error && <p>Please select a type of search/Enter something into the search bar</p>}
+                {stateError && <p>State code should be two letters</p>}
                 <br />
             </div>
             <br />
@@ -122,6 +133,7 @@ const Dashboard = ( {setSearchResults}: Props) => {
             </div>
         </div>
     );
+
 };
 
 export default Dashboard;
