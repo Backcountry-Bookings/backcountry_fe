@@ -11,7 +11,7 @@ html {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: fit-content;
   width: 100vw;
   background-color: $darkGreen;
   color: $white;
@@ -25,6 +25,7 @@ html {
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 2;
+  height: fit-content;
 }
 
 .search-form {
@@ -39,7 +40,7 @@ html {
 .search {
   width: 50vw;
   height: 25px;
-  margin-top: 4vh;
+  margin-top: 2.5vh;
   @include orangeBorderRounded;
   position: relative;
 }
@@ -47,12 +48,14 @@ html {
 .search-button {
   font: $mainFont;
   width: 30vw;
-  height: 25px;
+  height: fit-content;
   background-color: $darkGreen;
   color: $white;
-  border: solid 2px $orange;
-  border-radius: 8px;
+  @include orangeBorderRounded;
   margin-top: 1rem;
+  font-family: 'Baloo Chettan 2', cursive;
+  font-weight: 700;
+  font-size: 1.3rem;
 }
 
 .campfire {
@@ -62,6 +65,7 @@ html {
 .fav-campgrounds-title {
   text-decoration: underline;
   text-decoration-color: $orange;
+  margin-bottom: 2vh;
 }
 
 .mySwiper {
