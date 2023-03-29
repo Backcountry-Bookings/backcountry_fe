@@ -48,7 +48,7 @@ const Dashboard = () => {
     const fetchCamps = () => {
         fetchCampgrounds(searchType, search)
         .then(result => {
-            alert(result)
+            console.log(result)
         }) 
         .catch(error => alert(error))
     }
@@ -80,7 +80,7 @@ const Dashboard = () => {
             <div className="search-container">
                 <form>
                     <select value={searchType} name="search-dropdown" id="search-dropdown" onChange={event => setSearchType(event.target.value)}>
-                        <option value=''>Please select a value</option>
+                        <option value=''>Select method to search for campgrounds</option>
                         <option value="state_code">State Code</option>
                         <option value="q">Campground Name</option>
                         <option value="park_name">National Park</option>
