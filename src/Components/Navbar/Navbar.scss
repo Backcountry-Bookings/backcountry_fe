@@ -9,8 +9,17 @@
 .site-title {
   color: $white;
   font-size: 2rem;
+  margin-left: 16px;
 }
 
 .title-link {
   text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 10vh;
+  flex: 1;
+  max-width: calc(100% / 3);
 }

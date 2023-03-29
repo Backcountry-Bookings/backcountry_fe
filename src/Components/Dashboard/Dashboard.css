@@ -47,9 +47,10 @@ html {
 
 .search {
   width: 50vw;
+  max-width: 200px;
   height: 25px;
   padding: 2px 2px 2px 6px;
-  margin-top: 2.5vh;
+  margin-top: 20px;
   box-shadow: 0px 0px 0px 2px #F9A03F;
   border: none;
   border-radius: 5px;
@@ -59,6 +60,7 @@ html {
 .search-button {
   font: "Kalam", cursive;
   width: 30vw;
+  max-width: 100px;
   height: -moz-fit-content;
   height: fit-content;
   background-color: #283618;
@@ -66,7 +68,7 @@ html {
   box-shadow: 0px 0px 0px 2px #F9A03F;
   border: none;
   border-radius: 5px;
-  margin-top: 1rem;
+  margin-top: 20px;
   font-family: "Baloo Chettan 2", cursive;
   font-weight: 700;
   font-size: 1.3rem;
