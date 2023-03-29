@@ -1,8 +1,8 @@
 import "./Dashboard.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper";
-import { fetchUserData } from "../../ApiCalls";
-import { useState } from "react";
+import { fetchCampgrounds } from "../../ApiCalls";
+import { useEffect, useState } from "react";
 
 //Styling Stuff
 import campfire from "../../Assets/campfire.gif";
@@ -21,16 +21,36 @@ import "swiper/css/pagination";
 const Dashboard = () => {
     const [searchType, setSearchType] = useState('')
     const [search, setSearch] = useState<string>('')
+    const [disableSearchbar, setDisableSearchbar] = useState(true)
+    const [searchPlaceholder, setSearchPlaceholder] = useState('')
+
+    useEffect(() => {
+      if (searchType !== '') {
+        setDisableSearchbar(false)
+      } else {
+        setDisableSearchbar(true)
+        return;
+      }
+
+      if (searchType === "state_code") {
+        setSearchPlaceholder('i.e. "CO" for Colorado')
+      } else if (searchType === 'q') {
+        setSearchPlaceholder('Enter campground name')
+      } else if (searchType === 'park_name') {
+        setSearchPlaceholder('Enter National Park name')
+      }
+    }, [searchType])
 
     const updateInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(e.target.value)
     }
 
     const fetchCamps = () => {
-        fetchUserData(searchType, search)
+        fetchCampgrounds(searchType, search)
         .then(result => {
-            console.log(result)
-        })
+            alert(result)
+        }) 
+        .catch(error => alert(error))
     }
 
 
@@ -67,9 +87,10 @@ const Dashboard = () => {
                     </select>
                     <input
                         type="text"
-                        placeholder="Search by name, city or zip code"
+                        placeholder={searchPlaceholder}
                         className="search"
                         onChange={updateInput}
+                        disabled={disableSearchbar}
                     ></input>
                 </form>
                 <br />
