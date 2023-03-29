@@ -35,7 +35,7 @@ const Results = ({ searchResults }: Props) => {
       return (
         <div>
           <img className='error-gif' src={camper} alt='Just a little guy camping'/>
-          <p className='error-msg'>There may have been an issue with your search, click the title to go home</p>
+          <h3 className='error-msg'>There may have been an issue with your search, click the title to go home</h3>
         </div>
       )
     }
