@@ -74,7 +74,7 @@ const Dashboard = ( {setSearchResults}: Props) => {
     else { 
       setError(false)
       setStateError(false)
-      fetchUserData(searchType, search)
+      fetchCampgrounds(searchType, search)
       .then(result => {
         setSearchResults(result)
         navigate("/results")
