@@ -1,6 +1,10 @@
 import './Results.css'
 
-const Results = () => {
+interface Props {
+  searchResults?: object;
+}
+
+const Results = ( {searchResults}: Props  ) => {
     return (
         <div>
 

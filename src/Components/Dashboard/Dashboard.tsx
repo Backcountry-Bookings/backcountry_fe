@@ -4,6 +4,8 @@ import { Pagination, Autoplay } from "swiper";
 import { fetchCampgrounds } from "../../ApiCalls";
 import { useEffect, useState } from "react";
 
+import { useNavigate } from "react-router-dom";
+
 //Styling Stuff
 import campfire from "../../Assets/campfire.gif";
 import swiper1 from "../../Assets/swiperImages/1.jpg";
@@ -18,11 +20,20 @@ import swiper9 from "../../Assets/swiperImages/9.jpg";
 import "swiper/css";
 import "swiper/css/pagination";
 
-const Dashboard = () => {
+// TEST DATA
+import { coTestResp } from "./COTestResp";
+
+interface Props {
+  setSearchResults: Function;
+}
+
+const Dashboard = ( {setSearchResults}: Props) => {
     const [searchType, setSearchType] = useState('')
     const [search, setSearch] = useState<string>('')
     const [disableSearchbar, setDisableSearchbar] = useState(true)
     const [searchPlaceholder, setSearchPlaceholder] = useState('')
+
+    const navigate = useNavigate();
 
     useEffect(() => {
       if (searchType !== '') {
@@ -46,11 +57,19 @@ const Dashboard = () => {
     }
 
     const fetchCamps = () => {
-        fetchCampgrounds(searchType, search)
-        .then(result => {
-            console.log(result)
-        }) 
-        .catch(error => alert(error))
+      if (search === '') return;
+
+      // Commented out fetch for testing
+
+      // fetchCampgrounds(searchType, search)
+      // .then(result => {
+      //     console.log(result)
+      // }) 
+      // .catch(error => alert(error))
+      
+      setSearchResults(coTestResp)
+      
+      navigate("/results")
     }
 
 
