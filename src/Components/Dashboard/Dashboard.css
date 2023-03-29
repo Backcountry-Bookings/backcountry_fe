@@ -90,4 +90,14 @@ html {
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
+}
+
+.favorites-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: -moz-fit-content;
+  height: fit-content;
+  width: 100vw;
 }/*# sourceMappingURL=Dashboard.css.map */
