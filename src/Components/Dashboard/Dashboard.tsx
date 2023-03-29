@@ -20,9 +20,6 @@ import swiper9 from "../../Assets/swiperImages/9.jpg";
 import "swiper/css";
 import "swiper/css/pagination";
 
-// TEST DATA
-import { coTestResp } from "./COTestResp";
-
 interface Props {
   setSearchResults: Function;
 }
