@@ -32,7 +32,8 @@ const Dashboard = () => {
     setSearch(e.target.value)
   }
 
-  const fetchCamps = () => {
+  const fetchCamps = (event: React.MouseEvent<HTMLButtonElement> ) => {
+    event.preventDefault()
     if (searchType === 'state_code' && search.length !== 2) {
       setStateError(true)
     }
@@ -88,11 +89,11 @@ const Dashboard = () => {
             className="search"
             onChange={updateInput}
           ></input>
+        <br />
+        <button className="search-button" onClick={(event) => fetchCamps(event)}>Search</button>
         </form>
         {error && <p>Please select a type of search/Enter something into the search bar</p>}
         {stateError && <p>State code should be two letters</p>}
-        <br />
-        <button className="search-button" onClick={fetchCamps}>Search</button>
       </div>
       <br />
       <div>
