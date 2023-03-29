@@ -3,3 +3,12 @@
 .results-main {
   @include centered(column, center)
 }
+
+.error-gif {
+  width: 100vw;
+}
+
+.error-msg {
+  text-align: center;
+}
+
