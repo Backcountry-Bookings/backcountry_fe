@@ -21,7 +21,7 @@ export interface CampData {
 
 interface Images {
   credit: string;
-  crops: [],
+  crops: [] | string[],
   title: string;
   altText: string;
   caption: string;
@@ -33,7 +33,7 @@ const Results = ( {searchResults}: Props  ) => {
   const createCards = () => {
     if (searchResults.data === undefined) return;
     let campgroundCards = searchResults.data.map((camp) => {
-      <Card campData={camp} />
+      return <Card campData={camp} />
     })
     return campgroundCards;
   }
