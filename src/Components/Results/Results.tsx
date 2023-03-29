@@ -48,7 +48,7 @@ const Results = ({ searchResults, favoriteCamps, setFavoriteCamps, setSelectedCa
     }
 
     let campgroundCards = searchResults.data.map((camp) => {
-      return <Card campData={camp} key={camp.id} favoriteCamps={favoriteCamps} setFavoriteCamps={setFavoriteCamps} />;
+      return <Card campData={camp} key={camp.id} favoriteCamps={favoriteCamps} setSelectedCampground={setSelectedCampground} setFavoriteCamps={setFavoriteCamps} />;
     });
 
     return (
