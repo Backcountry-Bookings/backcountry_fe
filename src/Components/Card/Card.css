@@ -13,6 +13,9 @@
   width: 90%;
   margin-top: 5%;
   border-radius: 5px;
+  max-height: 700px;
+  max-width: 1000px;
+  border-radius: 5px;
 }
 
 .card-name,
