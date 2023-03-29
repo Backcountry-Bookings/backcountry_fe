@@ -6,12 +6,8 @@ import Details from '../Details/Details';
 import Navbar from '../Navbar/Navbar';
 import './App.css';
 
-export type Props = {
-  term ?: string;
-}
-
 function App() {
-  const [searchResults, setSearchResults] = useState({})
+  const [searchResults, setSearchResults] = useState({data: []})
 
   return (
     <main className="app-main">
