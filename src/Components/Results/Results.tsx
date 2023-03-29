@@ -33,7 +33,7 @@ const Results = ( {searchResults}: Props  ) => {
   const createCards = () => {
     if (searchResults.data === undefined) return;
     let campgroundCards = searchResults.data.map((camp) => {
-      return <Card campData={camp} />
+      return <Card campData={camp} key={camp.id} />
     })
     return campgroundCards;
   }
