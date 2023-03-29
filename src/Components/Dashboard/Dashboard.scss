@@ -20,20 +20,27 @@ html {
 
 .search-container {
   position: absolute;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  @include centered(column, center);
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 2;
 }
 
+.search-form {
+  @include centered(column, center)
+}
+
+#search-dropdown {
+  padding: 2px;
+  @include orangeBorderRounded;
+}
+
 .search {
   width: 50vw;
   height: 25px;
-  border: 2px solid $orange;
-  border-radius: 8px;
+  margin-top: 4vh;
+  @include orangeBorderRounded;
   position: relative;
 }
 

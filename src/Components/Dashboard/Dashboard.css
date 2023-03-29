@@ -20,6 +20,7 @@ html {
   position: absolute;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   top: 40%;
   left: 50%;
@@ -27,11 +28,27 @@ html {
   z-index: 2;
 }
 
+.search-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#search-dropdown {
+  padding: 2px;
+  box-shadow: 0px 0px 0px 2px #F9A03F;
+  border: none;
+  border-radius: 5px;
+}
+
 .search {
   width: 50vw;
   height: 25px;
-  border: 2px solid #F9A03F;
-  border-radius: 8px;
+  margin-top: 4vh;
+  box-shadow: 0px 0px 0px 2px #F9A03F;
+  border: none;
+  border-radius: 5px;
   position: relative;
 }
 

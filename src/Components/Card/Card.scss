@@ -7,6 +7,8 @@
     flex-direction: column;
     align-items: center;
     border-radius: 5px;
+    margin-bottom: 4vh;
+    text-align: center;
 }
 
 .card-image {
@@ -23,11 +25,11 @@
 .card-button {
     background-color: $lightGreen;
     width: 80%;
-    height: 30px;
-    border: 2px solid $orange;
+    max-width: 300px;
+    height: 35px;
+    @include orangeBorderRounded;
     color: $white;
-    border-radius: 5px ;
-    margin-bottom: 5px;
+    margin-bottom: 15px;
     margin-top: 10px;
     font-size: large;
     font-weight: bold;

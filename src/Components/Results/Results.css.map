@@ -1,1 +1,1 @@
-{"version":3,"sources":[],"names":[],"mappings":"","file":"Results.css"}
+{"version":3,"sources":["Results.scss","../../../abstract/_variables.scss","Results.css"],"names":[],"mappings":"AAEA;ECOE,aAAA;EACA,sBDPkB;ECQlB,uBDR0B;ECS1B,mBAAA;ACPF","file":"Results.css"}

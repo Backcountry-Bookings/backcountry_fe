@@ -12,3 +12,9 @@ $mainFont: 'Kalam', cursive;
   justify-content: $justifyContent;
   align-items: center;
 }
+
+@mixin orangeBorderRounded() {
+  box-shadow: 0px 0px 0px 2px $orange;
+  border: none;
+  border-radius: 5px;
+}
