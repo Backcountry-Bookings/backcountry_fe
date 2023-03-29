@@ -111,9 +111,9 @@ const Dashboard = ( {setSearchResults}: Props) => {
                         onChange={updateInput}
                         disabled={disableSearchbar}
                     ></input>
+                  <button className="search-button" onClick={fetchCamps} disabled={disableSearchbar}>Search</button>
                 </form>
                 <br />
-                <button className="search-button" onClick={fetchCamps}>Search</button>
             </div>
             <br />
             <div>
