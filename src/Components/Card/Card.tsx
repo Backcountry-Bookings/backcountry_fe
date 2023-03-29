@@ -1,14 +1,16 @@
 import './Card.css'
 import { CampData } from '../Results/Results';
 import { Link } from 'react-router-dom';
+import { MouseEventHandler } from 'react';
 
 interface Props {
   campData: CampData;
   favoriteCamps: CampData[];
   setFavoriteCamps: Function;
+  setSelectedCampground: Function;
 }
 
-const Card = ( { campData, favoriteCamps, setFavoriteCamps }: Props ) => {
+const Card = ( { campData, favoriteCamps, setFavoriteCamps, setSelectedCampground }: Props ) => {
 
   const loadImage = () => {
     if (campData.attributes.images.length === 0) {
@@ -51,7 +53,7 @@ const Card = ( { campData, favoriteCamps, setFavoriteCamps }: Props ) => {
             <img className='card-image' src={loadImage()} alt={loadAltText()}/>
             <h1 className='card-name'>{campData.attributes.name}</h1>
             <p className='card-cost'>Campground Cost: ${cost}</p>
-            <Link className='card-button'to={`/details/${campData.id}`}>
+            <Link onClick={setSelectedCampground(campData.id)} className='card-button'to={`/details/${campData.id}`}>
               More Info
             </Link>
             {setFavoriteButton()}
