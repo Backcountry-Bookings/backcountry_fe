@@ -63,11 +63,19 @@ const Card = ({
     return campData.attributes.name.replaceAll(" ", "");
   };
 
+  const parkCode = () => {
+    if (campData.attributes.park_code) {
+      return campData.attributes.park_code.toUpperCase();
+    } else {
+      return 'Not available';
+    }
+  }
+
   return (
     <div className="card">
       <img className="card-image" src={loadImage()} alt={loadAltText()} />
       <h1 className="card-name">{campData.attributes.name}</h1>
-      <p className="card-copy">National Park: {campData.attributes.park_code.toUpperCase()}</p>
+      <p className="card-copy">National Park: {parkCode()}</p>
       <p className="card-copy">Cost per night: ${cost}</p>
       <Link
         onClick={() => setSelectedCampground(campData.id)}
