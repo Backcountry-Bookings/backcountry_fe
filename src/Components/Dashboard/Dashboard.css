@@ -72,10 +72,12 @@ html {
   font-family: "Baloo Chettan 2", cursive;
   font-weight: 700;
   font-size: 1.3rem;
+  cursor: pointer;
 }
 
 .campfire {
   width: 100vw;
+  max-width: 500px;
 }
 
 .fav-campgrounds-title {

@@ -5,8 +5,16 @@
   align-items: center;
 }
 
+.search-error-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .error-gif {
   width: 100vw;
+  max-width: 500px;
 }
 
 .error-msg {

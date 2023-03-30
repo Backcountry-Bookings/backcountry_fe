@@ -1,6 +1,6 @@
 import Card from "../Card/Card";
 import "./Results.css";
-import camper from '../../Assets/error.gif'
+import camper from "../../Assets/error.gif";
 
 interface Props {
   searchResults: SearchResults;
@@ -20,9 +20,12 @@ export interface CampData {
     name: string;
     description: string;
     images: Images[];
-    cost: {
-      cost: string;
-    }[];
+    cost: [
+      {
+        cost: string;
+      }
+    ];
+    park_code: string;
   };
 }
 
@@ -35,33 +38,44 @@ export interface Images {
   url: string;
 }
 
-const Results = ({ searchResults, favoriteCamps, setFavoriteCamps, setSelectedCampground }: Props) => {
-
+const Results = ({
+  searchResults,
+  favoriteCamps,
+  setFavoriteCamps,
+  setSelectedCampground,
+}: Props) => {
   const createCards = () => {
-    if (!searchResults.data || searchResults.data.length === 0) {
+    if (searchResults.data === undefined || searchResults.data.length === 0) {
       return (
-        <div>
-          <img className='error-gif' src={camper} alt='Just a little guy camping'/>
-          <h3 className='error-msg'>There may have been an issue with your search, click the title to go home</h3>
+        <div className="search-error-section">
+          <img
+            className="error-gif"
+            src={camper}
+            alt="Just a little guy camping"
+          />
+          <h3 className="error-msg">
+            There may have been an issue with your search, click the title to go
+            home
+          </h3>
         </div>
-      )
+      );
     }
 
     let campgroundCards = searchResults.data.map((camp) => {
-      return <Card campData={camp} key={camp.id} favoriteCamps={favoriteCamps} setSelectedCampground={setSelectedCampground} setFavoriteCamps={setFavoriteCamps} />;
+      return (
+        <Card
+          campData={camp}
+          key={camp.id}
+          favoriteCamps={favoriteCamps}
+          setSelectedCampground={setSelectedCampground}
+          setFavoriteCamps={setFavoriteCamps}
+        />
+      );
     });
 
-    return (
-      <section className="results-main">
-        {campgroundCards}
-      </section>
-    );
+    return campgroundCards;
   };
-  return (
-    <div>
-      <section className="results-main">{createCards()}</section>
-    </div>
-  );
+  return <section className="results-main">{createCards()}</section>;
 };
 
 export default Results;

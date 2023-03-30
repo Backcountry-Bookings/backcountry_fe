@@ -29,7 +29,7 @@ html {
 }
 
 .search-form {
-  @include centered(column, center)
+  @include centered(column, center);
 }
 
 #search-dropdown {
@@ -56,13 +56,15 @@ html {
   color: $white;
   @include orangeBorderRounded;
   margin-top: 20px;
-  font-family: 'Baloo Chettan 2', cursive;
+  font-family: "Baloo Chettan 2", cursive;
   font-weight: 700;
   font-size: 1.3rem;
+  cursor: pointer;
 }
 
 .campfire {
   width: 100vw;
+  max-width: 500px;
 }
 
 .fav-campgrounds-title {

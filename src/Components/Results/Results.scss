@@ -4,8 +4,13 @@
   @include centered(column, center)
 }
 
+.search-error-section {
+  @include centered(column, center);
+}
+
 .error-gif {
   width: 100vw;
+  max-width: 500px;
 }
 
 .error-msg {

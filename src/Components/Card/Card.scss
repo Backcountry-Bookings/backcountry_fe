@@ -1,40 +1,44 @@
-@use '../../../abstract/variables' as *;
+@use "../../../abstract/variables" as *;
 
 .card {
-    background-color: $white;
-    width: 90%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border-radius: 5px;
-    margin-bottom: 4vh;
-    text-align: center;
+  background-color: $white;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 5px;
+  margin-bottom: 4vh;
+  text-align: center;
 }
 
 .card-image {
-    width: 90%;
-    margin-top: 5%;
-    border-radius: 5px;
-    max-height: 700px;
-    max-width: 1000px;
-    border-radius: 5px;
+  width: 90%;
+  margin-top: 5%;
+  border-radius: 5px;
+  max-height: 700px;
+  max-width: 1000px;
+  border-radius: 5px;
 }
 
 .card-name,
-.card-cost {
-    color: $darkGreen;
+.card-copy {
+  color: $darkGreen;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 .card-button {
-    background-color: $lightGreen;
-    width: 80%;
-    max-width: 300px;
-    height: 35px;
-    @include orangeBorderRounded;
-    color: $white;
-    margin-bottom: 15px;
-    margin-top: 10px;
-    font-size: large;
-    font-weight: bold;
+  background-color: $lightGreen;
+  width: 50vw;
+  max-width: 300px;
+  height: 35px;
+  @include orangeBorderRounded;
+  color: $white;
+  margin-bottom: 10px;
+  margin-top: 5px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-decoration: none;
+  font-family: "Baloo Chettan 2", cursive;
+  cursor: pointer;
 }
-

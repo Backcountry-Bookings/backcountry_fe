@@ -2,34 +2,152 @@ import { useEffect, useState } from "react";
 import "./Details.css";
 import Review from "../Review/Review";
 import { ReviewObj } from "../Review/Review";
-
-// This is sample data that will be replaced with props passed in
-const reviews = [
-  {
-    id: 1,
-    name: "Luke C",
-    starRating: "4",
-    siteNum: "A-31",
-    comment:
-      "Sites are close to each other, but the water is close. The amenities are good and mountain biking trails are very close.",
-  },
-];
+import { getCampgroundDetails } from "../../ApiCalls";
+import { Images } from "../Results/Results";
+import { CampData } from "../Results/Results";
+import { useNavigate } from "react-router";
 
 interface Props {
-  selectedCampground: string
+  selectedCampground: string;
+  setSelectedCampground: Function;
+  favoriteCamps: CampData[];
+  setFavoriteCamps: Function;
 }
 
-const Details = ({selectedCampground}: Props) => {
-  const [campgroundReviews, setCampgroundReviews] = useState(reviews);
+interface CampDetails {
+  id: string;
+  attributes: {
+    name: string;
+    lat: string;
+    long: string;
+    booking_link: string;
+    description: string;
+    images: Images[];
+    cost: Cost[];
+    number_of_reservation_sites: string;
+    reservation_info: string;
+    toilets: string[];
+    showers: string[];
+    cell_coverage: string;
+    laundry: string;
+    dump_station: string;
+    camp_store: string;
+    potable_water: string[];
+    ice_available: string;
+    firewood_available: string;
+    wheelchair_access: string;
+    weather_info: string;
+  };
+}
+
+interface Cost {
+  cost: string;
+  description: string;
+  title: string;
+}
+
+const Details = ({
+  selectedCampground,
+  setSelectedCampground,
+  favoriteCamps,
+  setFavoriteCamps,
+}: Props) => {
+  const [campgroundDetails, setCampgroundDetails] = useState<CampDetails>();
+  const [campgroundReviews, setCampgroundReviews] = useState<ReviewObj[]>([]);
   const [reviewUserName, setReviewUserName] = useState("");
   const [reviewStarRating, setReviewStarRating] = useState("");
   const [reviewSiteNumber, setReviewSiteNumber] = useState("");
   const [reviewComment, setReviewComment] = useState("");
   const [reviewSubmitError, setReviewSubmitError] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(selectedCampground)
-  })
+    getCampgroundDetails(selectedCampground)
+      .then((response) => {
+        if (response) {
+          setCampgroundDetails(response.data);
+        }
+      })
+      .catch((error) => {
+        console.log(`Error loading campground details ${error}`);
+      });
+    // eslint-disable-next-line
+  }, []);
+
+  const createDirectionsButton = () => {
+    if (campgroundDetails?.attributes.lat && campgroundDetails?.attributes.long) {
+      return (
+        <a
+          href={`https://www.google.com/maps/dir/?api=1&destination=${campgroundDetails?.attributes.lat}+${campgroundDetails?.attributes.long}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <button>Directions</button>
+        </a>
+      )
+    }
+  }
+
+  const createBookingButton = () => {
+    if (campgroundDetails?.attributes.booking_link) {
+      return (
+        <a
+          href={campgroundDetails?.attributes.booking_link}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <button>Go to booking site</button>
+        </a>
+      );
+    }
+  };
+
+  const setFavoriteButton = () => {
+    const favCampIds = favoriteCamps.map((camp) => camp.id);
+    if (campgroundDetails === undefined) return;
+    if (favCampIds.includes(campgroundDetails?.id)) {
+      return (
+        <button className="card-button" onClick={() => removeFavorite()}>
+          Remove Favorite
+        </button>
+      );
+    } else {
+      return (
+        <button className="card-button" onClick={() => addFavorite()}>
+          Add to Favorites
+        </button>
+      );
+    }
+  };
+
+  const addFavorite = () => {
+    setFavoriteCamps([...favoriteCamps, campgroundDetails]);
+  };
+
+  const removeFavorite = () => {
+    let newFavorites = favoriteCamps.filter(
+      (camp) => camp.id !== campgroundDetails?.id
+    );
+    setFavoriteCamps(newFavorites);
+  };
+
+  const createTotalStarDisplay = () => {
+    const reviewCount = campgroundReviews.length;
+    if (reviewCount === 0) {
+      return (
+        <p id="noReviewYet">Be the first to review!</p>
+      )
+    } else {
+      const sumStarRating = campgroundReviews.reduce((sum, rev) => {
+        sum += +rev.starRating;
+        return sum;
+      }, 0)
+      const avgStarRating = (sumStarRating / reviewCount).toFixed(1);
+      return (
+        <p className="total-star-rating">Avg Rating: {avgStarRating} of 5 Stars</p>
+      )
+    }
+  }
 
   const submitNewReview = () => {
     const newReview: ReviewObj = {
@@ -58,8 +176,13 @@ const Details = ({selectedCampground}: Props) => {
   const handlePhotoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const photo = event?.target.files;
     if (photo !== null) {
-      console.log(photo[0])
+      console.log(photo[0]);
     }
+  };
+
+  const navBackToResults = () => {
+    setSelectedCampground('')
+    navigate('/results')
   }
 
   return (
@@ -67,24 +190,15 @@ const Details = ({selectedCampground}: Props) => {
       <div className="cg-images-container">
         <img
           className="cg-images"
-          src="https://www.nps.gov/common/uploads/structured_data/3FAA6E89-1DD8-B71B-0B170E56BD4ED00D.jpg"
-          alt="campground hero shot"
+          src={campgroundDetails?.attributes.images[0].url}
+          alt={campgroundDetails?.attributes.images[0].altText}
         />
       </div>
       <div className="cg-name">
-        <h2>Aspenglen Campground</h2>
+        <h2>{campgroundDetails?.attributes.name}</h2>
       </div>
       <section className="cg-desc-section">
-        <p className="cg-desc">
-          Aspenglen Campground is reservation only. Visit Recreation.gov.
-          Aspenglen opens for the 2023 season on May 26. Timed Entry Permits are
-          included with your camping reservation. For Aspenglen Campers, your
-          reservation includes access to Bear Lake Road. Campers will be able to
-          initially enter the park beginning at 1 p.m. on the first day of your
-          camping reservation. If you plan to enter the park earlier in the day,
-          you will have to enter the park outside of the times when Timed Entry
-          Permits are in effect.
-        </p>
+        <p className="cg-desc">{campgroundDetails?.attributes.description}</p>
       </section>
       <section className="cg-map-section">
         <img
@@ -100,30 +214,27 @@ const Details = ({selectedCampground}: Props) => {
         </div>
         <div className="cg-details-copy-section">
           <p className="cg-details-copy">
-            Cost: $30 per night # Of Reservable Sites: 54 Reservation
-          </p>
-          <p className="cg-details-copy"># Of Reservable Sites: 54</p>
-          <p className="cg-details-copy">
-            Reservation Info : Aspenglen Campground is a reservation only
-            campground. All sites are reservable up to six months in advance.
-          </p>
-          <p className="cg-details-copy">Toilets : Flush Toilets - seasonal</p>
-          <p className="cg-details-copy">Showers: None</p>
-          <p className="cg-details-copy">Cell Coverage: No </p>
-          <p className="cg-details-copy">Laundry: No </p>
-          <p className="cg-details-copy">Dump Station: No </p>
-          <p className="cg-details-copy">Camp Store: No </p>
-          <p className="cg-details-copy">Potable Water: Yes - seasonal </p>
-          <p className="cg-details-copy">Ice Available: Yes - seasonal </p>
-          <p className="cg-details-copy">Firewood Available: Yes - seasonal </p>
-          <p className="cg-details-copy">
-            Reservation Info : Aspenglen Campground is a reservation only
-            campground. All sites are reservable up to six months in advance.
+            {`Cost per night: $${campgroundDetails?.attributes.cost[0].cost}`}
           </p>
           <p className="cg-details-copy">
-            Wheelchair Access: Two ADA sites are offered for those customers
-            with a disability or otherwise limited mobility who would benefit
-            from the accessibility design features.
+            {`Number of reservable sites: ${campgroundDetails?.attributes.number_of_reservation_sites}`}
+          </p>
+          <p className="cg-details-copy">
+            {`Reservation info: ${campgroundDetails?.attributes.reservation_info}`}
+          </p>
+          <p className="cg-details-copy">{`Toilets: ${campgroundDetails?.attributes.toilets[0]}`}</p>
+          <p className="cg-details-copy">{`Showers: ${campgroundDetails?.attributes.showers[0]}`}</p>
+          <p className="cg-details-copy">{`Cell coverage: ${campgroundDetails?.attributes.cell_coverage}`}</p>
+          <p className="cg-details-copy">{`Laundry: ${campgroundDetails?.attributes.laundry}`}</p>
+          <p className="cg-details-copy">
+            {`Dump station: ${campgroundDetails?.attributes.dump_station}`}{" "}
+          </p>
+          <p className="cg-details-copy">{`Camp store: ${campgroundDetails?.attributes.camp_store}`}</p>
+          <p className="cg-details-copy">{`Potable water: ${campgroundDetails?.attributes.potable_water}`}</p>
+          <p className="cg-details-copy">{`Ice available: ${campgroundDetails?.attributes.ice_available}`}</p>
+          <p className="cg-details-copy">{`Firewood available: ${campgroundDetails?.attributes.firewood_available}`}</p>
+          <p className="cg-details-copy">
+            {`Wheelchair access: ${campgroundDetails?.attributes.wheelchair_access}`}
           </p>
         </div>
         <section className="cg-activities-section">
@@ -141,9 +252,9 @@ const Details = ({selectedCampground}: Props) => {
           </ul>
         </section>
         <div className="detail-btns">
-          <button>Directions</button>
-          <button>Go to booking site</button>
-          <button>Add to favorites</button>
+          {createDirectionsButton()}
+          {createBookingButton()}
+          {setFavoriteButton()}
         </div>
       </section>
       <section className="cg-review-section">
@@ -152,7 +263,8 @@ const Details = ({selectedCampground}: Props) => {
           <hr className="divider-cg-reviews" />
         </div>
         <section className="total-star-section">
-          <div className="total-star-img-section">
+          {createTotalStarDisplay()}
+          {/* <div className="total-star-img-section">
             <img
               className="total-star-imgs"
               src="/assets/Star.png"
@@ -174,7 +286,7 @@ const Details = ({selectedCampground}: Props) => {
               alt="star"
             />
           </div>
-          <p>4 of 5 Stars</p>
+          <p>4 of 5 Stars</p> */}
         </section>
         <form className="user-review-form">
           <h3>Review this campground</h3>
@@ -217,7 +329,11 @@ const Details = ({selectedCampground}: Props) => {
             placeholder="I loved this campground!"
           />
           <label htmlFor="photoUpload">Add a photo (optional)</label>
-          <input name="photoUpload" type='file' onChange={event => handlePhotoUpload(event)} />
+          <input
+            name="photoUpload"
+            type="file"
+            onChange={(event) => handlePhotoUpload(event)}
+          />
         </form>
         <p className="review-error">{reviewSubmitError}</p>
         <button id="submit-review-button" onClick={() => submitNewReview()}>
@@ -230,7 +346,7 @@ const Details = ({selectedCampground}: Props) => {
         </section>
       </section>
       <div className="detail-btns">
-        <button>Back to search results</button>
+        <button onClick={() => navBackToResults()}>Back to search results</button>
       </div>
     </section>
   );
