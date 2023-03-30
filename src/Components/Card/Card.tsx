@@ -67,7 +67,8 @@ const Card = ({
     <div className="card">
       <img className="card-image" src={loadImage()} alt={loadAltText()} />
       <h1 className="card-name">{campData.attributes.name}</h1>
-      <p className="card-cost">Cost per night: ${cost}</p>
+      <p className="card-copy">National Park: {campData.attributes.park_code.toUpperCase()}</p>
+      <p className="card-copy">Cost per night: ${cost}</p>
       <Link
         onClick={() => setSelectedCampground(campData.id)}
         to={`/details/${urlCampName()}`}

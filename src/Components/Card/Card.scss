@@ -21,8 +21,10 @@
 }
 
 .card-name,
-.card-cost {
+.card-copy {
   color: $darkGreen;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 .card-button {

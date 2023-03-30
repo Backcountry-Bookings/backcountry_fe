@@ -23,6 +23,7 @@ export interface CampData {
     cost: {
       cost: string;
     }[];
+    park_code: string;
   };
 }
 
