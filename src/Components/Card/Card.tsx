@@ -60,7 +60,9 @@ const Card = ({
   };
 
   const urlCampName = () => {
-    return campData.attributes.name.replaceAll(" ", "");
+    if (!campData.attributes.name) return;
+    const urlDisplay = campData.attributes.name.replaceAll(" ", "");
+    return urlDisplay;
   };
 
   const parkCode = () => {
