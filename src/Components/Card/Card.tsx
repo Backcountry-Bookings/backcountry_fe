@@ -28,7 +28,7 @@ const Card = ( { campData, favoriteCamps, setFavoriteCamps, setSelectedCampgroun
     }
   }
   
-  const cost = campData.attributes.cost?.[0]?.cost || 'N/A';
+  const cost = campData.attributes.cost?.[0]?.cost || ' N/A';
 
   const setFavoriteButton = () => {
     const favCampIds = favoriteCamps.map((camp) => camp.id);
@@ -48,12 +48,16 @@ const Card = ( { campData, favoriteCamps, setFavoriteCamps, setSelectedCampgroun
     setFavoriteCamps(newFavorites)
   }
 
+  const urlCampName = () => {
+    return campData.attributes.name.replaceAll(' ', '')
+  }
+
     return (
         <div className='card'>
             <img className='card-image' src={loadImage()} alt={loadAltText()}/>
             <h1 className='card-name'>{campData.attributes.name}</h1>
-            <p className='card-cost'>Campground Cost: ${cost}</p>
-            <Link onClick={setSelectedCampground(campData.id)} className='card-button'to={`/details/${campData.id}`}>
+            <p className='card-cost'>Cost per night: ${cost}</p>
+            <Link onClick={() => setSelectedCampground(campData.id)} className='card-button'to={`/details/${urlCampName()}`}>
               More Info
             </Link>
             {setFavoriteButton()}

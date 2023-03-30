@@ -3,24 +3,12 @@ import "./Details.css";
 import Review from "../Review/Review";
 import { ReviewObj } from "../Review/Review";
 
-// This is sample data that will be replaced with props passed in
-const reviews = [
-  {
-    id: 1,
-    name: "Luke C",
-    starRating: "4",
-    siteNum: "A-31",
-    comment:
-      "Sites are close to each other, but the water is close. The amenities are good and mountain biking trails are very close.",
-  },
-];
-
 interface Props {
   selectedCampground: string
 }
 
 const Details = ({selectedCampground}: Props) => {
-  const [campgroundReviews, setCampgroundReviews] = useState(reviews);
+  const [campgroundReviews, setCampgroundReviews] = useState <ReviewObj[]>([]);
   const [reviewUserName, setReviewUserName] = useState("");
   const [reviewStarRating, setReviewStarRating] = useState("");
   const [reviewSiteNumber, setReviewSiteNumber] = useState("");
