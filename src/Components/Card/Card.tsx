@@ -57,8 +57,8 @@ const Card = ( { campData, favoriteCamps, setFavoriteCamps, setSelectedCampgroun
             <img className='card-image' src={loadImage()} alt={loadAltText()}/>
             <h1 className='card-name'>{campData.attributes.name}</h1>
             <p className='card-cost'>Cost per night: ${cost}</p>
-            <Link onClick={() => setSelectedCampground(campData.id)} className='card-button'to={`/details/${urlCampName()}`}>
-              More Info
+            <Link onClick={() => setSelectedCampground(campData.id)} to={`/details/${urlCampName()}`}>
+              <button className='card-button'>More Info</button>
             </Link>
             {setFavoriteButton()}
         </div>

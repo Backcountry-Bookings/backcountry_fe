@@ -27,14 +27,16 @@
 
 .card-button {
     background-color: $lightGreen;
-    width: 80%;
+    width: 50vw;
     max-width: 300px;
     height: 35px;
     @include orangeBorderRounded;
     color: $white;
     margin-bottom: 15px;
     margin-top: 10px;
-    font-size: large;
+    font-size: 1.2rem;
     font-weight: bold;
+    text-decoration: none;
+    font-family: 'Baloo Chettan 2', cursive;
 }
 

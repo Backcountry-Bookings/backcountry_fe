@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import "./Details.css";
 import Review from "../Review/Review";
 import { ReviewObj } from "../Review/Review";
+import { getCampgroundDetails } from "../../ApiCalls";
 
 interface Props {
   selectedCampground: string
 }
 
 const Details = ({selectedCampground}: Props) => {
+  const [campgroundDetails, setCampgroundDetails] = useState({})
   const [campgroundReviews, setCampgroundReviews] = useState <ReviewObj[]>([]);
   const [reviewUserName, setReviewUserName] = useState("");
   const [reviewStarRating, setReviewStarRating] = useState("");
@@ -17,7 +19,20 @@ const Details = ({selectedCampground}: Props) => {
 
   useEffect(() => {
     console.log(selectedCampground)
-  })
+
+    getCampgroundDetails(selectedCampground)
+    .then(response => {
+      if (response) {
+        console.log(response.data.attributes)
+        setCampgroundDetails(response.data.attributes);
+      }
+    })
+    .catch(error => {
+      alert(`Error loading campground details ${error}`)
+    })
+
+    // eslint-disable-next-line
+  }, [])
 
   const submitNewReview = () => {
     const newReview: ReviewObj = {
