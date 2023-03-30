@@ -4,32 +4,38 @@ import Review from "../Review/Review";
 import { ReviewObj } from "../Review/Review";
 import { getCampgroundDetails } from "../../ApiCalls";
 import { Images } from "../Results/Results";
+import { CampData } from "../Results/Results";
 
 interface Props {
-  selectedCampground: string
+  selectedCampground: string;
+  favoriteCamps: CampData[];
+  setFavoriteCamps: Function;
 }
 
 interface CampDetails {
-  name: string;
-  lat: string;
-  long: string;
-  booking_link: string;
-  description: string;
-  image_array: Images[];
-  cost: Cost[];
-  number_of_reservation_sites: string;
-  reservation_info: string;
-  toilets: string[];
-  showers: string[];
-  cell_coverage: string;
-  laundry: string;
-  dump_station: string;
-  camp_store: string;
-  potable_water: string[];
-  ice_available: string;
-  firewood_available: string;
-  wheelchair_access: string;
-  weather_info: string;
+  id: string;
+  attributes: {
+    name: string;
+    lat: string;
+    long: string;
+    booking_link: string;
+    description: string;
+    image_array: Images[];
+    cost: Cost[];
+    number_of_reservation_sites: string;
+    reservation_info: string;
+    toilets: string[];
+    showers: string[];
+    cell_coverage: string;
+    laundry: string;
+    dump_station: string;
+    camp_store: string;
+    potable_water: string[];
+    ice_available: string;
+    firewood_available: string;
+    wheelchair_access: string;
+    weather_info: string;
+  };
 }
 
 interface Cost {
@@ -38,9 +44,13 @@ interface Cost {
   title: string;
 }
 
-const Details = ({selectedCampground}: Props) => {
-  const [campgroundDetails, setCampgroundDetails] = useState <CampDetails> ()
-  const [campgroundReviews, setCampgroundReviews] = useState <ReviewObj[]> ([]);
+const Details = ({
+  selectedCampground,
+  favoriteCamps,
+  setFavoriteCamps,
+}: Props) => {
+  const [campgroundDetails, setCampgroundDetails] = useState<CampDetails>();
+  const [campgroundReviews, setCampgroundReviews] = useState<ReviewObj[]>([]);
   const [reviewUserName, setReviewUserName] = useState("");
   const [reviewStarRating, setReviewStarRating] = useState("");
   const [reviewSiteNumber, setReviewSiteNumber] = useState("");
@@ -48,30 +58,63 @@ const Details = ({selectedCampground}: Props) => {
   const [reviewSubmitError, setReviewSubmitError] = useState("");
 
   useEffect(() => {
-    console.log(selectedCampground)
+    console.log(selectedCampground);
 
     getCampgroundDetails(selectedCampground)
-    .then(response => {
-      if (response) {
-        console.log(response.data.attributes)
-        setCampgroundDetails(response.data.attributes);
-      }
-    })
-    .catch(error => {
-      console.log(`Error loading campground details ${error}`)
-    })
+      .then((response) => {
+        if (response) {
+          console.log(response.data);
+          setCampgroundDetails(response.data);
+        }
+      })
+      .catch((error) => {
+        console.log(`Error loading campground details ${error}`);
+      });
     // eslint-disable-next-line
-  }, [])
+  }, []);
 
   const createBookingButton = () => {
-    if (campgroundDetails?.booking_link) {
+    if (campgroundDetails?.attributes.booking_link) {
       return (
-        <a href={campgroundDetails?.booking_link} target="_blank" rel="noopener noreferrer">
+        <a
+          href={campgroundDetails?.attributes.booking_link}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <button>Go to booking site</button>
         </a>
-      )
+      );
     }
-  }
+  };
+
+  const setFavoriteButton = () => {
+    const favCampIds = favoriteCamps.map((camp) => camp.id);
+    if (campgroundDetails === undefined) return;
+    if (favCampIds.includes(campgroundDetails?.id)) {
+      return (
+        <button className="card-button" onClick={() => removeFavorite()}>
+          Remove Favorite
+        </button>
+      );
+    } else {
+      return (
+        <button className="card-button" onClick={() => addFavorite()}>
+          Add to Favorites
+        </button>
+      );
+    }
+  };
+
+  const addFavorite = () => {
+    setFavoriteCamps([...favoriteCamps, campgroundDetails]);
+  };
+
+  const removeFavorite = () => {
+    let newFavorites = favoriteCamps.filter(
+      (camp) => camp.id !== campgroundDetails?.id
+    );
+    setFavoriteCamps(newFavorites);
+  };
 
   const submitNewReview = () => {
     const newReview: ReviewObj = {
@@ -100,24 +143,24 @@ const Details = ({selectedCampground}: Props) => {
   const handlePhotoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const photo = event?.target.files;
     if (photo !== null) {
-      console.log(photo[0])
+      console.log(photo[0]);
     }
-  }
+  };
 
   return (
     <section className="detail-main">
       <div className="cg-images-container">
         <img
           className="cg-images"
-          src={campgroundDetails?.image_array[0].url}
-          alt={campgroundDetails?.image_array[0].altText}
+          src={campgroundDetails?.attributes.image_array[0].url}
+          alt={campgroundDetails?.attributes.image_array[0].altText}
         />
       </div>
       <div className="cg-name">
-        <h2>{campgroundDetails?.name}</h2>
+        <h2>{campgroundDetails?.attributes.name}</h2>
       </div>
       <section className="cg-desc-section">
-        <p className="cg-desc">{campgroundDetails?.description}</p>
+        <p className="cg-desc">{campgroundDetails?.attributes.description}</p>
       </section>
       <section className="cg-map-section">
         <img
@@ -133,25 +176,27 @@ const Details = ({selectedCampground}: Props) => {
         </div>
         <div className="cg-details-copy-section">
           <p className="cg-details-copy">
-            {`Cost per night: $${campgroundDetails?.cost[0].cost}`}
+            {`Cost per night: $${campgroundDetails?.attributes.cost[0].cost}`}
           </p>
           <p className="cg-details-copy">
-            {`Number of reservable sites: ${campgroundDetails?.number_of_reservation_sites}`}
+            {`Number of reservable sites: ${campgroundDetails?.attributes.number_of_reservation_sites}`}
           </p>
           <p className="cg-details-copy">
-            {`Reservation info: ${campgroundDetails?.reservation_info}`}
+            {`Reservation info: ${campgroundDetails?.attributes.reservation_info}`}
           </p>
-          <p className="cg-details-copy">{`Toilets: ${campgroundDetails?.toilets[0]}`}</p>
-          <p className="cg-details-copy">{`Showers: ${campgroundDetails?.showers[0]}`}</p>
-          <p className="cg-details-copy">{`Cell coverage: ${campgroundDetails?.cell_coverage}`}</p>
-          <p className="cg-details-copy">{`Laundry: ${campgroundDetails?.laundry}`}</p>
-          <p className="cg-details-copy">{`Dump station: ${campgroundDetails?.dump_station}`} </p>
-          <p className="cg-details-copy">{`Camp store: ${campgroundDetails?.camp_store}`}</p>
-          <p className="cg-details-copy">{`Potable water: ${campgroundDetails?.potable_water}`}</p>
-          <p className="cg-details-copy">{`Ice available: ${campgroundDetails?.ice_available}`}</p>
-          <p className="cg-details-copy">{`Firewood available: ${campgroundDetails?.firewood_available}`}</p>
+          <p className="cg-details-copy">{`Toilets: ${campgroundDetails?.attributes.toilets[0]}`}</p>
+          <p className="cg-details-copy">{`Showers: ${campgroundDetails?.attributes.showers[0]}`}</p>
+          <p className="cg-details-copy">{`Cell coverage: ${campgroundDetails?.attributes.cell_coverage}`}</p>
+          <p className="cg-details-copy">{`Laundry: ${campgroundDetails?.attributes.laundry}`}</p>
           <p className="cg-details-copy">
-            {`Wheelchair access: ${campgroundDetails?.wheelchair_access}`}
+            {`Dump station: ${campgroundDetails?.attributes.dump_station}`}{" "}
+          </p>
+          <p className="cg-details-copy">{`Camp store: ${campgroundDetails?.attributes.camp_store}`}</p>
+          <p className="cg-details-copy">{`Potable water: ${campgroundDetails?.attributes.potable_water}`}</p>
+          <p className="cg-details-copy">{`Ice available: ${campgroundDetails?.attributes.ice_available}`}</p>
+          <p className="cg-details-copy">{`Firewood available: ${campgroundDetails?.attributes.firewood_available}`}</p>
+          <p className="cg-details-copy">
+            {`Wheelchair access: ${campgroundDetails?.attributes.wheelchair_access}`}
           </p>
         </div>
         <section className="cg-activities-section">
@@ -171,7 +216,7 @@ const Details = ({selectedCampground}: Props) => {
         <div className="detail-btns">
           <button>Directions</button>
           {createBookingButton()}
-          <button>Add to favorites</button>
+          {setFavoriteButton()}
         </div>
       </section>
       <section className="cg-review-section">
@@ -245,7 +290,11 @@ const Details = ({selectedCampground}: Props) => {
             placeholder="I loved this campground!"
           />
           <label htmlFor="photoUpload">Add a photo (optional)</label>
-          <input name="photoUpload" type='file' onChange={event => handlePhotoUpload(event)} />
+          <input
+            name="photoUpload"
+            type="file"
+            onChange={(event) => handlePhotoUpload(event)}
+          />
         </form>
         <p className="review-error">{reviewSubmitError}</p>
         <button id="submit-review-button" onClick={() => submitNewReview()}>

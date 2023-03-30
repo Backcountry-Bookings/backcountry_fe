@@ -29,123 +29,167 @@ interface Props {
   setSelectedCampground: Function;
 }
 
-const Dashboard = ( {setSearchResults, favoriteCamps, setFavoriteCamps, setSelectedCampground}: Props) => {
-    const [searchType, setSearchType] = useState('')
-    const [search, setSearch] = useState<string>('')
-    const [disableSearchbar, setDisableSearchbar] = useState(true)
-    const [searchPlaceholder, setSearchPlaceholder] = useState('')
-    const [stateError, setStateError] = useState(false)
-    const [error, setError] = useState(false)
+const Dashboard = ({
+  setSearchResults,
+  favoriteCamps,
+  setFavoriteCamps,
+  setSelectedCampground,
+}: Props) => {
+  const [searchType, setSearchType] = useState("");
+  const [search, setSearch] = useState<string>("");
+  const [disableSearchbar, setDisableSearchbar] = useState(true);
+  const [searchPlaceholder, setSearchPlaceholder] = useState("");
+  const [stateError, setStateError] = useState(false);
+  const [error, setError] = useState(false);
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    useEffect(() => {
-      if (searchType !== '') {
-        setDisableSearchbar(false)
-      } else {
-        setDisableSearchbar(true)
-        return;
-      }
+  useEffect(() => {
+    if (searchType !== "") {
+      setDisableSearchbar(false);
+    } else {
+      setDisableSearchbar(true);
+      return;
+    }
 
-      if (searchType === "state_code") {
-        setSearchPlaceholder('i.e. "CO" for Colorado')
-      } else if (searchType === 'q') {
-        setSearchPlaceholder('Enter campground name')
-      } else if (searchType === 'park_name') {
-        setSearchPlaceholder('Enter National Park name')
-      }
-    }, [searchType])
+    if (searchType === "state_code") {
+      setSearchPlaceholder('i.e. "CO" for Colorado');
+    } else if (searchType === "q") {
+      setSearchPlaceholder("Enter campground name");
+    } else if (searchType === "park_name") {
+      setSearchPlaceholder("Enter National Park name");
+    }
+  }, [searchType]);
 
   const updateInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (search !== '' && searchType !== '') {
-      setStateError(false)
-      setError(false)
+    if (search !== "" && searchType !== "") {
+      setStateError(false);
+      setError(false);
     }
-    setSearch(e.target.value)
-  }
+    setSearch(e.target.value);
+  };
 
-  const fetchCamps = (event: React.MouseEvent<HTMLButtonElement> ) => {
-    event.preventDefault()
-    if (searchType === 'state_code' && search.length !== 2) {
-      setStateError(true)
-
+  const fetchCamps = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    if (searchType === "state_code" && search.length !== 2) {
+      setStateError(true);
+    } else if (searchType === "" || search === "") {
+      setError(true);
+    } else {
+      setError(false);
+      setStateError(false);
+      fetchCampgrounds(searchType, search).then((result) => {
+        setSearchResults(result);
+        navigate("/results");
+      });
     }
-    else if (searchType === '' || search === '') {
-      setError(true)
-    }
-    else { 
-      setError(false)
-      setStateError(false)
-      fetchCampgrounds(searchType, search)
-      .then(result => {
-        setSearchResults(result)
-        navigate("/results")
-      })
-     }
-  }
+  };
 
   const createFavorites = () => {
     if (favoriteCamps.length > 0) {
       let favCamps = favoriteCamps.map((camp) => {
-        return <Card setSelectedCampground={setSelectedCampground} campData={camp} key={camp.id} favoriteCamps={favoriteCamps} setFavoriteCamps={setFavoriteCamps}/>      
-      })
+        return (
+          <Card
+            setSelectedCampground={setSelectedCampground}
+            campData={camp}
+            key={camp.id}
+            favoriteCamps={favoriteCamps}
+            setFavoriteCamps={setFavoriteCamps}
+          />
+        );
+      });
       return favCamps;
     }
-  }
+  };
 
   return (
-      <div className="dashboard">
-          <Swiper
-              spaceBetween={30}
-              pagination={{
-                  clickable: true,
-              }}
-              modules={[Pagination, Autoplay]}
-              speed={400}
-              autoplay={{ delay: 4000 }}
-              slidesPerView={1}
-              className="mySwiper"
+    <div className="dashboard">
+      <Swiper
+        spaceBetween={30}
+        pagination={{
+          clickable: true,
+        }}
+        modules={[Pagination, Autoplay]}
+        speed={400}
+        autoplay={{ delay: 4000 }}
+        slidesPerView={1}
+        className="mySwiper"
+      >
+        <SwiperSlide className="swiper-slide">
+          <img src={swiper1} alt="delicate arch" />
+        </SwiperSlide>
+        <SwiperSlide className="swiper-slide">
+          <img src={swiper2} alt="slot canyon in Utah" />
+        </SwiperSlide>
+        <SwiperSlide className="swiper-slide">
+          <img src={swiper3} alt="El Capitan in Yosemite" />
+        </SwiperSlide>
+        <SwiperSlide className="swiper-slide">
+          <img src={swiper4} alt="River in Yosemite" />
+        </SwiperSlide>
+        <SwiperSlide className="swiper-slide">
+          <img src={swiper5} alt="Waterfall in southern Utah" />
+        </SwiperSlide>
+        <SwiperSlide className="swiper-slide">
+          <img src={swiper6} alt="Alpine lake in Glacier NP" />
+        </SwiperSlide>
+        <SwiperSlide className="swiper-slide">
+          <img src={swiper7} alt="Cabin and dock in Denali NP" />
+        </SwiperSlide>
+        <SwiperSlide className="swiper-slide">
+          <img src={swiper8} alt="Valley in Banff National Park" />
+        </SwiperSlide>
+        <SwiperSlide className="swiper-slide">
+          <img
+            src={swiper9}
+            alt="Lake with mountain in background in Lake Clark National Park"
+          />
+        </SwiperSlide>
+      </Swiper>
+      <div className="search-container">
+        <form className="search-form">
+          <select
+            value={searchType}
+            name="search-dropdown"
+            id="search-dropdown"
+            onChange={(event) => setSearchType(event.target.value)}
           >
-              <SwiperSlide className="swiper-slide" ><img src={swiper1} alt="delicate arch" /></SwiperSlide>
-              <SwiperSlide className="swiper-slide"><img src={swiper2} alt="slot canyon in Utah" /></SwiperSlide>
-              <SwiperSlide className="swiper-slide"><img src={swiper3} alt="El Capitan in Yosemite" /></SwiperSlide>
-              <SwiperSlide className="swiper-slide"><img src={swiper4} alt="River in Yosemite" /></SwiperSlide>
-              <SwiperSlide className="swiper-slide"><img src={swiper5} alt="Waterfall in southern Utah" /></SwiperSlide>
-              <SwiperSlide className="swiper-slide"><img src={swiper6} alt="Alpine lake in Glacier NP" /></SwiperSlide>
-              <SwiperSlide className="swiper-slide"><img src={swiper7} alt="Cabin and dock in Denali NP" /></SwiperSlide>
-              <SwiperSlide className="swiper-slide"><img src={swiper8} alt="Valley in Banff National Park" /></SwiperSlide>
-              <SwiperSlide className="swiper-slide"><img src={swiper9} alt="Lake with mountain in background in Lake Clark National Park" /></SwiperSlide>
-          </Swiper>
-          <div className="search-container">
-              <form className="search-form">
-                  <select value={searchType} name="search-dropdown" id="search-dropdown" onChange={event => setSearchType(event.target.value)}>
-                      <option value=''>Select method to search for campgrounds</option>
-                      <option value="state_code">State Code</option>
-                      <option value="q">Campground Name</option>
-                      <option value="park_name">National Park</option>
-                  </select>
-                  <input
-                      type="text"
-                      placeholder={searchPlaceholder}
-                      className="search"
-                      onChange={updateInput}
-                      disabled={disableSearchbar}
-                  ></input>
-                <button className="search-button" onClick={(event) => fetchCamps(event)} disabled={disableSearchbar}>Search</button>
-              </form>
-              {error && <p>Please select a type of search/Enter something into the search bar</p>}
-              {stateError && <p>State code should be two letters</p>}
-              <br />
-          </div>
-          <br />
-          <section className="favorites-section">
-              <h2 className="fav-campgrounds-title">Your Favorite Campgrounds</h2>
-              {createFavorites()}
-              <img className="campfire" src={campfire} alt="A campfire"></img>
-          </section>
+            <option value="">Select method to search for campgrounds</option>
+            <option value="state_code">State Code</option>
+            <option value="q">Campground Name</option>
+            <option value="park_name">National Park</option>
+          </select>
+          <input
+            type="text"
+            placeholder={searchPlaceholder}
+            className="search"
+            onChange={updateInput}
+            disabled={disableSearchbar}
+          ></input>
+          <button
+            className="search-button"
+            onClick={(event) => fetchCamps(event)}
+            disabled={disableSearchbar}
+          >
+            Search
+          </button>
+        </form>
+        {error && (
+          <p>
+            Please select a type of search/Enter something into the search bar
+          </p>
+        )}
+        {stateError && <p>State code should be two letters</p>}
+        <br />
       </div>
+      <br />
+      <section className="favorites-section">
+        <h2 className="fav-campgrounds-title">Your Favorite Campgrounds</h2>
+        {createFavorites()}
+        <img className="campfire" src={campfire} alt="A campfire"></img>
+      </section>
+    </div>
   );
-
 };
 
 export default Dashboard;
