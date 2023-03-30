@@ -99,6 +99,7 @@ p {
 
 .cg-details-copy {
   font-size: 1.3rem;
+  font-weight: 600;
   padding: 1rem 7vw 0rem 7vw;
 }
 
@@ -119,8 +120,10 @@ p {
 
 .cg-activities-list {
   list-style-type: circle;
-  padding-left: 12vw;
+  padding-left: 7vw;
+  transform: translateX(22px);
   font-size: 1.3rem;
+  font-weight: 600;
 }
 
 .detail-btns {

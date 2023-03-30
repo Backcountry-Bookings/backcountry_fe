@@ -58,18 +58,20 @@ const Details = ({selectedCampground}: Props) => {
       }
     })
     .catch(error => {
-      alert(`Error loading campground details ${error}`)
+      console.log(`Error loading campground details ${error}`)
     })
-
-    // if (campgroundDetails === undefined) return;
-    // camp = {
-    //   image: campgroundDetails.image_array[0].url,
-    // }
-
     // eslint-disable-next-line
   }, [])
 
-    
+  const createBookingButton = () => {
+    if (campgroundDetails?.booking_link) {
+      return (
+        <a href={campgroundDetails?.booking_link} target="_blank" rel="noopener noreferrer">
+          <button>Go to booking site</button>
+        </a>
+      )
+    }
+  }
 
   const submitNewReview = () => {
     const newReview: ReviewObj = {
@@ -131,31 +133,25 @@ const Details = ({selectedCampground}: Props) => {
         </div>
         <div className="cg-details-copy-section">
           <p className="cg-details-copy">
-            {`$${campgroundDetails?.cost[0].cost} per night`}
+            {`Cost per night: $${campgroundDetails?.cost[0].cost}`}
           </p>
           <p className="cg-details-copy">
-            {`${campgroundDetails?.number_of_reservation_sites} reservable campsites`}
+            {`Number of reservable sites: ${campgroundDetails?.number_of_reservation_sites}`}
           </p>
           <p className="cg-details-copy">
-            {campgroundDetails?.reservation_info}
+            {`Reservation info: ${campgroundDetails?.reservation_info}`}
           </p>
-          <p className="cg-details-copy">Toilets : Flush Toilets - seasonal</p>
-          <p className="cg-details-copy">Showers: None</p>
-          <p className="cg-details-copy">Cell Coverage: No </p>
-          <p className="cg-details-copy">Laundry: No </p>
-          <p className="cg-details-copy">Dump Station: No </p>
-          <p className="cg-details-copy">Camp Store: No </p>
-          <p className="cg-details-copy">Potable Water: Yes - seasonal </p>
-          <p className="cg-details-copy">Ice Available: Yes - seasonal </p>
-          <p className="cg-details-copy">Firewood Available: Yes - seasonal </p>
+          <p className="cg-details-copy">{`Toilets: ${campgroundDetails?.toilets[0]}`}</p>
+          <p className="cg-details-copy">{`Showers: ${campgroundDetails?.showers[0]}`}</p>
+          <p className="cg-details-copy">{`Cell coverage: ${campgroundDetails?.cell_coverage}`}</p>
+          <p className="cg-details-copy">{`Laundry: ${campgroundDetails?.laundry}`}</p>
+          <p className="cg-details-copy">{`Dump station: ${campgroundDetails?.dump_station}`} </p>
+          <p className="cg-details-copy">{`Camp store: ${campgroundDetails?.camp_store}`}</p>
+          <p className="cg-details-copy">{`Potable water: ${campgroundDetails?.potable_water}`}</p>
+          <p className="cg-details-copy">{`Ice available: ${campgroundDetails?.ice_available}`}</p>
+          <p className="cg-details-copy">{`Firewood available: ${campgroundDetails?.firewood_available}`}</p>
           <p className="cg-details-copy">
-            Reservation Info : Aspenglen Campground is a reservation only
-            campground. All sites are reservable up to six months in advance.
-          </p>
-          <p className="cg-details-copy">
-            Wheelchair Access: Two ADA sites are offered for those customers
-            with a disability or otherwise limited mobility who would benefit
-            from the accessibility design features.
+            {`Wheelchair access: ${campgroundDetails?.wheelchair_access}`}
           </p>
         </div>
         <section className="cg-activities-section">
@@ -174,7 +170,7 @@ const Details = ({selectedCampground}: Props) => {
         </section>
         <div className="detail-btns">
           <button>Directions</button>
-          <button>Go to booking site</button>
+          {createBookingButton()}
           <button>Add to favorites</button>
         </div>
       </section>
