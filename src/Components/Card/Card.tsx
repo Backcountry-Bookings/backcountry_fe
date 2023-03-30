@@ -25,7 +25,7 @@ const Card = ({
 
   const loadAltText = () => {
     if (campData.attributes.images.length === 0) {
-      return "Generic campground image";
+      return "Generic campground - no images available from NPS";
     } else {
       return campData.attributes.images[0].altText;
     }

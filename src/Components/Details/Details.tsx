@@ -76,6 +76,36 @@ const Details = ({
     // eslint-disable-next-line
   }, []);
 
+  const createSwiperGallery = () => {
+    if (campgroundDetails?.attributes.images.length === 0) {
+      return <img src="https://us.123rf.com/450wm/nataliia2910/nataliia29101809/nataliia2910180900063/109718030-vector-illustration-of-camping-in-night-time-with-beautiful-view-on-mountains-family-camping.jpg?ver=6" alt="Generic campground - no images available from NPS" />;
+    } else {
+      
+    // <Swiper
+    //     spaceBetween={30}
+    //     pagination={{
+    //       clickable: true,
+    //     }}
+    //     modules={[Pagination, Autoplay]}
+    //     speed={400}
+    //     autoplay={{ delay: 4000 }}
+    //     slidesPerView={1}
+    //     className="mySwiper"
+    //   >
+    //     <SwiperSlide className="swiper-slide">
+    //       <img src={swiper1} alt="delicate arch" />
+    //     </SwiperSlide>
+    //   </Swiper>
+    }
+  }
+
+  const createCostDisplay = () => {
+    if (campgroundDetails?.attributes.cost.length === 0) {
+      return `Cost per night: Not available`;
+    }
+    return `Cost per night: $${campgroundDetails?.attributes.cost[0].cost}`;
+  }
+
   const createDirectionsButton = () => {
     if (campgroundDetails?.attributes.lat && campgroundDetails?.attributes.long) {
       return (
@@ -190,11 +220,7 @@ const Details = ({
   return (
     <section className="detail-main">
       <div className="cg-images-container">
-        <img
-          className="cg-images"
-          src={campgroundDetails?.attributes.images[0].url}
-          alt={campgroundDetails?.attributes.images[0].altText}
-        />
+        {createSwiperGallery()}
       </div>
       <div className="cg-name">
         <h2>{campgroundDetails?.attributes.name}</h2>
@@ -216,7 +242,7 @@ const Details = ({
         </div>
         <div className="cg-details-copy-section">
           <p className="cg-details-copy">
-            {`Cost per night: $${campgroundDetails?.attributes.cost[0].cost}`}
+            {createCostDisplay()}
           </p>
           <p className="cg-details-copy">
             {`Number of reservable sites: ${campgroundDetails?.attributes.number_of_reservation_sites}`}
