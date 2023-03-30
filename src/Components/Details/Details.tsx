@@ -65,7 +65,6 @@ const Details = ({
     getCampgroundDetails(selectedCampground)
       .then((response) => {
         if (response) {
-          console.log(response.data);
           setCampgroundDetails(response.data);
         }
       })
@@ -74,6 +73,20 @@ const Details = ({
       });
     // eslint-disable-next-line
   }, []);
+
+  const createDirectionsButton = () => {
+    if (campgroundDetails?.attributes.lat && campgroundDetails?.attributes.long) {
+      return (
+        <a
+          href={`https://www.google.com/maps/dir/?api=1&destination=${campgroundDetails?.attributes.lat}+${campgroundDetails?.attributes.long}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <button>Directions</button>
+        </a>
+      )
+    }
+  }
 
   const createBookingButton = () => {
     if (campgroundDetails?.attributes.booking_link) {
@@ -221,7 +234,7 @@ const Details = ({
           </ul>
         </section>
         <div className="detail-btns">
-          <button>Directions</button>
+          {createDirectionsButton()}
           {createBookingButton()}
           {setFavoriteButton()}
         </div>
