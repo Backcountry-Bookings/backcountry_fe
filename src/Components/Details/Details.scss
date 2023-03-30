@@ -138,18 +138,24 @@ p {
 }
 
 .cg-reviews-header {
-  padding: 0vh 0vw 3vh 7vw;
+  padding: 0vh 0vw 15px 7vw;
 }
 
 .total-star-section {
   padding: 0vh 0vw 0vh 7vw;
   @include centered(row, flex-start);
+}
 
-  p {
-    font-size: 1.5rem;
-    margin-left: 15px;
-    font-weight: 700;
-  }
+#noReviewYet {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.total-star-rating {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 10px;
 }
 
 .total-star-imgs {

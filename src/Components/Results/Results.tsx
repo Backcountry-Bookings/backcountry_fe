@@ -20,9 +20,11 @@ export interface CampData {
     name: string;
     description: string;
     images: Images[];
-    cost: {
-      cost: string;
-    }[];
+    cost: [
+      {
+        cost: string;
+      }
+    ];
     park_code: string;
   };
 }

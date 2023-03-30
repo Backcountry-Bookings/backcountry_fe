@@ -131,6 +131,24 @@ const Details = ({
     setFavoriteCamps(newFavorites);
   };
 
+  const createTotalStarDisplay = () => {
+    const reviewCount = campgroundReviews.length;
+    if (reviewCount === 0) {
+      return (
+        <p id="noReviewYet">Be the first to review!</p>
+      )
+    } else {
+      const sumStarRating = campgroundReviews.reduce((sum, rev) => {
+        sum += +rev.starRating;
+        return sum;
+      }, 0)
+      const avgStarRating = (sumStarRating / reviewCount).toFixed(1);
+      return (
+        <p className="total-star-rating">Avg Rating: {avgStarRating} of 5 Stars</p>
+      )
+    }
+  }
+
   const submitNewReview = () => {
     const newReview: ReviewObj = {
       id: campgroundReviews.length + 1,
@@ -245,7 +263,8 @@ const Details = ({
           <hr className="divider-cg-reviews" />
         </div>
         <section className="total-star-section">
-          <div className="total-star-img-section">
+          {createTotalStarDisplay()}
+          {/* <div className="total-star-img-section">
             <img
               className="total-star-imgs"
               src="/assets/Star.png"
@@ -267,7 +286,7 @@ const Details = ({
               alt="star"
             />
           </div>
-          <p>4 of 5 Stars</p>
+          <p>4 of 5 Stars</p> */}
         </section>
         <form className="user-review-form">
           <h3>Review this campground</h3>
