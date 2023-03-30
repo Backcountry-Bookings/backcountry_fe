@@ -5,9 +5,11 @@ import { ReviewObj } from "../Review/Review";
 import { getCampgroundDetails } from "../../ApiCalls";
 import { Images } from "../Results/Results";
 import { CampData } from "../Results/Results";
+import { useNavigate } from "react-router";
 
 interface Props {
   selectedCampground: string;
+  setSelectedCampground: Function;
   favoriteCamps: CampData[];
   setFavoriteCamps: Function;
 }
@@ -20,7 +22,7 @@ interface CampDetails {
     long: string;
     booking_link: string;
     description: string;
-    image_array: Images[];
+    images: Images[];
     cost: Cost[];
     number_of_reservation_sites: string;
     reservation_info: string;
@@ -46,6 +48,7 @@ interface Cost {
 
 const Details = ({
   selectedCampground,
+  setSelectedCampground,
   favoriteCamps,
   setFavoriteCamps,
 }: Props) => {
@@ -56,10 +59,9 @@ const Details = ({
   const [reviewSiteNumber, setReviewSiteNumber] = useState("");
   const [reviewComment, setReviewComment] = useState("");
   const [reviewSubmitError, setReviewSubmitError] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(selectedCampground);
-
     getCampgroundDetails(selectedCampground)
       .then((response) => {
         if (response) {
@@ -147,13 +149,18 @@ const Details = ({
     }
   };
 
+  const navBackToResults = () => {
+    setSelectedCampground('')
+    navigate('/results')
+  }
+
   return (
     <section className="detail-main">
       <div className="cg-images-container">
         <img
           className="cg-images"
-          src={campgroundDetails?.attributes.image_array[0].url}
-          alt={campgroundDetails?.attributes.image_array[0].altText}
+          src={campgroundDetails?.attributes.images[0].url}
+          alt={campgroundDetails?.attributes.images[0].altText}
         />
       </div>
       <div className="cg-name">
@@ -307,7 +314,7 @@ const Details = ({
         </section>
       </section>
       <div className="detail-btns">
-        <button>Back to search results</button>
+        <button onClick={() => navBackToResults()}>Back to search results</button>
       </div>
     </section>
   );
