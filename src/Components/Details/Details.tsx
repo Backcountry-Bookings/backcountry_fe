@@ -6,6 +6,8 @@ import { getCampgroundDetails } from "../../ApiCalls";
 import { Images } from "../Results/Results";
 import { CampData } from "../Results/Results";
 import { useNavigate } from "react-router";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Autoplay } from "swiper";
 
 interface Props {
   selectedCampground: string;
@@ -264,29 +266,6 @@ const Details = ({
         </div>
         <section className="total-star-section">
           {createTotalStarDisplay()}
-          {/* <div className="total-star-img-section">
-            <img
-              className="total-star-imgs"
-              src="/assets/Star.png"
-              alt="star"
-            />
-            <img
-              className="total-star-imgs"
-              src="/assets/Star.png"
-              alt="star"
-            />
-            <img
-              className="total-star-imgs"
-              src="/assets/Star.png"
-              alt="star"
-            />
-            <img
-              className="total-star-imgs"
-              src="/assets/Star.png"
-              alt="star"
-            />
-          </div>
-          <p>4 of 5 Stars</p> */}
         </section>
         <form className="user-review-form">
           <h3>Review this campground</h3>
