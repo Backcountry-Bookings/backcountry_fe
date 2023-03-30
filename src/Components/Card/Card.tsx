@@ -17,17 +17,23 @@ const Card = ({
 }: Props) => {
   const loadImage = () => {
     if (campData.attributes.images.length === 0) {
-      return "https://us.123rf.com/450wm/nataliia2910/nataliia29101809/nataliia2910180900063/109718030-vector-illustration-of-camping-in-night-time-with-beautiful-view-on-mountains-family-camping.jpg?ver=6";
+      const genericImg = (
+        <img
+          className="card-image"
+          src="https://us.123rf.com/450wm/nataliia2910/nataliia29101809/nataliia2910180900063/109718030-vector-illustration-of-camping-in-night-time-with-beautiful-view-on-mountains-family-camping.jpg?ver=6"
+          alt="Generic campground - no images available from NPS"
+        />
+      );
+      return genericImg;
     } else {
-      return campData.attributes.images[0].url;
-    }
-  };
-
-  const loadAltText = () => {
-    if (campData.attributes.images.length === 0) {
-      return "Generic campground - no images available from NPS";
-    } else {
-      return campData.attributes.images[0].altText;
+      const campImg = (
+        <img
+          className="card-image"
+          src={campData.attributes.images[0].url}
+          alt={campData.attributes.images[0].altText}
+        />
+      );
+      return campImg;
     }
   };
 
@@ -69,13 +75,13 @@ const Card = ({
     if (campData.attributes.park_code) {
       return campData.attributes.park_code.toUpperCase();
     } else {
-      return 'Not available';
+      return "Not available";
     }
-  }
+  };
 
   return (
     <div className="card">
-      <img className="card-image" src={loadImage()} alt={loadAltText()} />
+      {loadImage()}
       <h1 className="card-name">{campData.attributes.name}</h1>
       <p className="card-copy">National Park: {parkCode()}</p>
       <p className="card-copy">Cost per night: ${cost}</p>
