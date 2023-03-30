@@ -3,14 +3,44 @@ import "./Details.css";
 import Review from "../Review/Review";
 import { ReviewObj } from "../Review/Review";
 import { getCampgroundDetails } from "../../ApiCalls";
+import { Images } from "../Results/Results";
 
 interface Props {
   selectedCampground: string
 }
 
+interface CampDetails {
+  name: string;
+  lat: string;
+  long: string;
+  booking_link: string;
+  description: string;
+  image_array: Images[];
+  cost: Cost[];
+  number_of_reservation_sites: string;
+  reservation_info: string;
+  toilets: string[];
+  showers: string[];
+  cell_coverage: string;
+  laundry: string;
+  dump_station: string;
+  camp_store: string;
+  potable_water: string[];
+  ice_available: string;
+  firewood_available: string;
+  wheelchair_access: string;
+  weather_info: string;
+}
+
+interface Cost {
+  cost: string;
+  description: string;
+  title: string;
+}
+
 const Details = ({selectedCampground}: Props) => {
-  const [campgroundDetails, setCampgroundDetails] = useState({})
-  const [campgroundReviews, setCampgroundReviews] = useState <ReviewObj[]>([]);
+  const [campgroundDetails, setCampgroundDetails] = useState <CampDetails> ()
+  const [campgroundReviews, setCampgroundReviews] = useState <ReviewObj[]> ([]);
   const [reviewUserName, setReviewUserName] = useState("");
   const [reviewStarRating, setReviewStarRating] = useState("");
   const [reviewSiteNumber, setReviewSiteNumber] = useState("");
@@ -31,8 +61,15 @@ const Details = ({selectedCampground}: Props) => {
       alert(`Error loading campground details ${error}`)
     })
 
+    // if (campgroundDetails === undefined) return;
+    // camp = {
+    //   image: campgroundDetails.image_array[0].url,
+    // }
+
     // eslint-disable-next-line
   }, [])
+
+    
 
   const submitNewReview = () => {
     const newReview: ReviewObj = {
@@ -70,24 +107,15 @@ const Details = ({selectedCampground}: Props) => {
       <div className="cg-images-container">
         <img
           className="cg-images"
-          src="https://www.nps.gov/common/uploads/structured_data/3FAA6E89-1DD8-B71B-0B170E56BD4ED00D.jpg"
-          alt="campground hero shot"
+          src={campgroundDetails?.image_array[0].url}
+          alt={campgroundDetails?.image_array[0].altText}
         />
       </div>
       <div className="cg-name">
-        <h2>Aspenglen Campground</h2>
+        <h2>{campgroundDetails?.name}</h2>
       </div>
       <section className="cg-desc-section">
-        <p className="cg-desc">
-          Aspenglen Campground is reservation only. Visit Recreation.gov.
-          Aspenglen opens for the 2023 season on May 26. Timed Entry Permits are
-          included with your camping reservation. For Aspenglen Campers, your
-          reservation includes access to Bear Lake Road. Campers will be able to
-          initially enter the park beginning at 1 p.m. on the first day of your
-          camping reservation. If you plan to enter the park earlier in the day,
-          you will have to enter the park outside of the times when Timed Entry
-          Permits are in effect.
-        </p>
+        <p className="cg-desc">{campgroundDetails?.description}</p>
       </section>
       <section className="cg-map-section">
         <img
@@ -103,12 +131,13 @@ const Details = ({selectedCampground}: Props) => {
         </div>
         <div className="cg-details-copy-section">
           <p className="cg-details-copy">
-            Cost: $30 per night # Of Reservable Sites: 54 Reservation
+            {`$${campgroundDetails?.cost[0].cost} per night`}
           </p>
-          <p className="cg-details-copy"># Of Reservable Sites: 54</p>
           <p className="cg-details-copy">
-            Reservation Info : Aspenglen Campground is a reservation only
-            campground. All sites are reservable up to six months in advance.
+            {`${campgroundDetails?.number_of_reservation_sites} reservable campsites`}
+          </p>
+          <p className="cg-details-copy">
+            {campgroundDetails?.reservation_info}
           </p>
           <p className="cg-details-copy">Toilets : Flush Toilets - seasonal</p>
           <p className="cg-details-copy">Showers: None</p>
