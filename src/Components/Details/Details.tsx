@@ -6,8 +6,13 @@ import { getCampgroundDetails } from "../../ApiCalls";
 import { Images } from "../Results/Results";
 import { CampData } from "../Results/Results";
 import { useNavigate } from "react-router";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Autoplay } from "swiper";
+
 import isLoadingGif from '../../Assets/is-loading.gif'
 import errorGif from '../../Assets/error.gif'
+
 
 interface Props {
   selectedCampground: string;
@@ -78,8 +83,43 @@ const Details = ({
     // eslint-disable-next-line
   }, []);
 
+  const createSwiperImages = () => {
+    if (campgroundDetails?.attributes.images.length === 0) {
+      const genericImg = (
+        <SwiperSlide className="swiper-slide">
+          <img
+            src="https://us.123rf.com/450wm/nataliia2910/nataliia29101809/nataliia2910180900063/109718030-vector-illustration-of-camping-in-night-time-with-beautiful-view-on-mountains-family-camping.jpg?ver=6"
+            alt="Generic campground - no images available from NPS"
+          />
+        </SwiperSlide>
+      );
+      return genericImg;
+    } else {
+      const campImgGallery = campgroundDetails?.attributes.images.map(
+        (imgObj, i) => {
+          return (
+            <SwiperSlide className="swiper-slide" key={i}>
+              <img src={imgObj.url} alt={imgObj.altText} />
+            </SwiperSlide>
+          );
+        }
+      );
+      return campImgGallery;
+    }
+  };
+
+  const createCostDisplay = () => {
+    if (campgroundDetails?.attributes.cost.length === 0) {
+      return `Cost per night: Not available`;
+    }
+    return `Cost per night: $${campgroundDetails?.attributes.cost[0].cost}`;
+  };
+
   const createDirectionsButton = () => {
-    if (campgroundDetails?.attributes.lat && campgroundDetails?.attributes.long) {
+    if (
+      campgroundDetails?.attributes.lat &&
+      campgroundDetails?.attributes.long
+    ) {
       return (
         <a
           href={`https://www.google.com/maps/dir/?api=1&destination=${campgroundDetails?.attributes.lat}+${campgroundDetails?.attributes.long}`}
@@ -88,9 +128,9 @@ const Details = ({
         >
           <button>Directions</button>
         </a>
-      )
+      );
     }
-  }
+  };
 
   const createBookingButton = () => {
     if (campgroundDetails?.attributes.booking_link) {
@@ -138,20 +178,20 @@ const Details = ({
   const createTotalStarDisplay = () => {
     const reviewCount = campgroundReviews.length;
     if (reviewCount === 0) {
-      return (
-        <p id="noReviewYet">Be the first to review!</p>
-      )
+      return <p id="noReviewYet">Be the first to review!</p>;
     } else {
       const sumStarRating = campgroundReviews.reduce((sum, rev) => {
         sum += +rev.starRating;
         return sum;
-      }, 0)
+      }, 0);
       const avgStarRating = (sumStarRating / reviewCount).toFixed(1);
       return (
-        <p className="total-star-rating">Avg Rating: {avgStarRating} of 5 Stars</p>
-      )
+        <p className="total-star-rating">
+          Avg Rating: {avgStarRating} of 5 Stars
+        </p>
+      );
     }
-  }
+  };
 
   const submitNewReview = () => {
     const newReview: ReviewObj = {
@@ -185,9 +225,9 @@ const Details = ({
   };
 
   const navBackToResults = () => {
-    setSelectedCampground('')
-    navigate('/results')
-  }
+    setSelectedCampground("");
+    navigate("/results");
+  };
 
   return (
     <div className="loading">
@@ -200,11 +240,22 @@ const Details = ({
             </div> :
             <section className="detail-main">
               <div className="cg-images-container">
-                <img
-                  className="cg-images"
-                  src={campgroundDetails?.attributes.images[0].url}
-                  alt={campgroundDetails?.attributes.images[0].altText}
-                />
+                  <Swiper
+            spaceBetween={30}
+            pagination={{
+              clickable: true,
+            }}
+            modules={[Pagination, Autoplay]}
+            speed={400}
+            autoplay={{
+              delay: 4000,
+              disableOnInteraction: true
+            }}
+            slidesPerView={1}
+            className="details-swiper"
+          >
+            {createSwiperImages()}
+          </Swiper>
               </div>
               <div className="cg-name">
                 <h2>{campgroundDetails?.attributes.name}</h2>
