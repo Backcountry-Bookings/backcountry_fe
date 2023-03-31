@@ -200,3 +200,25 @@ p {
   color: $orange;
   font-size: 2rem;
 }
+
+.loading-gif {
+  width: 100vw;
+  max-width: 500px;
+}
+
+.error-gif {
+  width: 100vw;
+  max-width: 500px;
+}
+
+.error {
+  @include centered(column, center);
+  display: flex;
+  flex-direction: column;
+}
+
+.loading {
+  @include centered(column, center);
+  display: flex;
+  flex-direction: column;
+}
