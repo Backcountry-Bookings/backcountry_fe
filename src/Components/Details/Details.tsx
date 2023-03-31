@@ -76,32 +76,28 @@ const Details = ({
     // eslint-disable-next-line
   }, []);
 
-  const createSwiperGallery = () => {
+  const createSwiperImages = () => {
     if (campgroundDetails?.attributes.images.length === 0) {
       const genericImg = (
-        <img
-          className="cg-images"
-          src="https://us.123rf.com/450wm/nataliia2910/nataliia29101809/nataliia2910180900063/109718030-vector-illustration-of-camping-in-night-time-with-beautiful-view-on-mountains-family-camping.jpg?ver=6"
-          alt="Generic campground - no images available from NPS"
-        />
+        <SwiperSlide className="swiper-slide">
+          <img
+            src="https://us.123rf.com/450wm/nataliia2910/nataliia29101809/nataliia2910180900063/109718030-vector-illustration-of-camping-in-night-time-with-beautiful-view-on-mountains-family-camping.jpg?ver=6"
+            alt="Generic campground - no images available from NPS"
+          />
+        </SwiperSlide>
       );
       return genericImg;
     } else {
-      // <Swiper
-      //     spaceBetween={30}
-      //     pagination={{
-      //       clickable: true,
-      //     }}
-      //     modules={[Pagination, Autoplay]}
-      //     speed={400}
-      //     autoplay={{ delay: 4000 }}
-      //     slidesPerView={1}
-      //     className="mySwiper"
-      //   >
-      //     <SwiperSlide className="swiper-slide">
-      //       <img src={swiper1} alt="delicate arch" />
-      //     </SwiperSlide>
-      //   </Swiper>
+      const campImgGallery = campgroundDetails?.attributes.images.map(
+        (imgObj, i) => {
+          return (
+            <SwiperSlide className="swiper-slide" key={i}>
+              <img src={imgObj.url} alt={imgObj.altText} />
+            </SwiperSlide>
+          );
+        }
+      );
+      return campImgGallery;
     }
   };
 
@@ -228,7 +224,21 @@ const Details = ({
 
   return (
     <section className="detail-main">
-      <div className="cg-images-container">{createSwiperGallery()}</div>
+      <div className="cg-images-container">
+        <Swiper
+          spaceBetween={30}
+          pagination={{
+            clickable: true,
+          }}
+          modules={[Pagination, Autoplay]}
+          speed={400}
+          autoplay={{ delay: 4000 }}
+          slidesPerView={1}
+          className="mySwiper"
+        >
+          {createSwiperImages()}
+        </Swiper>
+      </div>
       <div className="cg-name">
         <h2>{campgroundDetails?.attributes.name}</h2>
       </div>
