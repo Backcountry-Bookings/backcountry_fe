@@ -6,8 +6,13 @@ import { getCampgroundDetails } from "../../ApiCalls";
 import { Images } from "../Results/Results";
 import { CampData } from "../Results/Results";
 import { useNavigate } from "react-router";
+
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper";
+
+import isLoadingGif from '../../Assets/is-loading.gif'
+import errorGif from '../../Assets/error.gif'
+
 
 interface Props {
   selectedCampground: string;
@@ -61,6 +66,7 @@ const Details = ({
   const [reviewSiteNumber, setReviewSiteNumber] = useState("");
   const [reviewComment, setReviewComment] = useState("");
   const [reviewSubmitError, setReviewSubmitError] = useState("");
+  const [isLoading, setIsLoading] = useState(true)
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -68,6 +74,7 @@ const Details = ({
       .then((response) => {
         if (response) {
           setCampgroundDetails(response.data);
+          setIsLoading(false)
         }
       })
       .catch((error) => {
@@ -223,157 +230,192 @@ const Details = ({
   };
 
   return (
-    <section className="detail-main">
-      <div className="cg-images-container">
-        <Swiper
-          spaceBetween={30}
-          pagination={{
-            clickable: true,
-          }}
-          modules={[Pagination, Autoplay]}
-          speed={400}
-          autoplay={{
-            delay: 4000,
-            disableOnInteraction: true
-          }}
-          slidesPerView={1}
-          className="details-swiper"
-        >
-          {createSwiperImages()}
-        </Swiper>
-      </div>
-      <div className="cg-name">
-        <h2>{campgroundDetails?.attributes.name}</h2>
-      </div>
-      <section className="cg-desc-section">
-        <p className="cg-desc">{campgroundDetails?.attributes.description}</p>
-      </section>
-      <section className="cg-map-section">
-        <img
-          className="cg-map"
-          src="/assets/Screenshot 2023-03-26 at 12.14.46 PM.png"
-          alt="campground map"
-        />
-      </section>
-      <section className="cg-details-section">
-        <div className="cg-details-header">
-          <h3>Campground Info</h3>
-          <hr className="divider-cg-info" />
-        </div>
-        <div className="cg-details-copy-section">
-          <p className="cg-details-copy">{createCostDisplay()}</p>
-          <p className="cg-details-copy">
-            {`Number of reservable sites: ${campgroundDetails?.attributes.number_of_reservation_sites}`}
-          </p>
-          <p className="cg-details-copy">
-            {`Reservation info: ${campgroundDetails?.attributes.reservation_info}`}
-          </p>
-          <p className="cg-details-copy">{`Toilets: ${campgroundDetails?.attributes.toilets[0]}`}</p>
-          <p className="cg-details-copy">{`Showers: ${campgroundDetails?.attributes.showers[0]}`}</p>
-          <p className="cg-details-copy">{`Cell coverage: ${campgroundDetails?.attributes.cell_coverage}`}</p>
-          <p className="cg-details-copy">{`Laundry: ${campgroundDetails?.attributes.laundry}`}</p>
-          <p className="cg-details-copy">
-            {`Dump station: ${campgroundDetails?.attributes.dump_station}`}{" "}
-          </p>
-          <p className="cg-details-copy">{`Camp store: ${campgroundDetails?.attributes.camp_store}`}</p>
-          <p className="cg-details-copy">{`Potable water: ${campgroundDetails?.attributes.potable_water}`}</p>
-          <p className="cg-details-copy">{`Ice available: ${campgroundDetails?.attributes.ice_available}`}</p>
-          <p className="cg-details-copy">{`Firewood available: ${campgroundDetails?.attributes.firewood_available}`}</p>
-          <p className="cg-details-copy">
-            {`Wheelchair access: ${campgroundDetails?.attributes.wheelchair_access}`}
-          </p>
-        </div>
-        <section className="cg-activities-section">
-          <div className="cg-activities-header">
-            <h3>Activities</h3>
-            <hr className="divider-cg-activities" />
+    <div className="loading">
+      {isLoading ? <img className='loading-gif' src={isLoadingGif} alt='loading' /> :
+        <div>
+          {!campgroundDetails ?
+            <div className="error">
+              <img className="error-gif" src={errorGif} alt='There was an error' />
+              <h3>There was an error loading campground info, please return home</h3>
+            </div> :
+            <section className="detail-main">
+              <div className="cg-images-container">
+                  <Swiper
+            spaceBetween={30}
+            pagination={{
+              clickable: true,
+            }}
+            modules={[Pagination, Autoplay]}
+            speed={400}
+            autoplay={{
+              delay: 4000,
+              disableOnInteraction: true
+            }}
+            slidesPerView={1}
+            className="details-swiper"
+          >
+            {createSwiperImages()}
+          </Swiper>
+              </div>
+              <div className="cg-name">
+                <h2>{campgroundDetails?.attributes.name}</h2>
+              </div>
+              <section className="cg-desc-section">
+                <p className="cg-desc">{campgroundDetails?.attributes.description}</p>
+              </section>
+              <section className="cg-map-section">
+                <img
+                  className="cg-map"
+                  src="/assets/Screenshot 2023-03-26 at 12.14.46 PM.png"
+                  alt="campground map"
+                />
+              </section>
+              <section className="cg-details-section">
+                <div className="cg-details-header">
+                  <h3>Campground Info</h3>
+                  <hr className="divider-cg-info" />
+                </div>
+                <div className="cg-details-copy-section">
+                  <p className="cg-details-copy">
+                    {`Cost per night: $${campgroundDetails?.attributes.cost[0].cost}`}
+                  </p>
+                  <p className="cg-details-copy">
+                    {`Number of reservable sites: ${campgroundDetails?.attributes.number_of_reservation_sites}`}
+                  </p>
+                  <p className="cg-details-copy">
+                    {`Reservation info: ${campgroundDetails?.attributes.reservation_info}`}
+                  </p>
+                  <p className="cg-details-copy">{`Toilets: ${campgroundDetails?.attributes.toilets[0]}`}</p>
+                  <p className="cg-details-copy">{`Showers: ${campgroundDetails?.attributes.showers[0]}`}</p>
+                  <p className="cg-details-copy">{`Cell coverage: ${campgroundDetails?.attributes.cell_coverage}`}</p>
+                  <p className="cg-details-copy">{`Laundry: ${campgroundDetails?.attributes.laundry}`}</p>
+                  <p className="cg-details-copy">
+                    {`Dump station: ${campgroundDetails?.attributes.dump_station}`}{" "}
+                  </p>
+                  <p className="cg-details-copy">{`Camp store: ${campgroundDetails?.attributes.camp_store}`}</p>
+                  <p className="cg-details-copy">{`Potable water: ${campgroundDetails?.attributes.potable_water}`}</p>
+                  <p className="cg-details-copy">{`Ice available: ${campgroundDetails?.attributes.ice_available}`}</p>
+                  <p className="cg-details-copy">{`Firewood available: ${campgroundDetails?.attributes.firewood_available}`}</p>
+                  <p className="cg-details-copy">
+                    {`Wheelchair access: ${campgroundDetails?.attributes.wheelchair_access}`}
+                  </p>
+                </div>
+                <section className="cg-activities-section">
+                  <div className="cg-activities-header">
+                    <h3>Activities</h3>
+                    <hr className="divider-cg-activities" />
+                  </div>
+                  <ul className="cg-activities-list">
+                    <li>Wildlife viewing</li>
+                    <li>Hiking</li>
+                    <li>Fishing</li>
+                    <li>Camping</li>
+                    <li>Boating</li>
+                    <li>Biking</li>
+                  </ul>
+                </section>
+                <div className="detail-btns">
+                  {createDirectionsButton()}
+                  {createBookingButton()}
+                  {setFavoriteButton()}
+                </div>
+              </section>
+              <section className="cg-review-section">
+                <div className="cg-reviews-header">
+                  <h3>Reviews</h3>
+                  <hr className="divider-cg-reviews" />
+                </div>
+                <section className="total-star-section">
+                  {createTotalStarDisplay()}
+                  {/* <div className="total-star-img-section">
+            <img
+              className="total-star-imgs"
+              src="/assets/Star.png"
+              alt="star"
+            />
+            <img
+              className="total-star-imgs"
+              src="/assets/Star.png"
+              alt="star"
+            />
+            <img
+              className="total-star-imgs"
+              src="/assets/Star.png"
+              alt="star"
+            />
+            <img
+              className="total-star-imgs"
+              src="/assets/Star.png"
+              alt="star"
+            />
           </div>
-          <ul className="cg-activities-list">
-            <li>Wildlife viewing</li>
-            <li>Hiking</li>
-            <li>Fishing</li>
-            <li>Camping</li>
-            <li>Boating</li>
-            <li>Biking</li>
-          </ul>
-        </section>
-        <div className="detail-btns">
-          {createDirectionsButton()}
-          {createBookingButton()}
-          {setFavoriteButton()}
+          <p>4 of 5 Stars</p> */}
+                </section>
+                <form className="user-review-form">
+                  <h3>Review this campground</h3>
+                  <label htmlFor="userName">Name</label>
+                  <input
+                    name="userName"
+                    type="text"
+                    maxLength={15}
+                    value={reviewUserName}
+                    onChange={(event) => setReviewUserName(event.target.value)}
+                    placeholder="Rick V"
+                  />
+                  <label htmlFor="starRating">
+                    Rate your stay on a scale of 0 to 5 stars
+                  </label>
+                  <input
+                    name="starRating"
+                    type="text"
+                    maxLength={1}
+                    value={reviewStarRating}
+                    onChange={(event) => setReviewStarRating(event.target.value)}
+                    placeholder="5"
+                  />
+                  <label htmlFor="siteNumber">What site did you stay in?</label>
+                  <input
+                    name="siteNumber"
+                    type="text"
+                    maxLength={10}
+                    value={reviewSiteNumber}
+                    onChange={(event) => setReviewSiteNumber(event.target.value)}
+                    placeholder="A-31"
+                  />
+                  <label htmlFor="comment">Leave your review</label>
+                  <input
+                    name="comment"
+                    type="text"
+                    maxLength={1000}
+                    value={reviewComment}
+                    onChange={(event) => setReviewComment(event.target.value)}
+                    placeholder="I loved this campground!"
+                  />
+                  <label htmlFor="photoUpload">Add a photo (optional)</label>
+                  <input
+                    name="photoUpload"
+                    type="file"
+                    onChange={(event) => handlePhotoUpload(event)}
+                  />
+                </form>
+                <p className="review-error">{reviewSubmitError}</p>
+                <button id="submit-review-button" onClick={() => submitNewReview()}>
+                  Submit review
+                </button>
+                <section className="user-review-section">
+                  {campgroundReviews.map((rev) => {
+                    return <Review data={rev} key={rev.id} />;
+                  })}
+                </section>
+              </section>
+              <div className="detail-btns">
+                <button onClick={() => navBackToResults()}>Back to search results</button>
+              </div>
+            </section>
+          }
         </div>
-      </section>
-      <section className="cg-review-section">
-        <div className="cg-reviews-header">
-          <h3>Reviews</h3>
-          <hr className="divider-cg-reviews" />
-        </div>
-        <section className="total-star-section">
-          {createTotalStarDisplay()}
-        </section>
-        <form className="user-review-form">
-          <h3>Review this campground</h3>
-          <label htmlFor="userName">Name</label>
-          <input
-            name="userName"
-            type="text"
-            maxLength={15}
-            value={reviewUserName}
-            onChange={(event) => setReviewUserName(event.target.value)}
-            placeholder="Rick V"
-          />
-          <label htmlFor="starRating">
-            Rate your stay on a scale of 0 to 5 stars
-          </label>
-          <input
-            name="starRating"
-            type="text"
-            maxLength={1}
-            value={reviewStarRating}
-            onChange={(event) => setReviewStarRating(event.target.value)}
-            placeholder="5"
-          />
-          <label htmlFor="siteNumber">What site did you stay in?</label>
-          <input
-            name="siteNumber"
-            type="text"
-            maxLength={10}
-            value={reviewSiteNumber}
-            onChange={(event) => setReviewSiteNumber(event.target.value)}
-            placeholder="A-31"
-          />
-          <label htmlFor="comment">Leave your review</label>
-          <input
-            name="comment"
-            type="text"
-            maxLength={1000}
-            value={reviewComment}
-            onChange={(event) => setReviewComment(event.target.value)}
-            placeholder="I loved this campground!"
-          />
-          <label htmlFor="photoUpload">Add a photo (optional)</label>
-          <input
-            name="photoUpload"
-            type="file"
-            onChange={(event) => handlePhotoUpload(event)}
-          />
-        </form>
-        <p className="review-error">{reviewSubmitError}</p>
-        <button id="submit-review-button" onClick={() => submitNewReview()}>
-          Submit review
-        </button>
-        <section className="user-review-section">
-          {campgroundReviews.map((rev) => {
-            return <Review data={rev} key={rev.id} />;
-          })}
-        </section>
-      </section>
-      <div className="detail-btns">
-        <button onClick={() => navBackToResults()}>
-          Back to search results
-        </button>
-      </div>
-    </section>
+      }
+    </div>
   );
 };
 

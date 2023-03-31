@@ -194,6 +194,7 @@ p {
   font-size: 2rem;
 }
 
+
 .details-swiper {
   width: 100vw;
   max-width: 1200px;
@@ -212,4 +213,26 @@ p {
   width: 100%;
   height: 100%;
   object-fit: cover;
+
+.loading-gif {
+  width: 100vw;
+  max-width: 500px;
+}
+
+.error-gif {
+  width: 100vw;
+  max-width: 500px;
+}
+
+.error {
+  @include centered(column, center);
+  display: flex;
+  flex-direction: column;
+}
+
+.loading {
+  @include centered(column, center);
+  display: flex;
+  flex-direction: column;
+
 }

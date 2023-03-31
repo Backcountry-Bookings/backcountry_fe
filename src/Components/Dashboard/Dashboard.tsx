@@ -36,11 +36,12 @@ const Dashboard = ({
   setSelectedCampground,
 }: Props) => {
   const [searchType, setSearchType] = useState("");
-  const [search, setSearch] = useState<string>("");
+  const [search, setSearch] = useState("");
   const [disableSearchbar, setDisableSearchbar] = useState(true);
   const [searchPlaceholder, setSearchPlaceholder] = useState("");
   const [stateError, setStateError] = useState(false);
   const [error, setError] = useState(false);
+  const [userLocation, setUserLocation] = useState<any>()
 
   const navigate = useNavigate();
 
@@ -60,6 +61,20 @@ const Dashboard = ({
       setSearchPlaceholder("Enter National Park name");
     }
   }, [searchType]);
+
+  useEffect(() => {
+    const successCallback = (position: any) => {
+      setUserLocation(position.coords);
+      console.log(position);
+    };
+  
+    const errorCallback = (error: object) => {
+      console.log(error);
+    };
+  
+    navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+  }, []);
+  
 
   const updateInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (search !== "" && searchType !== "") {
@@ -182,6 +197,10 @@ const Dashboard = ({
         {stateError && <p>State code should be two letters</p>}
         <br />
       </div>
+      { userLocation ?
+        <h3>Your location: {userLocation.latitude} {userLocation.longitude} </h3> :
+        <h3>Please enable location for the best experience</h3>
+      }
       <br />
       <section className="favorites-section">
         <h2 className="fav-campgrounds-title">Your Favorite Campgrounds</h2>
