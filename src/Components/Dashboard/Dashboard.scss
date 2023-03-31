@@ -4,7 +4,6 @@ html {
   background-color: $darkGreen;
   color: $white;
   font: $mainFont;
-  text-align: center;
 }
 
 .dashboard {
@@ -97,4 +96,8 @@ html {
   @include centered(column, center);
   height: fit-content;
   width: 100vw;
+}
+
+.geolocation-msg {
+  text-align: center;
 }

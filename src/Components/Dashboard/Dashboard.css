@@ -2,7 +2,6 @@ html {
   background-color: #283618;
   color: #FBFAF5;
   font: "Kalam", cursive;
-  text-align: center;
 }
 
 .dashboard {
@@ -115,4 +114,8 @@ html {
   height: -moz-fit-content;
   height: fit-content;
   width: 100vw;
+}
+
+.geolocation-msg {
+  text-align: center;
 }/*# sourceMappingURL=Dashboard.css.map */
