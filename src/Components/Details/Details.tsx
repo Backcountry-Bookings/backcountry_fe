@@ -234,8 +234,7 @@ const Details = ({
           speed={400}
           autoplay={{
             delay: 4000,
-            disableOnInteraction: true,
-            pauseOnMouseEnter: true,
+            disableOnInteraction: true
           }}
           slidesPerView={1}
           className="details-swiper"
