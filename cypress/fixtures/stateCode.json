@@ -1,0 +1,90 @@
+{
+  "data": [
+    {
+      "id": "7475825B-E844-4012-841B-0E29E05D4540",
+      "type": "campsite_search",
+      "attributes": {
+        "name": "Aspenglen Campground",
+        "description": "Aspenglen Campground is reservation only. Visit Recreation.gov. Aspenglen opens for the 2023 season on May 26. Timed Entry Permits are included with your camping reservation. For Aspenglen Campers, your reservation includes access to Bear Lake Road. Campers will be able to initially enter the park beginning at 1 p.m. on the first day of your camping reservation. If you plan to enter the park earlier in the day, you will have to enter the park outside of the times when Timed Entry Permits are in effect.",
+        "images": [
+          {
+            "credit": "NPS Photo",
+            "crops": [],
+            "title": "Aspenglen Campground",
+            "altText": "Road through pines with tent sites",
+            "caption": "Aspenglen Campground is nestled in a pine forest near Fall River",
+            "url": "https://www.nps.gov/common/uploads/structured_data/3FAA6E89-1DD8-B71B-0B170E56BD4ED00D.jpg"
+          },
+          {
+            "credit": "NPS Photo",
+            "crops": [],
+            "title": "Campsite with popup camper and comfort station",
+            "altText": "Popup camper at campsite with picnic table and comfort station",
+            "caption": "A typical campsite at Aspenglen Campground.",
+            "url": "https://www.nps.gov/common/uploads/structured_data/3FB3F3FE-1DD8-B71B-0B9E4BCE69676E6D.jpg"
+          },
+          {
+            "credit": "NPS Photo",
+            "crops": [],
+            "title": "Aspenglen Comfort Station",
+            "altText": "Comfort station set in trees",
+            "caption": "A comfort station (restroom) at Aspenglen Campground.",
+            "url": "https://www.nps.gov/common/uploads/structured_data/3FC22E4A-1DD8-B71B-0B1EF349ED80CF5A.jpg"
+          },
+          {
+            "credit": "NPS Photo",
+            "crops": [],
+            "title": "Food Storage Locker",
+            "altText": "A visitor places food in a food storage locker",
+            "caption": "Use food storage lockers to protect food from bears and other wildlife.",
+            "url": "https://www.nps.gov/common/uploads/structured_data/3FCBC8C3-1DD8-B71B-0BCD4A43E1924C05.jpg"
+          }
+        ],
+        "park_name": "ROCKY MOUNTAIN",
+        "state_code": "CO",
+        "cost": [
+          {
+            "cost": "30.00",
+            "description": "Per site per night",
+            "title": "Camping Fee"
+          }
+        ]
+      }
+    },
+    {
+      "id": "9FA0E6D0-85F3-4388-92B1-26F408774F28",
+      "type": "campsite_search",
+      "attributes": {
+        "name": "Backpacking Campsites in the Dunes or Forest",
+        "description": "The most popular and unique backpacking option is camping in the 30-square-mile dunefield, beyond the major dune ridgeline (about 1.5 mile hike minimum over dunes). Enjoy wide open views of the starry sky or a bright moonlit night. Designated sites are also available in the trees of the foothills, or camping is available in higher forests of Great Sand Dunes National Preserve. Reserve national park backpacking permits for the dunes or foothills through recreation.gov",
+        "images": [
+          {
+            "credit": "Kevin Winget",
+            "crops": [],
+            "title": "Backpacking in the Dunes",
+            "altText": "Backpackers walking on eastern side of dunefield",
+            "caption": "Backpacking in the dunes is a unique experience, with open views of the sky.",
+            "url": "https://www.nps.gov/common/uploads/structured_data/C2DE0ACB-CE7E-2786-5C2A77662123BBC5.jpg"
+          },
+          {
+            "credit": "NPS/Patrick Myers",
+            "crops": [],
+            "title": "Backpacker in Dunefield",
+            "altText": "Girl with backpack viewing dunes at sunset",
+            "caption": "Backpacking into the dunes is a unique experience, with open views of the sky.",
+            "url": "https://www.nps.gov/common/uploads/structured_data/C3072B6A-C458-4D96-8445A961E9225022.jpg"
+          }
+        ],
+        "park_name": "GREAT SAND DUNES",
+        "state_code": "CO",
+        "cost": [
+          {
+            "cost": "6.00",
+            "description": "Fee to make a required reservation for a backpacking permit through recreation.gov",
+            "title": "Backpacking Permit Fee"
+          }
+        ]
+      }
+    }
+  ]
+}
