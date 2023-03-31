@@ -196,7 +196,7 @@ const Details = ({
           {!campgroundDetails ?
             <div className="error">
               <img className="error-gif" src={errorGif} alt='There was an error' />
-              <p>There was an error loading campground details, please return home</p>
+              <h3>There was an error loading campground details, please return home</h3>
             </div> :
             <section className="detail-main">
               <div className="cg-images-container">
