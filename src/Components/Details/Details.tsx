@@ -287,7 +287,7 @@ const Details = ({
                 </div>
                 <div className="cg-details-copy-section">
                   <p className="cg-details-copy">
-                    {`Cost per night: $${campgroundDetails?.attributes.cost[0].cost}`}
+                    {createCostDisplay()}
                   </p>
                   <p className="cg-details-copy">
                     {`Number of reservable sites: ${campgroundDetails?.attributes.number_of_reservation_sites}`}
@@ -300,7 +300,7 @@ const Details = ({
                   <p className="cg-details-copy">{`Cell coverage: ${campgroundDetails?.attributes.cell_coverage}`}</p>
                   <p className="cg-details-copy">{`Laundry: ${campgroundDetails?.attributes.laundry}`}</p>
                   <p className="cg-details-copy">
-                    {`Dump station: ${campgroundDetails?.attributes.dump_station}`}{" "}
+                    {`Dump station: ${campgroundDetails?.attributes.dump_station}`}
                   </p>
                   <p className="cg-details-copy">{`Camp store: ${campgroundDetails?.attributes.camp_store}`}</p>
                   <p className="cg-details-copy">{`Potable water: ${campgroundDetails?.attributes.potable_water}`}</p>
@@ -337,29 +337,6 @@ const Details = ({
                 </div>
                 <section className="total-star-section">
                   {createTotalStarDisplay()}
-                  {/* <div className="total-star-img-section">
-            <img
-              className="total-star-imgs"
-              src="/assets/Star.png"
-              alt="star"
-            />
-            <img
-              className="total-star-imgs"
-              src="/assets/Star.png"
-              alt="star"
-            />
-            <img
-              className="total-star-imgs"
-              src="/assets/Star.png"
-              alt="star"
-            />
-            <img
-              className="total-star-imgs"
-              src="/assets/Star.png"
-              alt="star"
-            />
-          </div>
-          <p>4 of 5 Stars</p> */}
                 </section>
                 <form className="user-review-form">
                   <h3>Review this campground</h3>
