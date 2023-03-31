@@ -220,4 +220,32 @@ p {
   padding-left: 7vw;
   color: #F9A03F;
   font-size: 2rem;
+}
+
+.loading-gif {
+  width: 100vw;
+  max-width: 500px;
+}
+
+.error-gif {
+  width: 100vw;
+  max-width: 500px;
+}
+
+.error {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
 }/*# sourceMappingURL=Details.css.map */
