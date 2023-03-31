@@ -72,8 +72,8 @@ const Card = ({
   };
 
   const parkCode = () => {
-    if (campData.attributes.park_code) {
-      return campData.attributes.park_code.toUpperCase();
+    if (campData.attributes.park_name) {
+      return campData.attributes.park_name;
     } else {
       return "Not available";
     }
