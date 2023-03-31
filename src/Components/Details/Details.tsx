@@ -232,9 +232,13 @@ const Details = ({
           }}
           modules={[Pagination, Autoplay]}
           speed={400}
-          autoplay={{ delay: 4000 }}
+          autoplay={{
+            delay: 4000,
+            disableOnInteraction: true,
+            pauseOnMouseEnter: true,
+          }}
           slidesPerView={1}
-          className="mySwiper"
+          className="details-swiper"
         >
           {createSwiperImages()}
         </Swiper>

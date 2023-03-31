@@ -1,7 +1,3 @@
-h2 {
-  font-size: 1.8rem;
-}
-
 h3 {
   font-size: 1.5rem;
 }
@@ -58,7 +54,8 @@ p {
   align-items: center;
 }
 .cg-name h2 {
-  margin: 2vh 10vw 2vh 10vw;
+  font-size: 2.2rem;
+  margin: 3vh 10vw 3vh 10vw;
 }
 
 .cg-desc-section {
@@ -180,11 +177,6 @@ p {
   margin-bottom: 10px;
 }
 
-.total-star-imgs {
-  padding: 2px;
-  height: 3rem;
-}
-
 .cg-review-section {
   background-color: #606C38;
   margin-bottom: 4vh;
@@ -220,4 +212,26 @@ p {
   padding-left: 7vw;
   color: #F9A03F;
   font-size: 2rem;
+}
+
+.details-swiper {
+  width: 100vw;
+  max-width: 1200px;
+  height: -moz-fit-content;
+  height: fit-content;
+  z-index: 1;
+  position: relative;
+}
+
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
 }/*# sourceMappingURL=Details.css.map */

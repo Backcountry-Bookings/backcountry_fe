@@ -1,9 +1,5 @@
 @use "../../../abstract/variables" as *;
 
-h2 {
-  font-size: 1.8rem;
-}
-
 h3 {
   font-size: 1.5rem;
 }
@@ -51,7 +47,9 @@ p {
   @include centered(column, center);
 
   h2 {
-    margin: 2vh 10vw 2vh 10vw;
+    font-size: 2.2rem;
+    margin: 3vh 10vw 3vh 10vw;
+    
   }
 }
 
@@ -196,9 +194,10 @@ p {
   font-size: 2rem;
 }
 
-.mySwiper {
-  width: 100%;
-  height: 50vh;
+.details-swiper {
+  width: 100vw;
+  max-width: 1200px;
+  height: fit-content;
   z-index: 1;
   position: relative;
 }
