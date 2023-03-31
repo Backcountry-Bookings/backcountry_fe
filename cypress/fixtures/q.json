@@ -1,0 +1,47 @@
+{
+    "data": [
+        {
+            "id": "3DC83C15-25CE-488E-816B-64FEBB1F79FF",
+            "type": "campsite_search",
+            "attributes": {
+                "name": "Colorado River Primitive Camping Between Glen Canyon Dam and Lees Ferry",
+                "description": "No reservations. Along the fifteen mile stretch of the Colorado River between Glen Canyon Dam and Lees Ferry, there are five primitive beaches set aside for camping, marked with signs, on a first-come, first-served basis. Camping is permitted in these areas only, as they are provided with toilets and fire pits. These sites can only be accessed by small vessel. All campsites are located well above the river and require a short walk from your boat.",
+                "images": [
+                    {
+                        "credit": "NPS Photo",
+                        "crops": [],
+                        "title": "Lees Ferry Upriver Camping - Ferry Swale",
+                        "altText": "River beach with shrubs and vault toilet",
+                        "caption": "Ferry Swale is one of five designated camping sites upriver of Lees Ferry",
+                        "url": "https://www.nps.gov/common/uploads/structured_data/0791D19C-C5C8-C7E2-B5A11332AFA8D8F6.jpg"
+                    },
+                    {
+                        "credit": "NPS Photo",
+                        "crops": [],
+                        "title": "Lees Ferry Upriver Camping - Ferry Swale View",
+                        "altText": "Canyon wall from river level",
+                        "caption": "Ferry Swale is an easy landmark to help find the camp site",
+                        "url": "https://www.nps.gov/common/uploads/structured_data/07A92067-A28C-805E-6AE286C8B551DC57.jpg"
+                    },
+                    {
+                        "credit": "NPS Photo",
+                        "crops": [],
+                        "title": "Lees Ferry Upriver Camping - River",
+                        "altText": "River in deep sandstone canyon",
+                        "caption": "The view is pretty nice when you motor or paddle up to one of the designated camping sites",
+                        "url": "https://www.nps.gov/common/uploads/structured_data/08896FC3-0441-B080-AFED8F29498FEF45.jpg"
+                    }
+                ],
+                "park_name": null,
+                "state_code": "AZ",
+                "cost": [
+                    {
+                        "cost": "0.00",
+                        "description": "If you have already paid the park entrance fee and the boating fee, there are no additional charges.",
+                        "title": "Lees Ferry Upriver Camping"
+                    }
+                ]
+            }
+        }
+    ]
+}
