@@ -5,7 +5,7 @@ import { fetchCampgrounds } from "../../ApiCalls";
 import { useEffect, useState } from "react";
 import Card from "../Card/Card";
 
-import { useNavigate, useResolvedPath } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 //Styling Stuff
 import campfire from "../../Assets/campfire.gif";
