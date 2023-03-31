@@ -41,6 +41,7 @@ const Dashboard = ({
   const [searchPlaceholder, setSearchPlaceholder] = useState("");
   const [stateError, setStateError] = useState(false);
   const [error, setError] = useState(false);
+  const 
 
   const navigate = useNavigate();
 
@@ -60,6 +61,17 @@ const Dashboard = ({
       setSearchPlaceholder("Enter National Park name");
     }
   }, [searchType]);
+
+  const successCallback = (position: object) => {
+    
+    console.log(position);
+  };
+  
+  const errorCallback = (error: object) => {
+    console.log(error);
+  };
+  
+  navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
 
   const updateInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (search !== "" && searchType !== "") {
