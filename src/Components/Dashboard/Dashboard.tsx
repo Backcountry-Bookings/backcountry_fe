@@ -5,7 +5,7 @@ import { fetchCampgrounds } from "../../ApiCalls";
 import { useEffect, useState } from "react";
 import Card from "../Card/Card";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useResolvedPath } from "react-router-dom";
 
 //Styling Stuff
 import campfire from "../../Assets/campfire.gif";
@@ -41,6 +41,7 @@ const Dashboard = ({
   const [searchPlaceholder, setSearchPlaceholder] = useState("");
   const [stateError, setStateError] = useState(false);
   const [error, setError] = useState(false);
+  const [userLocation, setUserLocation] = useState<any>()
 
   const navigate = useNavigate();
 
@@ -61,15 +62,19 @@ const Dashboard = ({
     }
   }, [searchType]);
 
-  const successCallback = (position: object) => {
-    console.log(position);
-  };
+  useEffect(() => {
+    const successCallback = (position: any) => {
+      setUserLocation(position.coords);
+      console.log(position);
+    };
   
-  const errorCallback = (error: object) => {
-    console.log(error);
-  };
+    const errorCallback = (error: object) => {
+      console.log(error);
+    };
   
-  navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+    navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+  }, []);
+  
 
   const updateInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (search !== "" && searchType !== "") {
@@ -192,6 +197,10 @@ const Dashboard = ({
         {stateError && <p>State code should be two letters</p>}
         <br />
       </div>
+      { userLocation ?
+        <p>User location: {userLocation.latitude} {userLocation.longitude} </p> :
+        <p>pleas enable location for the best experience</p>
+      }
       <br />
       <section className="favorites-section">
         <h2 className="fav-campgrounds-title">Your Favorite Campgrounds</h2>
