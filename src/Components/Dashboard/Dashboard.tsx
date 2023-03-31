@@ -36,12 +36,11 @@ const Dashboard = ({
   setSelectedCampground,
 }: Props) => {
   const [searchType, setSearchType] = useState("");
-  const [search, setSearch] = useState<string>("");
+  const [search, setSearch] = useState("");
   const [disableSearchbar, setDisableSearchbar] = useState(true);
   const [searchPlaceholder, setSearchPlaceholder] = useState("");
   const [stateError, setStateError] = useState(false);
   const [error, setError] = useState(false);
-  const 
 
   const navigate = useNavigate();
 
@@ -63,7 +62,6 @@ const Dashboard = ({
   }, [searchType]);
 
   const successCallback = (position: object) => {
-    
     console.log(position);
   };
   
