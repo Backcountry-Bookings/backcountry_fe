@@ -198,8 +198,8 @@ const Dashboard = ({
         <br />
       </div>
       { userLocation ?
-        <p>User location: {userLocation.latitude} {userLocation.longitude} </p> :
-        <p>pleas enable location for the best experience</p>
+        <h3>Your location: {userLocation.latitude} {userLocation.longitude} </h3> :
+        <h3>Please enable location for the best experience</h3>
       }
       <br />
       <section className="favorites-section">
