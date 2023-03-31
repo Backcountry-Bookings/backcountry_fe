@@ -10,9 +10,8 @@ import { useNavigate } from "react-router";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper";
 
-import isLoadingGif from '../../Assets/is-loading.gif'
-import errorGif from '../../Assets/error.gif'
-
+import isLoadingGif from "../../Assets/is-loading.gif";
+import errorGif from "../../Assets/error.gif";
 
 interface Props {
   selectedCampground: string;
@@ -66,7 +65,7 @@ const Details = ({
   const [reviewSiteNumber, setReviewSiteNumber] = useState("");
   const [reviewComment, setReviewComment] = useState("");
   const [reviewSubmitError, setReviewSubmitError] = useState("");
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -74,7 +73,7 @@ const Details = ({
       .then((response) => {
         if (response) {
           setCampgroundDetails(response.data);
-          setIsLoading(false)
+          setIsLoading(false);
         }
       })
       .catch((error) => {
@@ -231,37 +230,48 @@ const Details = ({
 
   return (
     <div className="loading">
-      {isLoading ? <img className='loading-gif' src={isLoadingGif} alt='loading' /> :
+      {isLoading ? (
+        <img className="loading-gif" src={isLoadingGif} alt="loading" />
+      ) : (
         <div>
-          {!campgroundDetails ?
+          {!campgroundDetails ? (
             <div className="error">
-              <img className="error-gif" src={errorGif} alt='There was an error' />
-              <h3>There was an error loading campground info, please return home</h3>
-            </div> :
+              <img
+                className="error-gif"
+                src={errorGif}
+                alt="There was an error"
+              />
+              <h3>
+                There was an error loading campground info, please return home
+              </h3>
+            </div>
+          ) : (
             <section className="detail-main">
               <div className="cg-images-container">
-                  <Swiper
-            spaceBetween={30}
-            pagination={{
-              clickable: true,
-            }}
-            modules={[Pagination, Autoplay]}
-            speed={400}
-            autoplay={{
-              delay: 4000,
-              disableOnInteraction: true
-            }}
-            slidesPerView={1}
-            className="details-swiper"
-          >
-            {createSwiperImages()}
-          </Swiper>
+                <Swiper
+                  spaceBetween={30}
+                  pagination={{
+                    clickable: true,
+                  }}
+                  modules={[Pagination, Autoplay]}
+                  speed={400}
+                  autoplay={{
+                    delay: 4000,
+                    disableOnInteraction: true,
+                  }}
+                  slidesPerView={1}
+                  className="details-swiper"
+                >
+                  {createSwiperImages()}
+                </Swiper>
               </div>
               <div className="cg-name">
                 <h2>{campgroundDetails?.attributes.name}</h2>
               </div>
               <section className="cg-desc-section">
-                <p className="cg-desc">{campgroundDetails?.attributes.description}</p>
+                <p className="cg-desc">
+                  {campgroundDetails?.attributes.description}
+                </p>
               </section>
               <section className="cg-map-section">
                 <img
@@ -370,7 +380,9 @@ const Details = ({
                     type="text"
                     maxLength={1}
                     value={reviewStarRating}
-                    onChange={(event) => setReviewStarRating(event.target.value)}
+                    onChange={(event) =>
+                      setReviewStarRating(event.target.value)
+                    }
                     placeholder="5"
                   />
                   <label htmlFor="siteNumber">What site did you stay in?</label>
@@ -379,7 +391,9 @@ const Details = ({
                     type="text"
                     maxLength={10}
                     value={reviewSiteNumber}
-                    onChange={(event) => setReviewSiteNumber(event.target.value)}
+                    onChange={(event) =>
+                      setReviewSiteNumber(event.target.value)
+                    }
                     placeholder="A-31"
                   />
                   <label htmlFor="comment">Leave your review</label>
@@ -399,7 +413,10 @@ const Details = ({
                   />
                 </form>
                 <p className="review-error">{reviewSubmitError}</p>
-                <button id="submit-review-button" onClick={() => submitNewReview()}>
+                <button
+                  id="submit-review-button"
+                  onClick={() => submitNewReview()}
+                >
                   Submit review
                 </button>
                 <section className="user-review-section">
@@ -409,12 +426,14 @@ const Details = ({
                 </section>
               </section>
               <div className="detail-btns">
-                <button onClick={() => navBackToResults()}>Back to search results</button>
+                <button onClick={() => navBackToResults()}>
+                  Back to search results
+                </button>
               </div>
             </section>
-          }
+          )}
         </div>
-      }
+      )}
     </div>
   );
 };

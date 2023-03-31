@@ -214,7 +214,6 @@ p {
   font-size: 2rem;
 }
 
-
 .details-swiper {
   width: 100vw;
   max-width: 1200px;
@@ -235,7 +234,8 @@ p {
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
-  
+}
+
 .loading-gif {
   width: 100vw;
   max-width: 500px;
@@ -262,5 +262,4 @@ p {
   align-items: center;
   display: flex;
   flex-direction: column;
-
 }/*# sourceMappingURL=Details.css.map */
