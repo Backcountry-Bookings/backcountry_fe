@@ -73,9 +73,23 @@ const Card = ({
 
   const parkCode = () => {
     if (campData.attributes.park_name) {
-      return campData.attributes.park_name;
+      let parkNameLowCase = campData.attributes.park_name
+        .toLocaleLowerCase()
+        .split(" ");
+      const numOfWords = parkNameLowCase.length;
+      let formattedParkName = parkNameLowCase.map((word, i) => {
+        const capFirstLetter = word[0].toUpperCase();
+        const restOfWord = word.slice(1);
+        const capWord = `${capFirstLetter}${restOfWord}`;
+        if (i === numOfWords) {
+          return capWord;
+        } else {
+          return `${capWord} `;
+        }
+      });
+      return formattedParkName.join("");
     } else {
-      return "Not available";
+      return "Not Available";
     }
   };
 
