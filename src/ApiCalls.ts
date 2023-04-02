@@ -1,3 +1,5 @@
+import { ReviewObj } from './Components/Review/Review'
+
 export async function fetchCampgrounds(pathType: string, searchValue: string) {
   try {
     const response = await fetch(`https://backcountry-bookings-be.herokuapp.com/api/v1/campsites?${pathType}=${searchValue}`);
@@ -35,10 +37,29 @@ export async function getCampgroundReviews(id: string) {
     const campReviews = await response.json();
     return campReviews;
   } catch (error) {
-    console.log(`Failed to fetch campground reviews with status ${error}`)
+    console.log(`Failed to fetch campground reviews: ${error}`)
     throw error;
   }
 }
 
-
+export async function postCampgroundReview(reviewObj: ReviewObj) {
+  try {
+    const response = await fetch(`https://backcountry-bookings-be.herokuapp.com/api/v1/reviews?campsite_id=${reviewObj.id}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "accept": "application/json"
+      },
+      body: JSON.stringify(reviewObj)
+    })
+    if (!response.ok) {
+      throw new Error(`Post campground review request failed with status ${response.status}`)
+    }
+    const reviewResp = await response.json();
+    return reviewResp;
+  } catch (error) {
+    console.log(`Failed to post campground review: ${error}`)
+    throw error;
+  }
+}
   

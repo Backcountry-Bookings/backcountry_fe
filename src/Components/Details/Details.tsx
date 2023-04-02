@@ -74,6 +74,7 @@ const Details = ({
       .then((response) => {
         if (response) {
           setCampgroundDetails(response.data);
+          setIsLoading(false);
         }
       })
       .catch((error) => {
@@ -85,7 +86,6 @@ const Details = ({
         if (response) {
           setCampgroundReviews(response.data)
           console.log(response.data)
-          setIsLoading(false);
         }
       })
       .catch((error) => {
