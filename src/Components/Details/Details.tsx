@@ -66,7 +66,7 @@ const Details = ({
   const [reviewRating, setReviewRating] = useState("");
   const [reviewSiteName, setReviewSiteName] = useState("");
   const [reviewDescription, setReviewDescription] = useState("");
-  const [reviewImg, setReviewImg] = useState({});
+  const [reviewImg, setReviewImg] = useState<object>();
   const [reviewSubmitError, setReviewSubmitError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
@@ -216,6 +216,22 @@ const Details = ({
       img_file: reviewImg,
     };
 
+    if (!newReview.name) {
+      setReviewSubmitError(
+        "Please enter a name for your review"
+      );
+      setTimeout(() => setReviewSubmitError(""), 2000);
+      return;
+    }
+
+    if (newReview.rating > 5 || Number.isNaN(newReview.rating)) {
+      setReviewSubmitError(
+        "Please enter a number 0 - 5 for your star rating"
+      );
+      setTimeout(() => setReviewSubmitError(""), 2000);
+      return;
+    }
+
     const reviewPostData = {
       name: reviewUserName,
       rating: +reviewRating,
@@ -225,14 +241,6 @@ const Details = ({
     }
 
     console.log(reviewPostData)
-
-    if (+newReview.rating > 5 || Number.isNaN(+newReview.rating)) {
-      setReviewSubmitError(
-        "Please enter a valid number 0 - 5 for your star rating"
-      );
-      setTimeout(() => setReviewSubmitError(""), 2000);
-      return;
-    }
 
     setCampgroundReviews([newReview, ...campgroundReviews]);
     postCampgroundReview(reviewPostData, selectedCampground);

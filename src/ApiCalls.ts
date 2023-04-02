@@ -45,8 +45,8 @@ export async function postCampgroundReview(reviewObj: object, campID: string) {
     const response = await fetch(`https://backcountry-bookings-be.herokuapp.com/api/v1/reviews?campsite_id=${campID}`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
-        "accept": "application/json"
+        "CONTENT-TYPE": "application/json",
+        "ACCEPT": "application/json"
       },
       body: JSON.stringify(reviewObj)
     })
