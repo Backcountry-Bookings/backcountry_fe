@@ -54,6 +54,18 @@ interface Cost {
   title: string;
 }
 
+interface FetchedReview {
+  id: string;
+  attributes: {
+    campsite_id: string;
+    description: string;
+    image_url: string;
+    name: string;
+    rating: number;
+    site_name: string;
+  };
+}
+
 const Details = ({
   selectedCampground,
   setSelectedCampground,
@@ -66,7 +78,7 @@ const Details = ({
   const [reviewRating, setReviewRating] = useState("");
   const [reviewSiteName, setReviewSiteName] = useState("");
   const [reviewDescription, setReviewDescription] = useState("");
-  const [reviewImg, setReviewImg] = useState<object>();
+  const [reviewImg, setReviewImg] = useState<File | undefined>(undefined);
   const [reviewSubmitError, setReviewSubmitError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
@@ -86,8 +98,9 @@ const Details = ({
     getCampgroundReviews(selectedCampground)
       .then((response) => {
         if (response) {
-          setCampgroundReviews(response.data)
-          console.log(response.data)
+          // Leaving this log here to test for AWS URL return
+          console.log(response.data);
+          setCampgroundReviews(formatReviews(response.data));
         }
       })
       .catch((error) => {
@@ -95,6 +108,21 @@ const Details = ({
       });
     // eslint-disable-next-line
   }, []);
+
+  const formatReviews = (revArr: FetchedReview[]) => {
+    const formattedReviews = revArr.map((rev) => {
+      const review: ReviewObj = {
+        id: +rev.id,
+        name: rev.attributes.name,
+        rating: rev.attributes.rating,
+        site_name: rev.attributes.site_name,
+        description: rev.attributes.description,
+        img_file: rev.attributes.image_url,
+      };
+      return review;
+    });
+    return formattedReviews;
+  };
 
   const createSwiperImages = () => {
     if (campgroundDetails?.attributes.images.length === 0) {
@@ -199,14 +227,24 @@ const Details = ({
       }, 0);
       const avgRating = (sumRating / reviewCount).toFixed(1);
       return (
-        <p className="total-star-rating">
-          Avg Rating: {avgRating} of 5 Stars
-        </p>
+        <p className="total-star-rating">Avg Rating: {avgRating} of 5 Stars</p>
       );
     }
   };
 
   const submitNewReview = () => {
+    if (!reviewUserName) {
+      setReviewSubmitError("Please enter a name for your review");
+      setTimeout(() => setReviewSubmitError(""), 2000);
+      return;
+    }
+
+    if (+reviewRating > 5 || Number.isNaN(+reviewRating)) {
+      setReviewSubmitError("Please enter a number 0 - 5 for your star rating");
+      setTimeout(() => setReviewSubmitError(""), 2000);
+      return;
+    }
+
     const newReview: ReviewObj = {
       id: campgroundReviews.length + 1,
       name: reviewUserName,
@@ -216,31 +254,13 @@ const Details = ({
       img_file: reviewImg,
     };
 
-    if (!newReview.name) {
-      setReviewSubmitError(
-        "Please enter a name for your review"
-      );
-      setTimeout(() => setReviewSubmitError(""), 2000);
-      return;
-    }
-
-    if (newReview.rating > 5 || Number.isNaN(newReview.rating)) {
-      setReviewSubmitError(
-        "Please enter a number 0 - 5 for your star rating"
-      );
-      setTimeout(() => setReviewSubmitError(""), 2000);
-      return;
-    }
-
     const reviewPostData = {
       name: reviewUserName,
       rating: +reviewRating,
       site_name: reviewSiteName,
       description: reviewDescription,
       img_file: reviewImg,
-    }
-
-    console.log(reviewPostData)
+    };
 
     setCampgroundReviews([newReview, ...campgroundReviews]);
     postCampgroundReview(reviewPostData, selectedCampground);
@@ -248,14 +268,13 @@ const Details = ({
     setReviewRating("");
     setReviewSiteName("");
     setReviewDescription("");
-    setReviewImg({});
+    setReviewImg(undefined);
   };
 
   const handlePhotoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const photo = event?.target.files;
     if (photo !== null) {
-      console.log(photo[0]);
-      setReviewImg(photo[0])
+      setReviewImg(photo[0]);
     }
   };
 
@@ -322,9 +341,7 @@ const Details = ({
                   <hr className="divider-cg-info" />
                 </div>
                 <div className="cg-details-copy-section">
-                  <p className="cg-details-copy">
-                    {createCostDisplay()}
-                  </p>
+                  <p className="cg-details-copy">{createCostDisplay()}</p>
                   <p className="cg-details-copy">
                     {`Number of reservable sites: ${campgroundDetails?.attributes.number_of_reservation_sites}`}
                   </p>
@@ -393,9 +410,7 @@ const Details = ({
                     type="text"
                     maxLength={1}
                     value={reviewRating}
-                    onChange={(event) =>
-                      setReviewRating(event.target.value)
-                    }
+                    onChange={(event) => setReviewRating(event.target.value)}
                     placeholder="5"
                   />
                   <label htmlFor="siteName">What site did you stay in?</label>
@@ -404,9 +419,7 @@ const Details = ({
                     type="text"
                     maxLength={10}
                     value={reviewSiteName}
-                    onChange={(event) =>
-                      setReviewSiteName(event.target.value)
-                    }
+                    onChange={(event) => setReviewSiteName(event.target.value)}
                     placeholder="A-31"
                   />
                   <label htmlFor="comment">Leave your review</label>
@@ -415,7 +428,9 @@ const Details = ({
                     type="text"
                     maxLength={1000}
                     value={reviewDescription}
-                    onChange={(event) => setReviewDescription(event.target.value)}
+                    onChange={(event) =>
+                      setReviewDescription(event.target.value)
+                    }
                     placeholder="I loved this campground!"
                   />
                   <label htmlFor="photoUpload">Add a photo (optional)</label>
