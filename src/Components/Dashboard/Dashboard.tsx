@@ -1,7 +1,7 @@
 import "./Dashboard.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper";
-import { fetchCampgrounds } from "../../ApiCalls";
+import { fetchCampgrounds, getCampgroundDetails } from "../../ApiCalls";
 import { useEffect, useState } from "react";
 import Card from "../Card/Card";
 import { getFavoriteCamps } from "../../ApiCalls";
@@ -29,6 +29,11 @@ interface Props {
   setFavoriteCamps: Function;
   setSelectedCampground: Function;
 }
+interface FavoriteCamps {
+  id: number;
+  type: string;
+  attributes: { campsite_id: string };
+}
 
 const Dashboard = ({
   setSearchResults,
@@ -42,19 +47,46 @@ const Dashboard = ({
   const [searchPlaceholder, setSearchPlaceholder] = useState("");
   const [stateError, setStateError] = useState(false);
   const [error, setError] = useState(false);
+  const [fetchedFavoriteCamps, setFetchedFavoriteCamps] = useState<
+    FavoriteCamps[]
+  >([]);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    let fetchedFavoriteCamps = [];
-    getFavoriteCamps(1).then((result) => {
-      if (result) {
-        console.log("favorite camp use effect", result)
-        fetchedFavoriteCamps = result.data;
-      }
-    })
-    .catch (error => console.log(`Error loading favorite campgrounds ${error}`))
+    getFavoriteCamps(1)
+      .then((result) => {
+        if (result) {
+          console.log("favorite camp use effect", result);
+          setFetchedFavoriteCamps (result.data);
+        }
+      })
+      .catch((error) =>
+        console.log(`Error loading favorite campgrounds ${error}`)
+      );
   }, []);
+
+  useEffect(() => {
+    if (fetchedFavoriteCamps.length > 0) {
+      const favoriteCampIds = fetchedFavoriteCamps.map((camp) => {
+        return camp?.attributes.campsite_id;
+      });
+      const fetchFavoriteCamps = async () => {
+        const favoriteCampArray = await Promise.all(
+          favoriteCampIds.map(async (camp) => {
+            const result = await getCampgroundDetails(camp);
+            if (result) {
+              return result.data;
+            }
+          })
+        );
+        setFavoriteCamps(favoriteCampArray);
+      };
+      fetchFavoriteCamps();
+    }
+  }, [fetchedFavoriteCamps]);
+  
+
 
   useEffect(() => {
     if (searchType !== "") {
