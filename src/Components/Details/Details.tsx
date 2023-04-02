@@ -3,6 +3,7 @@ import "./Details.css";
 import Review from "../Review/Review";
 import { ReviewObj } from "../Review/Review";
 import { getCampgroundDetails } from "../../ApiCalls";
+import { getCampgroundReviews } from "../../ApiCalls";
 import { Images } from "../Results/Results";
 import { CampData } from "../Results/Results";
 import { useNavigate } from "react-router";
@@ -73,11 +74,22 @@ const Details = ({
       .then((response) => {
         if (response) {
           setCampgroundDetails(response.data);
-          setIsLoading(false);
         }
       })
       .catch((error) => {
         console.log(`Error loading campground details ${error}`);
+      });
+
+    getCampgroundReviews(selectedCampground)
+      .then((response) => {
+        if (response) {
+          setCampgroundReviews(response.data)
+          console.log(response.data)
+          setIsLoading(false);
+        }
+      })
+      .catch((error) => {
+        console.log(`Error loading campground reviews ${error}`);
       });
     // eslint-disable-next-line
   }, []);
