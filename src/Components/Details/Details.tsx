@@ -4,6 +4,7 @@ import Review from "../Review/Review";
 import { ReviewObj } from "../Review/Review";
 import { getCampgroundDetails } from "../../ApiCalls";
 import { getCampgroundReviews } from "../../ApiCalls";
+import { postCampgroundReview } from "../../ApiCalls";
 import { Images } from "../Results/Results";
 import { CampData } from "../Results/Results";
 import { useNavigate } from "react-router";
@@ -62,9 +63,10 @@ const Details = ({
   const [campgroundDetails, setCampgroundDetails] = useState<CampDetails>();
   const [campgroundReviews, setCampgroundReviews] = useState<ReviewObj[]>([]);
   const [reviewUserName, setReviewUserName] = useState("");
-  const [reviewStarRating, setReviewStarRating] = useState("");
-  const [reviewSiteNumber, setReviewSiteNumber] = useState("");
-  const [reviewComment, setReviewComment] = useState("");
+  const [reviewRating, setReviewRating] = useState("");
+  const [reviewSiteName, setReviewSiteName] = useState("");
+  const [reviewDescription, setReviewDescription] = useState("");
+  const [reviewImg, setReviewImg] = useState({});
   const [reviewSubmitError, setReviewSubmitError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
@@ -191,14 +193,14 @@ const Details = ({
     if (reviewCount === 0) {
       return <p id="noReviewYet">Be the first to review!</p>;
     } else {
-      const sumStarRating = campgroundReviews.reduce((sum, rev) => {
-        sum += +rev.starRating;
+      const sumRating = campgroundReviews.reduce((sum, rev) => {
+        sum += +rev.rating;
         return sum;
       }, 0);
-      const avgStarRating = (sumStarRating / reviewCount).toFixed(1);
+      const avgRating = (sumRating / reviewCount).toFixed(1);
       return (
         <p className="total-star-rating">
-          Avg Rating: {avgStarRating} of 5 Stars
+          Avg Rating: {avgRating} of 5 Stars
         </p>
       );
     }
@@ -208,12 +210,23 @@ const Details = ({
     const newReview: ReviewObj = {
       id: campgroundReviews.length + 1,
       name: reviewUserName,
-      starRating: reviewStarRating,
-      siteNum: reviewSiteNumber,
-      comment: reviewComment,
+      rating: +reviewRating,
+      site_name: reviewSiteName,
+      description: reviewDescription,
+      img_file: reviewImg,
     };
 
-    if (+newReview.starRating > 5 || Number.isNaN(+newReview.starRating)) {
+    const reviewPostData = {
+      name: reviewUserName,
+      rating: +reviewRating,
+      site_name: reviewSiteName,
+      description: reviewDescription,
+      img_file: reviewImg,
+    }
+
+    console.log(reviewPostData)
+
+    if (+newReview.rating > 5 || Number.isNaN(+newReview.rating)) {
       setReviewSubmitError(
         "Please enter a valid number 0 - 5 for your star rating"
       );
@@ -222,16 +235,19 @@ const Details = ({
     }
 
     setCampgroundReviews([newReview, ...campgroundReviews]);
+    postCampgroundReview(reviewPostData, selectedCampground);
     setReviewUserName("");
-    setReviewStarRating("");
-    setReviewSiteNumber("");
-    setReviewComment("");
+    setReviewRating("");
+    setReviewSiteName("");
+    setReviewDescription("");
+    setReviewImg({});
   };
 
   const handlePhotoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const photo = event?.target.files;
     if (photo !== null) {
       console.log(photo[0]);
+      setReviewImg(photo[0])
     }
   };
 
@@ -361,27 +377,27 @@ const Details = ({
                     onChange={(event) => setReviewUserName(event.target.value)}
                     placeholder="Rick V"
                   />
-                  <label htmlFor="starRating">
+                  <label htmlFor="rating">
                     Rate your stay on a scale of 0 to 5 stars
                   </label>
                   <input
-                    name="starRating"
+                    name="rating"
                     type="text"
                     maxLength={1}
-                    value={reviewStarRating}
+                    value={reviewRating}
                     onChange={(event) =>
-                      setReviewStarRating(event.target.value)
+                      setReviewRating(event.target.value)
                     }
                     placeholder="5"
                   />
-                  <label htmlFor="siteNumber">What site did you stay in?</label>
+                  <label htmlFor="siteName">What site did you stay in?</label>
                   <input
-                    name="siteNumber"
+                    name="siteName"
                     type="text"
                     maxLength={10}
-                    value={reviewSiteNumber}
+                    value={reviewSiteName}
                     onChange={(event) =>
-                      setReviewSiteNumber(event.target.value)
+                      setReviewSiteName(event.target.value)
                     }
                     placeholder="A-31"
                   />
@@ -390,8 +406,8 @@ const Details = ({
                     name="comment"
                     type="text"
                     maxLength={1000}
-                    value={reviewComment}
-                    onChange={(event) => setReviewComment(event.target.value)}
+                    value={reviewDescription}
+                    onChange={(event) => setReviewDescription(event.target.value)}
                     placeholder="I loved this campground!"
                   />
                   <label htmlFor="photoUpload">Add a photo (optional)</label>
