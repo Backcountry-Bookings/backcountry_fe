@@ -1,6 +1,7 @@
 import "./Card.css";
 import { CampData } from "../Results/Results";
 import { Link } from "react-router-dom";
+import { sendFavoriteCamps } from "../../ApiCalls";
 
 interface Props {
   campData: CampData;
@@ -50,14 +51,18 @@ const Card = ({
     }
   };
 
-  const addFavorite = () => {
-    setFavoriteCamps([...favoriteCamps, campData]);
-  };
-
-  const removeFavorite = () => {
-    let newFavorites = favoriteCamps.filter((camp) => camp !== campData);
+  const addFavorite = async () => {
+    const newFavorites = [...favoriteCamps, campData];
     setFavoriteCamps(newFavorites);
+    await sendFavoriteCamps(newFavorites, 1);
   };
+  
+  const removeFavorite = async () => {
+    const newFavorites = favoriteCamps.filter((camp) => camp !== campData);
+    setFavoriteCamps(newFavorites);
+    await sendFavoriteCamps(newFavorites, 1); 
+  };
+  
 
   const urlCampName = () => {
     if (!campData.attributes.name) return;

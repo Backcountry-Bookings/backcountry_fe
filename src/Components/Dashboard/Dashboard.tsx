@@ -4,6 +4,7 @@ import { Pagination, Autoplay } from "swiper";
 import { fetchCampgrounds } from "../../ApiCalls";
 import { useEffect, useState } from "react";
 import Card from "../Card/Card";
+import { getFavoriteCamps } from "../../ApiCalls";
 
 import { useNavigate } from "react-router-dom";
 
@@ -43,6 +44,17 @@ const Dashboard = ({
   const [error, setError] = useState(false);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    let fetchedFavoriteCamps = [];
+    getFavoriteCamps(1).then((result) => {
+      if (result) {
+        console.log("favorite camp use effect", result)
+        fetchedFavoriteCamps = result.data;
+      }
+    })
+    .catch (error => console.log(`Error loading favorite campgrounds ${error}`))
+  }, []);
 
   useEffect(() => {
     if (searchType !== "") {
