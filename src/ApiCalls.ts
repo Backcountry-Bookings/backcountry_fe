@@ -1,5 +1,3 @@
-import { ReviewObj } from './Components/Review/Review'
-
 export async function fetchCampgrounds(pathType: string, searchValue: string) {
   try {
     const response = await fetch(`https://backcountry-bookings-be.herokuapp.com/api/v1/campsites?${pathType}=${searchValue}`);
@@ -42,9 +40,9 @@ export async function getCampgroundReviews(id: string) {
   }
 }
 
-export async function postCampgroundReview(reviewObj: ReviewObj) {
+export async function postCampgroundReview(reviewObj: object, campID: string) {
   try {
-    const response = await fetch(`https://backcountry-bookings-be.herokuapp.com/api/v1/reviews?campsite_id=${reviewObj.id}`, {
+    const response = await fetch(`https://backcountry-bookings-be.herokuapp.com/api/v1/reviews?campsite_id=${campID}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -56,6 +54,7 @@ export async function postCampgroundReview(reviewObj: ReviewObj) {
       throw new Error(`Post campground review request failed with status ${response.status}`)
     }
     const reviewResp = await response.json();
+    console.log({reviewResp})
     return reviewResp;
   } catch (error) {
     console.log(`Failed to post campground review: ${error}`)

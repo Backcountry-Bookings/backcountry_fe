@@ -8,16 +8,17 @@ interface Props {
 export interface ReviewObj {
   id: number;
   name: string;
-  starRating: string;
-  siteNum: string;
-  comment: string;
+  rating: number;
+  site_name: string;
+  description: string;
+  img_file: object;
 }
 
 const Review = ( {data}: Props ) => {
 
   const createStars = () => {
     let starArr = []
-    for (let i = 0; i < +data.starRating; i++) {
+    for (let i = 0; i < +data.rating; i++) {
       starArr.push(<ReviewStar key={`rev${data.id}-star${i + 1}`} />);
     }
     return starArr;
@@ -31,8 +32,8 @@ const Review = ( {data}: Props ) => {
         </div>
         <p>{data.name}</p>
       </div>
-      <p>Site: {data.siteNum}</p>
-      <p>{data.comment}</p>
+      <p>Site: {data.site_name}</p>
+      <p>{data.description}</p>
     </div>
   )
 }
