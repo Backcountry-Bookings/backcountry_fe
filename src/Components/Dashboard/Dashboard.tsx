@@ -165,6 +165,7 @@ const Dashboard = ({
         <form className="search-form">
           <select
             value={searchType}
+            className="dropdown"
             name="search-dropdown"
             id="search-dropdown"
             onChange={(event) => setSearchType(event.target.value)}
@@ -190,7 +191,7 @@ const Dashboard = ({
           </button>
         </form>
         {error && (
-          <p>
+          <p className="search-prompt">
             Please select a type of search/Enter something into the search bar
           </p>
         )}
