@@ -90,3 +90,22 @@ export async function getFavoriteCamps(userId: number) {
     throw error;
   }
 }
+
+export async function removeFavoriteCamp(favoriteId: number) {
+  try {
+    const response = await fetch(
+      `https://backcountry-bookings-be.herokuapp.com/api/v1/favorites/${favoriteId}`,
+      {
+        method: "DELETE",
+      }
+    );
+    if (!response.ok) {
+      throw new Error(`Request failed with status ${response.status}`);
+    }
+    const responseData = await response.json();
+    return responseData;
+  } catch (error) {
+    console.log(`Failed to remove favorite camp: ${error}`);
+    throw error;
+  }
+}
