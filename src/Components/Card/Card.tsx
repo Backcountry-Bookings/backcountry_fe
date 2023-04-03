@@ -103,7 +103,7 @@ const Card = ({
   }
 
   return (
-    <div className="card">
+    <div className="card" id={campData.id}>
       {loadImage()}
       <h1 className="card-name">{campData.attributes.name}</h1>
       <p className="card-copy">State: {stateCode()}</p>
