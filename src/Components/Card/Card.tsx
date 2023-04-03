@@ -95,15 +95,7 @@ const Card = ({
       >
         <button className="card-button">More Info</button>
       </Link>
-      {isFavorite ? (
-        <button className="card-button" onClick={() => removeFavorite()}>
-          Remove Favorite
-        </button>
-      ) : (
-        <button className="card-button" onClick={() => addFavorite()}>
-          Add to Favorites
-        </button>
-      )}
+      {setFavoriteButton()}
     </div>
   );
 };
