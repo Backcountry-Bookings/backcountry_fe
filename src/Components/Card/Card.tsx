@@ -43,8 +43,7 @@ const Card = ({
   const cost = campData.attributes.cost?.[0]?.cost || " N/A";
 
   const setFavoriteButton = () => {
-    const favCampIds = favoriteCamps.map((camp) => camp.id);
-    if (favCampIds.includes(campData.id)) {
+    if (isFavorite) {
       return (
         <button className="card-button" onClick={() => removeFavorite()}>
           Remove Favorite
@@ -96,7 +95,15 @@ const Card = ({
       >
         <button className="card-button">More Info</button>
       </Link>
-      {setFavoriteButton()}
+      {isFavorite ? (
+        <button className="card-button" onClick={() => removeFavorite()}>
+          Remove Favorite
+        </button>
+      ) : (
+        <button className="card-button" onClick={() => addFavorite()}>
+          Add to Favorites
+        </button>
+      )}
     </div>
   );
 };
