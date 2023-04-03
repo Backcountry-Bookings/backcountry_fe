@@ -8,9 +8,8 @@ import "./App.css";
 
 function App() {
   const [searchResults, setSearchResults] = useState({ data: [] });
-  const [selectedCampground, setSelectedCampground] = useState('');
+  const [selectedCampground, setSelectedCampground] = useState("");
   const [favoriteCamps, setFavoriteCamps] = useState([]);
-
 
   return (
     <main className="app-main">
