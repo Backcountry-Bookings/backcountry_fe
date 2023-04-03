@@ -1,5 +1,6 @@
-import React from 'react'
+import { useState, useCallback } from 'react'
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
+
 
 interface Props {
   lat: string;
@@ -12,20 +13,20 @@ const containerStyle = {
   borderRadius: '5px',
 };
 
-const center = {
-  lat: -3.745,
-  lng: -38.523
-};
-
 export default function DetailMap({ lat, lng }: Props) {
+  const [map, setMap] = useState(null)
+
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: "YOUR_API_KEY"
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY || "",
   })
 
-  const [map, setMap] = React.useState(null)
+  const center = {
+    lat: Number(lat),
+    lng: Number(lng)
+  };
 
-  const onLoad = React.useCallback(function callback(map) {
+  const onLoad = useCallback(function callback(map) {
     // This is just an example of getting and using the map instance!!! don't just blindly copy!
     const bounds = new window.google.maps.LatLngBounds(center);
     map.fitBounds(bounds);
@@ -33,7 +34,7 @@ export default function DetailMap({ lat, lng }: Props) {
     setMap(map)
   }, [])
 
-  const onUnmount = React.useCallback(function callback(map) {
+  const onUnmount = useCallback(function callback(map) {
     setMap(null)
   }, [])
 
