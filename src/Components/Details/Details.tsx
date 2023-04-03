@@ -78,7 +78,7 @@ const Details = ({
   const [reviewRating, setReviewRating] = useState("");
   const [reviewSiteName, setReviewSiteName] = useState("");
   const [reviewDescription, setReviewDescription] = useState("");
-  const [reviewImg, setReviewImg] = useState<File | undefined>(undefined);
+  const [reviewImg, setReviewImg] = useState<Blob | undefined>(undefined);
   const [reviewSubmitError, setReviewSubmitError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
@@ -98,8 +98,6 @@ const Details = ({
     getCampgroundReviews(selectedCampground)
       .then((response) => {
         if (response) {
-          // Leaving this log here to test for AWS URL return
-          console.log(response.data);
           setCampgroundReviews(formatReviews(response.data));
         }
       })
@@ -254,15 +252,17 @@ const Details = ({
       img_file: reviewImg,
     };
 
-    const reviewPostData = {
-      name: reviewUserName,
-      rating: +reviewRating,
-      site_name: reviewSiteName,
-      description: reviewDescription,
-      img_file: reviewImg,
-    };
+    const reviewPostData = new FormData();
+    reviewPostData.append('name', reviewUserName);
+    reviewPostData.append('rating', reviewRating);
+    reviewPostData.append('site_name', reviewSiteName);
+    reviewPostData.append('description', reviewDescription);
+    if (reviewImg) {
+      reviewPostData.append('img_file', reviewImg);
+    }
+  
 
-    setCampgroundReviews([newReview, ...campgroundReviews]);
+    setCampgroundReviews([ ...campgroundReviews, newReview]);
     postCampgroundReview(reviewPostData, selectedCampground);
     setReviewUserName("");
     setReviewRating("");

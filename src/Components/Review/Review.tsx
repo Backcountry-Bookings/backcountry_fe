@@ -11,7 +11,7 @@ export interface ReviewObj {
   rating: number;
   site_name?: string;
   description?: string;
-  img_file?: File | string;
+  img_file?: Blob | string;
 }
 
 const Review = ( {data}: Props ) => {
