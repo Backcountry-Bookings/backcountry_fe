@@ -21,6 +21,9 @@ describe('details page', () => {
     })
 
     it('should go to the results page', () => {
+        cy.get('h2')
+        .contains('Aspenglen Campground')
+        cy.get('.swiper-slide-active > img')
         cy.get('.cg-desc')
             .contains('Aspenglen Campground is reservation only')
         cy.get('.cg-details-copy-section > :nth-child(1)')
