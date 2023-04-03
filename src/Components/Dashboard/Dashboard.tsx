@@ -80,12 +80,20 @@ const Dashboard = ({
             }
           })
         );
-        setFavoriteCamps(favoriteCampArray);
+        const uniqueFavoriteCamps = Array.from(
+          new Set(
+            favoriteCampArray
+              .filter((camp) => camp !== undefined)
+              .map((camp) => JSON.stringify(camp))
+          )
+        ).map((campString) => JSON.parse(campString));
+        setFavoriteCamps(uniqueFavoriteCamps);
       };
       fetchFavoriteCamps();
     }
   }, [fetchedFavoriteCamps]);
-
+  
+  
   useEffect(() => {
     if (searchType !== "") {
       setDisableSearchbar(false);
