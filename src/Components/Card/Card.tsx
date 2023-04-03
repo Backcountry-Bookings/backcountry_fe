@@ -4,19 +4,26 @@ import { CampData } from "../Results/Results";
 import { Link } from "react-router-dom";
 import { sendFavoriteCamps } from "../../ApiCalls";
 import { removeFavoriteCamp } from "../../ApiCalls";
+import { FavoriteCamps } from "../Dashboard/Dashboard";
+
 
 interface Props {
   campData: CampData;
   favoriteCamps: CampData[];
   setFavoriteCamps: Function;
   setSelectedCampground: Function;
+  fetchedFavoriteCamps: FavoriteCamps[];
+  setFetchedFavoriteCamps: React.Dispatch<React.SetStateAction<FavoriteCamps[]>>;
 }
+
 
 const Card = ({
   campData,
   favoriteCamps,
   setFavoriteCamps,
   setSelectedCampground,
+  fetchedFavoriteCamps,
+  setFetchedFavoriteCamps,
 }: Props) => {
   const [isFavorite, setIsFavorite] = useState(false);
 
@@ -67,8 +74,20 @@ const Card = ({
   const removeFavorite = async () => {
     const newFavorites = favoriteCamps.filter((camp) => camp !== campData);
     setFavoriteCamps(newFavorites);
-    await sendFavoriteCamps(newFavorites, 1);
+  
+    const favoriteToRemove = fetchedFavoriteCamps.find(
+      (fav) => fav.attributes.campsite_id === campData.id
+    );
+    if (favoriteToRemove) {
+      await removeFavoriteCamp(favoriteToRemove.id);
+      const updatedFetchedFavoriteCamps = fetchedFavoriteCamps.filter(
+        (fav) => fav.id !== favoriteToRemove.id
+      );
+      setFetchedFavoriteCamps(updatedFetchedFavoriteCamps);
+    }
   };
+   
+
   const urlCampName = () => {
     if (!campData.attributes.name) return;
     const urlDisplay = campData.attributes.name.replaceAll(" ", "");

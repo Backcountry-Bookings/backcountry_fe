@@ -29,7 +29,7 @@ interface Props {
   setFavoriteCamps: Function;
   setSelectedCampground: Function;
 }
-interface FavoriteCamps {
+export interface FavoriteCamps {
   id: number;
   type: string;
   attributes: { campsite_id: string };
@@ -145,10 +145,12 @@ const Dashboard = ({
             key={camp.id}
             favoriteCamps={favoriteCamps}
             setFavoriteCamps={setFavoriteCamps}
+            setFetchedFavoriteCamps={setFetchedFavoriteCamps}
+            fetchedFavoriteCamps={fetchedFavoriteCamps} 
           />
         );
       });
-      return favCamps;
+      return <div className="favorites-container">{favCamps}</div>;
     }
   };
 

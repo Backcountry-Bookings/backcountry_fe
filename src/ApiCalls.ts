@@ -77,6 +77,7 @@ export async function sendFavoriteCamps(
 
 export async function getFavoriteCamps(userId: number) {
   try {
+    console.log("Fetching favorite camps for user ID:", userId);
     const response = await fetch(
       `https://backcountry-bookings-be.herokuapp.com/api/v1/favorites?user_id=${userId}`
     );
@@ -84,6 +85,7 @@ export async function getFavoriteCamps(userId: number) {
       throw new Error(`Request failed with status ${response.status}`);
     }
     const favoriteCamps = await response.json();
+    console.log("Fetched favorite camps:", favoriteCamps);
     return favoriteCamps;
   } catch (error) {
     console.log(`Failed to fetch favorite camps data: ${error}`);
@@ -93,6 +95,7 @@ export async function getFavoriteCamps(userId: number) {
 
 export async function removeFavoriteCamp(favoriteId: number) {
   try {
+    console.log("Removing favorite camp with favorite ID:", favoriteId);
     const response = await fetch(
       `https://backcountry-bookings-be.herokuapp.com/api/v1/favorites/${favoriteId}`,
       {
@@ -103,6 +106,7 @@ export async function removeFavoriteCamp(favoriteId: number) {
       throw new Error(`Request failed with status ${response.status}`);
     }
     const responseData = await response.json();
+    console.log("Removed favorite camp. Response data:", responseData);
     return responseData;
   } catch (error) {
     console.log(`Failed to remove favorite camp: ${error}`);
