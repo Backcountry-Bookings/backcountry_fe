@@ -7,8 +7,9 @@ interface Props {
 }
 
 const containerStyle = {
-  width: '400px',
-  height: '400px'
+  width: '100%',
+  height: '100%',
+  borderRadius: '5px',
 };
 
 const center = {

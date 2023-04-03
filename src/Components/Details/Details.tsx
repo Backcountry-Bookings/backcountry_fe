@@ -284,7 +284,7 @@ const Details = ({
               <section className="cg-map-section">
                 <DetailMap
                   lat={campgroundDetails?.attributes.lat}
-                  long={campgroundDetails?.attributes.long}
+                  lng={campgroundDetails?.attributes.long}
                 />
               </section>
               <section className="cg-details-section">
