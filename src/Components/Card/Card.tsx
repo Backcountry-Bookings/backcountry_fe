@@ -1,20 +1,36 @@
+import { useState, useEffect } from "react";
 import "./Card.css";
 import { CampData } from "../Results/Results";
 import { Link } from "react-router-dom";
+import { sendFavoriteCamps } from "../../ApiCalls";
+import { removeFavoriteCamp } from "../../ApiCalls";
+import { FavoriteCamps } from "../Dashboard/Dashboard";
+
 
 interface Props {
   campData: CampData;
   favoriteCamps: CampData[];
   setFavoriteCamps: Function;
   setSelectedCampground: Function;
+  fetchedFavoriteCamps: FavoriteCamps[];
+  setFetchedFavoriteCamps: React.Dispatch<React.SetStateAction<FavoriteCamps[]>>;
 }
+
 
 const Card = ({
   campData,
   favoriteCamps,
   setFavoriteCamps,
   setSelectedCampground,
+  fetchedFavoriteCamps,
+  setFetchedFavoriteCamps,
 }: Props) => {
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  useEffect(() => {
+    const favCampIds = favoriteCamps.map((camp) => camp.id);
+    setIsFavorite(favCampIds.includes(campData.id));
+  }, [favoriteCamps, campData.id]);
   const loadImage = () => {
     if (campData.attributes.images.length === 0) {
       const genericImg = (
@@ -40,8 +56,7 @@ const Card = ({
   const cost = campData.attributes.cost?.[0]?.cost || " N/A";
 
   const setFavoriteButton = () => {
-    const favCampIds = favoriteCamps.map((camp) => camp.id);
-    if (favCampIds.includes(campData.id)) {
+    if (isFavorite) {
       return (
         <button className="card-button" onClick={() => removeFavorite()}>
           Remove Favorite
@@ -56,14 +71,28 @@ const Card = ({
     }
   };
 
-  const addFavorite = () => {
-    setFavoriteCamps([...favoriteCamps, campData]);
+  const addFavorite = async () => {
+    const newFavorites = [...favoriteCamps, campData];
+    setFavoriteCamps(newFavorites);
+    await sendFavoriteCamps(newFavorites, 1);
   };
 
-  const removeFavorite = () => {
-    let newFavorites = favoriteCamps.filter((camp) => camp !== campData);
+  const removeFavorite = async () => {
+    const newFavorites = favoriteCamps.filter((camp) => camp !== campData);
     setFavoriteCamps(newFavorites);
+  
+    const favoriteToRemove = fetchedFavoriteCamps.find(
+      (fav) => fav.attributes.campsite_id === campData.id
+    );
+    if (favoriteToRemove) {
+      await removeFavoriteCamp(favoriteToRemove.id);
+      const updatedFetchedFavoriteCamps = fetchedFavoriteCamps.filter(
+        (fav) => fav.id !== favoriteToRemove.id
+      );
+      setFetchedFavoriteCamps(updatedFetchedFavoriteCamps);
+    }
   };
+   
 
   const urlCampName = () => {
     if (!campData.attributes.name) return;
@@ -100,7 +129,7 @@ const Card = ({
     } else {
       return loadedStateCode;
     }
-  }
+  };
 
   return (
     <div className="card" id={campData.id}>

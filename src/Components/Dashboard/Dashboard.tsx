@@ -1,9 +1,10 @@
 import "./Dashboard.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper";
-import { fetchCampgrounds } from "../../ApiCalls";
+import { fetchCampgrounds, getCampgroundDetails } from "../../ApiCalls";
 import { useEffect, useState } from "react";
 import Card from "../Card/Card";
+import { getFavoriteCamps } from "../../ApiCalls";
 
 import { useNavigate } from "react-router-dom";
 
@@ -28,6 +29,11 @@ interface Props {
   setFavoriteCamps: Function;
   setSelectedCampground: Function;
 }
+export interface FavoriteCamps {
+  id: number;
+  type: string;
+  attributes: { campsite_id: string };
+}
 
 const Dashboard = ({
   setSearchResults,
@@ -41,10 +47,55 @@ const Dashboard = ({
   const [searchPlaceholder, setSearchPlaceholder] = useState("");
   const [stateError, setStateError] = useState(false);
   const [error, setError] = useState(false);
+  const [fetchedFavoriteCamps, setFetchedFavoriteCamps] = useState<
+    FavoriteCamps[]
+  >([]);
   const [userLocation, setUserLocation] = useState<any>()
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    getFavoriteCamps(1)
+      .then((result) => {
+        if (result) {
+          console.log("favorite camp use effect", result);
+          setFetchedFavoriteCamps(result.data);
+        }
+      })
+      .catch((error) =>
+        console.log(`Error loading favorite campgrounds ${error}`)
+      );
+  }, []);
+
+  useEffect(() => {
+    if (fetchedFavoriteCamps.length > 0) {
+      const favoriteCampIds = fetchedFavoriteCamps.map((camp) => {
+        return camp?.attributes.campsite_id;
+      });
+      const fetchFavoriteCamps = async () => {
+        const favoriteCampArray = await Promise.all(
+          favoriteCampIds.map(async (camp) => {
+            const result = await getCampgroundDetails(camp);
+            if (result) {
+              return result.data;
+            }
+          })
+        );
+        const uniqueFavoriteCamps = Array.from(
+          new Set(
+            favoriteCampArray
+              .filter((camp) => camp !== undefined)
+              .map((camp) => JSON.stringify(camp))
+          )
+        ).map((campString) => JSON.parse(campString));
+        setFavoriteCamps(uniqueFavoriteCamps);
+      };
+      fetchFavoriteCamps();
+    }
+    // eslint-disable-next-line
+  }, [fetchedFavoriteCamps]);
+  
+  
   useEffect(() => {
     if (searchType !== "") {
       setDisableSearchbar(false);
@@ -110,10 +161,12 @@ const Dashboard = ({
             key={camp.id}
             favoriteCamps={favoriteCamps}
             setFavoriteCamps={setFavoriteCamps}
+            setFetchedFavoriteCamps={setFetchedFavoriteCamps}
+            fetchedFavoriteCamps={fetchedFavoriteCamps} 
           />
         );
       });
-      return favCamps;
+      return <div className="favorites-container">{favCamps}</div>;
     }
   };
 
