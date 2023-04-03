@@ -62,7 +62,6 @@ export async function sendFavoriteCamps(favoriteCamps: CampData[], userId: numbe
   }
 }
 
-
 export async function getFavoriteCamps(userId: number) {
   try {
     const response = await fetch(`https://backcountry-bookings-be.herokuapp.com/api/v1/favorites?user_id=${userId}`);

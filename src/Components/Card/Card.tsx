@@ -56,13 +56,12 @@ const Card = ({
     setFavoriteCamps(newFavorites);
     await sendFavoriteCamps(newFavorites, 1);
   };
-  
+
   const removeFavorite = async () => {
     const newFavorites = favoriteCamps.filter((camp) => camp !== campData);
     setFavoriteCamps(newFavorites);
-    await sendFavoriteCamps(newFavorites, 1); 
+    await sendFavoriteCamps(newFavorites, 1);
   };
-  
 
   const urlCampName = () => {
     if (!campData.attributes.name) return;
@@ -74,9 +73,9 @@ const Card = ({
     if (campData.attributes.park_code) {
       return campData.attributes.park_code.toUpperCase();
     } else {
-      return 'Not available';
+      return "Not available";
     }
-  }
+  };
 
   return (
     <div className="card">
