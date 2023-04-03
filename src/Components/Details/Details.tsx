@@ -75,7 +75,10 @@ const Details = ({
   }, []);
 
   const createDirectionsButton = () => {
-    if (campgroundDetails?.attributes.lat && campgroundDetails?.attributes.long) {
+    if (
+      campgroundDetails?.attributes.lat &&
+      campgroundDetails?.attributes.long
+    ) {
       return (
         <a
           href={`https://www.google.com/maps/dir/?api=1&destination=${campgroundDetails?.attributes.lat}+${campgroundDetails?.attributes.long}`}
@@ -84,9 +87,9 @@ const Details = ({
         >
           <button>Directions</button>
         </a>
-      )
+      );
     }
-  }
+  };
 
   const createBookingButton = () => {
     if (campgroundDetails?.attributes.booking_link) {
@@ -134,20 +137,20 @@ const Details = ({
   const createTotalStarDisplay = () => {
     const reviewCount = campgroundReviews.length;
     if (reviewCount === 0) {
-      return (
-        <p id="noReviewYet">Be the first to review!</p>
-      )
+      return <p id="noReviewYet">Be the first to review!</p>;
     } else {
       const sumStarRating = campgroundReviews.reduce((sum, rev) => {
         sum += +rev.starRating;
         return sum;
-      }, 0)
+      }, 0);
       const avgStarRating = (sumStarRating / reviewCount).toFixed(1);
       return (
-        <p className="total-star-rating">Avg Rating: {avgStarRating} of 5 Stars</p>
-      )
+        <p className="total-star-rating">
+          Avg Rating: {avgStarRating} of 5 Stars
+        </p>
+      );
     }
-  }
+  };
 
   const submitNewReview = () => {
     const newReview: ReviewObj = {
@@ -181,9 +184,9 @@ const Details = ({
   };
 
   const navBackToResults = () => {
-    setSelectedCampground('')
-    navigate('/results')
-  }
+    setSelectedCampground("");
+    navigate("/results");
+  };
 
   return (
     <section className="detail-main">
@@ -346,7 +349,9 @@ const Details = ({
         </section>
       </section>
       <div className="detail-btns">
-        <button onClick={() => navBackToResults()}>Back to search results</button>
+        <button onClick={() => navBackToResults()}>
+          Back to search results
+        </button>
       </div>
     </section>
   );
