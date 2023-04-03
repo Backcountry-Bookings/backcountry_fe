@@ -81,7 +81,7 @@ describe('template spec', () => {
     cy.get('#EA81BC45-C361-437F-89B8-5C89FB0D0F86')
       .should('be.visible')
   })
-  it('should tell a user to fill out the search if the user clicks selects campground name or park without completing the search bar', () => {
+  it('should tell a user to fill out the search if the user selects campground name or park without completing the search bar', () => {
     cy.get('.dropdown')
       .select('park_name');
     cy.get('.search-button')
@@ -99,7 +99,7 @@ describe('template spec', () => {
     cy.get('.state-code-prompt')
       .should('be.visible')
   })
-  it('should display an error component when a search results has no matching campsites', () => {
+  it('should display an error component when a search result has no matching campsites', () => {
     cy.get('.dropdown')
       .select('state_code');
     cy.get('.search')
