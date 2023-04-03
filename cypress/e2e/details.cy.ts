@@ -36,6 +36,9 @@ describe('details page', () => {
             .click()
             .contains('Remove Favorite')
     })
+    it('should have a directions button', () => {
+        cy.get('[href="https://www.google.com/maps/dir/?api=1&destination=40.39934770583215+-105.59305451637942"] > button')
+    })
     it('should have a review section', () => {
         cy.get('.cg-review-section')
         cy.get('.user-review-form')
