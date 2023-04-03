@@ -10,7 +10,7 @@ function App() {
   const [searchResults, setSearchResults] = useState({ data: [] });
   const [selectedCampground, setSelectedCampground] = useState("");
   const [favoriteCamps, setFavoriteCamps] = useState([]);
-  const [currentLocation, setCurrentLocation] = useState({});
+  const [currentLocation, setCurrentLocation] = useState(undefined);
 
   return (
     <main className="app-main">
@@ -24,6 +24,8 @@ function App() {
               favoriteCamps={favoriteCamps}
               setFavoriteCamps={setFavoriteCamps}
               setSelectedCampground={setSelectedCampground}
+              setCurrentLocation={setCurrentLocation}
+              currentLocation={currentLocation}
             />
           }
         />

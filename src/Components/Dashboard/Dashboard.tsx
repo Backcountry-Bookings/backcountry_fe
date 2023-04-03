@@ -5,7 +5,6 @@ import { fetchCampgrounds, getCampgroundDetails } from "../../ApiCalls";
 import { useEffect, useState } from "react";
 import Card from "../Card/Card";
 import { getFavoriteCamps } from "../../ApiCalls";
-
 import { useNavigate } from "react-router-dom";
 
 //Styling Stuff
@@ -28,6 +27,11 @@ interface Props {
   favoriteCamps: CampData[];
   setFavoriteCamps: Function;
   setSelectedCampground: Function;
+  setCurrentLocation: Function;
+  currentLocation: undefined | {
+    latitude: string;
+    longitude: string;
+  };
 }
 export interface FavoriteCamps {
   id: number;
@@ -40,6 +44,8 @@ const Dashboard = ({
   favoriteCamps,
   setFavoriteCamps,
   setSelectedCampground,
+  setCurrentLocation,
+  currentLocation,
 }: Props) => {
   const [searchType, setSearchType] = useState("");
   const [search, setSearch] = useState("");
@@ -50,7 +56,6 @@ const Dashboard = ({
   const [fetchedFavoriteCamps, setFetchedFavoriteCamps] = useState<
     FavoriteCamps[]
   >([]);
-  const [userLocation, setUserLocation] = useState<any>()
 
   const navigate = useNavigate();
 
@@ -115,7 +120,7 @@ const Dashboard = ({
 
   useEffect(() => {
     const successCallback = (position: any) => {
-      setUserLocation(position.coords);
+      setCurrentLocation(position.coords);
       console.log(position);
     };
   
@@ -251,8 +256,8 @@ const Dashboard = ({
         {stateError && <p>State code should be two letters</p>}
         <br />
       </div>
-      { userLocation ?
-        <h3 className="geolocation-msg">Your location: {userLocation.latitude}, {userLocation.longitude} </h3> :
+      { currentLocation ?
+        <h3 className="geolocation-msg">Your location: {currentLocation?.latitude}, {currentLocation?.longitude} </h3> :
         <h3 className="geolocation-msg">Please enable location for the best experience</h3>
       }
       <br />
