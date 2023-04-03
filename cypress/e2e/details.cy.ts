@@ -38,7 +38,11 @@ describe('details page', () => {
     })
     it('should have a review section', () => {
         cy.get('.cg-review-section')
+        cy.get('.user-review-form')
         cy.get('.user-review-form > h3')
         .contains('Review this campground')
+    })
+    it('should handle errors', () => {
+        
     })
 })
