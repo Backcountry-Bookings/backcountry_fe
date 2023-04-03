@@ -68,7 +68,7 @@ p {
 
 .cg-map-section {
   @include centered(column, center);
-  height: fit-content;
+  height: 80vh;
   width: 100vw;
   padding: 4vh;
 }

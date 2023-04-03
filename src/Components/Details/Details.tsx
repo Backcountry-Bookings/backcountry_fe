@@ -6,6 +6,7 @@ import { getCampgroundDetails } from "../../ApiCalls";
 import { Images } from "../Results/Results";
 import { CampData } from "../Results/Results";
 import { useNavigate } from "react-router";
+import DetailMap from "../DetailMap/DetailMap";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper";
@@ -18,6 +19,11 @@ interface Props {
   setSelectedCampground: Function;
   favoriteCamps: CampData[];
   setFavoriteCamps: Function;
+  currentLocation: undefined | {
+    latitude: string;
+    longitude: string;
+  };
+  setCurrentLocation: Function;
 }
 
 interface CampDetails {
@@ -57,6 +63,8 @@ const Details = ({
   setSelectedCampground,
   favoriteCamps,
   setFavoriteCamps,
+  currentLocation,
+  setCurrentLocation,
 }: Props) => {
   const [campgroundDetails, setCampgroundDetails] = useState<CampDetails>();
   const [campgroundReviews, setCampgroundReviews] = useState<ReviewObj[]>([]);
@@ -274,10 +282,9 @@ const Details = ({
                 </p>
               </section>
               <section className="cg-map-section">
-                <img
-                  className="cg-map"
-                  src="/assets/Screenshot 2023-03-26 at 12.14.46 PM.png"
-                  alt="campground map"
+                <DetailMap
+                  lat={campgroundDetails?.attributes.lat}
+                  lng={campgroundDetails?.attributes.long}
                 />
               </section>
               <section className="cg-details-section">
