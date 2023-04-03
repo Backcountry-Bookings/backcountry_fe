@@ -89,4 +89,14 @@ describe('template spec', () => {
     cy.get('.search-prompt')
       .should('be.visible')
   })
+  it('should display an error component when a search results in no mathing campsites', () => {
+    cy.get('.dropdown')
+      .select('state_code');
+    cy.get('.search')
+      .type('te');
+    cy.get('.search-button')
+      .click()
+    cy.get('.error-gif')
+      .should('be.visible')
+  })
 })
