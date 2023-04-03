@@ -1,0 +1,108 @@
+{
+    "data": [
+        {
+            "id": "EA81BC45-C361-437F-89B8-5C89FB0D0F86",
+            "type": "campsite_search",
+            "attributes": {
+                "name": "277 North Campground",
+                "description": "277 North Campground is generally open year-round and rarely fills up, except possibly on holiday weekends. A boat launch ramp off the campground may be available depending on lake levels. 277 North offers 17 primitive sites, which are first-come, first-served only. Each site has a covered picnic table and a BBQ grill. A group site is available with reservation only. No ground fires are allowed. The sites are suitable for tents or RVs. Vault toilets are available. No drinking water or hookups are available.",
+                "images": [
+                    {
+                        "credit": "NPS Photo",
+                        "crops": [],
+                        "title": "277 North Campground",
+                        "altText": "277 North Campground",
+                        "caption": "277 North Campground",
+                        "url": "https://www.nps.gov/common/uploads/structured_data/6074AEF5-C153-C931-79C614E3D22A3CB4.jpg"
+                    },
+                    {
+                        "credit": "NPS Photo`",
+                        "crops": [],
+                        "title": "277 North Campground, Standard Campsite",
+                        "altText": "Picnic table under shade shelter.",
+                        "caption": "277 North Campground, Standard Campsite",
+                        "url": "https://www.nps.gov/common/uploads/structured_data/607CE792-ACEF-DBDA-E0B625666F2F9DA2.jpg"
+                    },
+                    {
+                        "credit": "NPS Photo / J.Rolls",
+                        "crops": [],
+                        "title": "277 North Group Campsite",
+                        "altText": "Open space with a fire pit and covered picnic area for the group campsite.",
+                        "caption": "227 North Campground Group Campsite Facilities",
+                        "url": "https://www.nps.gov/common/uploads/structured_data/FDE685F8-A53B-66A4-6348D4529CA3F2CB.jpg"
+                    },
+                    {
+                        "credit": "NPS / J. Rolls",
+                        "crops": [],
+                        "title": "277 North Campground, Standard Site 1",
+                        "altText": "Picnic table under metal shade shelter",
+                        "caption": "277 North Campground, Standard Site 1",
+                        "url": "https://www.nps.gov/common/uploads/structured_data/9472362E-F073-7B1A-0587FE25080BB8FF.jpg"
+                    },
+                    {
+                        "credit": "NPS Photo / J. Rolls",
+                        "crops": [],
+                        "title": "277 North Campground, Standard Site 2",
+                        "altText": "Picnic table on cement pad under metal shade shelter",
+                        "caption": "277 North Campground, Standard Site 2",
+                        "url": "https://www.nps.gov/common/uploads/structured_data/9D90A782-FBF3-9E0E-A934921502F94966.jpg"
+                    },
+                    {
+                        "credit": "NPS Photo / J. Rolls",
+                        "crops": [],
+                        "title": "277 North Campground, Standard Site 13",
+                        "altText": "Picnic table on cement pad under shade shelter with BBQ grill",
+                        "caption": "277 North Campground, Standard Site 13",
+                        "url": "https://www.nps.gov/common/uploads/structured_data/A1E80B5E-095F-0F99-C521DEA71C26FC59.jpg"
+                    }
+                ],
+                "park_name": null,
+                "state_code": null,
+                "cost": [
+                    {
+                        "cost": "6.00",
+                        "description": "Sites are available on a first-come, first-served basis; there are no reservations. Fee is payable within 30 minutes of occupying a campsite. This can be paid at a centrally located self-pay fee station, which accepts credit or debit cards only. Checkout time is 11am.",
+                        "title": "277 North Campground Standard Site, Nightly Rate (Regular)"
+                    },
+                    {
+                        "cost": "3.00",
+                        "description": "Sites are available on a first-come, first-served basis; there are no reservations. Fee is payable within 30 minutes of occupying a campsite. This can be paid at a centrally located self-pay fee station, which accepts credit or debit cards only. Checkout time is 11am.",
+                        "title": "277 North Campground Standard Site, Nightly Rate (with Interagency Sr/Access Pass)"
+                    },
+                    {
+                        "cost": "35.00",
+                        "description": "One site available, reservation only. Fees charged on a tiered system as follows:1-15 people: $35.00, 16-35 people: $75.00, 36-75 people: $155.00. Make reservations on Recreation.gov no less than 3 days and no more than 180 days in advance. Check-out time is 11:00am. Quiet hours are from 10:00pm until 6:00am. No hook-ups.",
+                        "title": "San Pedro Campground Group Site, Nightly Rate (Only with Recreation.gov Reservation)"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "1241C56B-7003-4FDF-A449-29DA8BCB0A41",
+            "type": "campsite_search",
+            "attributes": {
+                "name": "Abrams Creek Campground",
+                "description": "Abrams Creek Campground - elevation 1,125 feet (343m) - is located beside beautiful Abrams Creek in a remote and secluded setting. The climate is moderate, characterized by mild winters and hot, humid summers. Flush toilets and drinking water are available. There are no hookups or showers at the campground. Hammocks are allowed over the footprint of the campsite. Limited to trees 10 inches in diameter with adequate padding around the tree and only 2 hammocks may be suspended from tree.",
+                "images": [
+                    {
+                        "credit": "NPS Photot",
+                        "crops": [],
+                        "title": "Abrams Creek Campground",
+                        "altText": "Campsite set-up with an orange tent, two chairs sitting by the campfire ring and items on the table.",
+                        "caption": "Abrams is a remote campground with no services nearby.  Be sure to bring everything you need when camping here.",
+                        "url": "https://www.nps.gov/common/uploads/structured_data/220A84E0-D56D-D7DF-81B2F23D52CB7F20.jpg"
+                    }
+                ],
+                "park_name": "GREAT SMOKY MOUNTAINS",
+                "state_code": "TN",
+                "cost": [
+                    {
+                        "cost": "30.00",
+                        "description": "Camping Fee is per site, per night.",
+                        "title": "Camping Fee"
+                    }
+                ]
+            }
+        }
+    ]
+}

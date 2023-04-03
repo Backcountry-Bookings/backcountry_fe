@@ -20,6 +20,8 @@ export interface CampData {
     name: string;
     description: string;
     images: Images[];
+    park_name: string;
+    state_code: string;
     cost: [
       {
         cost: string;
