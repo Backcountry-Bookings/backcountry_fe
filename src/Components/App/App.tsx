@@ -48,6 +48,8 @@ function App() {
               setSelectedCampground={setSelectedCampground}
               favoriteCamps={favoriteCamps}
               setFavoriteCamps={setFavoriteCamps}
+              setCurrentLocation={setCurrentLocation}
+              currentLocation={currentLocation}
             />
           }
         />

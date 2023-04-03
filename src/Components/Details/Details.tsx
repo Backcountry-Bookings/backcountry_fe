@@ -18,6 +18,11 @@ interface Props {
   setSelectedCampground: Function;
   favoriteCamps: CampData[];
   setFavoriteCamps: Function;
+  currentLocation: undefined | {
+    latitude: string;
+    longitude: string;
+  };
+  setCurrentLocation: Function;
 }
 
 interface CampDetails {
@@ -57,6 +62,8 @@ const Details = ({
   setSelectedCampground,
   favoriteCamps,
   setFavoriteCamps,
+  currentLocation,
+  setCurrentLocation,
 }: Props) => {
   const [campgroundDetails, setCampgroundDetails] = useState<CampDetails>();
   const [campgroundReviews, setCampgroundReviews] = useState<ReviewObj[]>([]);
