@@ -1,7 +1,9 @@
+import { useState, useEffect } from "react";
 import "./Card.css";
 import { CampData } from "../Results/Results";
 import { Link } from "react-router-dom";
 import { sendFavoriteCamps } from "../../ApiCalls";
+import { removeFavoriteCamp } from "../../ApiCalls";
 
 interface Props {
   campData: CampData;
@@ -16,6 +18,12 @@ const Card = ({
   setFavoriteCamps,
   setSelectedCampground,
 }: Props) => {
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  useEffect(() => {
+    const favCampIds = favoriteCamps.map((camp) => camp.id);
+    setIsFavorite(favCampIds.includes(campData.id));
+  }, [favoriteCamps, campData.id]);
   const loadImage = () => {
     if (campData.attributes.images.length === 0) {
       return "https://us.123rf.com/450wm/nataliia2910/nataliia29101809/nataliia2910180900063/109718030-vector-illustration-of-camping-in-night-time-with-beautiful-view-on-mountains-family-camping.jpg?ver=6";
@@ -62,7 +70,6 @@ const Card = ({
     setFavoriteCamps(newFavorites);
     await sendFavoriteCamps(newFavorites, 1);
   };
-
   const urlCampName = () => {
     if (!campData.attributes.name) return;
     const urlDisplay = campData.attributes.name.replaceAll(" ", "");
