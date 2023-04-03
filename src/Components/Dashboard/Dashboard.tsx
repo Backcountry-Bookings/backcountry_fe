@@ -58,7 +58,7 @@ const Dashboard = ({
       .then((result) => {
         if (result) {
           console.log("favorite camp use effect", result);
-          setFetchedFavoriteCamps (result.data);
+          setFetchedFavoriteCamps(result.data);
         }
       })
       .catch((error) =>
@@ -85,8 +85,6 @@ const Dashboard = ({
       fetchFavoriteCamps();
     }
   }, [fetchedFavoriteCamps]);
-  
-
 
   useEffect(() => {
     if (searchType !== "") {
