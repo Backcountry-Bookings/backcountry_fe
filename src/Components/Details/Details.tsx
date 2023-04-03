@@ -287,7 +287,7 @@ const Details = ({
                 </div>
                 <div className="cg-details-copy-section">
                   <p className="cg-details-copy">
-                    {`Cost per night: $${campgroundDetails?.attributes.cost[0].cost}`}
+                    {`Cost per night: $${createCostDisplay()}`}
                   </p>
                   <p className="cg-details-copy">
                     {`Number of reservable sites: ${campgroundDetails?.attributes.number_of_reservation_sites}`}
