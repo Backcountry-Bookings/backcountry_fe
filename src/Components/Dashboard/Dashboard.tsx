@@ -100,8 +100,10 @@ const Dashboard = ({
     };
 
     navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-  }, [setCurrentLocation]);
-
+    
+    setSelectedCampground("")
+    // eslint-disable-next-line
+  }, []);
 
   const updateInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (search !== "" && searchType !== "") {
@@ -129,7 +131,6 @@ const Dashboard = ({
           setCatchError(true);
           console.log(error);
         });
-
     }
   };
 

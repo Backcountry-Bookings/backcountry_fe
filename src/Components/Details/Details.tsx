@@ -3,11 +3,13 @@ import "./Details.css";
 import Review from "../Review/Review";
 import { ReviewObj } from "../Review/Review";
 import { getCampgroundDetails } from "../../ApiCalls";
+import { getCampgroundReviews } from "../../ApiCalls";
+import { postCampgroundReview } from "../../ApiCalls";
 import { Images } from "../Results/Results";
 import { CampData } from "../Results/Results";
 import { useNavigate } from "react-router";
 import DetailMap from "../DetailMap/DetailMap";
-
+import { MouseEvent } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper";
 
@@ -58,6 +60,18 @@ interface Cost {
   title: string;
 }
 
+interface FetchedReview {
+  id: string;
+  attributes: {
+    campsite_id: string;
+    description: string;
+    image_url: string;
+    name: string;
+    rating: number;
+    site_name: string;
+  };
+}
+
 const Details = ({
   selectedCampground,
   setSelectedCampground,
@@ -69,10 +83,11 @@ const Details = ({
   const [campgroundDetails, setCampgroundDetails] = useState<CampDetails>();
   const [campgroundReviews, setCampgroundReviews] = useState<ReviewObj[]>([]);
   const [reviewUserName, setReviewUserName] = useState("");
-  const [reviewStarRating, setReviewStarRating] = useState("");
-  const [reviewSiteNumber, setReviewSiteNumber] = useState("");
-  const [reviewComment, setReviewComment] = useState("");
-  const [reviewSubmitError, setReviewSubmitError] = useState("");
+  const [reviewRating, setReviewRating] = useState("");
+  const [reviewSiteName, setReviewSiteName] = useState("");
+  const [reviewDescription, setReviewDescription] = useState("");
+  const [reviewImg, setReviewImg] = useState<Blob | undefined>(undefined);
+  const [reviewSubmitMsg, setReviewSubmitMsg] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [catchError, setCatchError] = useState(false)
   const navigate = useNavigate();
@@ -89,8 +104,34 @@ const Details = ({
         setCatchError(true)
         console.log(`Error loading campground details ${error}`);
       });
+
+    getCampgroundReviews(selectedCampground)
+      .then((response) => {
+        if (response) {
+          setCampgroundReviews(formatReviews(response.data));
+        }
+      })
+      .catch((error) => {
+        console.log(`Error loading campground reviews ${error}`);
+      });
+    
     // eslint-disable-next-line
   }, []);
+
+  const formatReviews = (revArr: FetchedReview[]) => {
+    const formattedReviews = revArr.map((rev) => {
+      const review: ReviewObj = {
+        id: `fetched-${rev.id}`,
+        name: rev.attributes.name,
+        rating: rev.attributes.rating,
+        site_name: rev.attributes.site_name,
+        description: rev.attributes.description,
+        img_file: rev.attributes.image_url,
+      };
+      return review;
+    });
+    return formattedReviews;
+  };
 
   const createSwiperImages = () => {
     if (campgroundDetails?.attributes.images.length === 0) {
@@ -189,53 +230,82 @@ const Details = ({
     if (reviewCount === 0) {
       return <p id="noReviewYet">Be the first to review!</p>;
     } else {
-      const sumStarRating = campgroundReviews.reduce((sum, rev) => {
-        sum += +rev.starRating;
+      const sumRating = campgroundReviews.reduce((sum, rev) => {
+        sum += +rev.rating;
         return sum;
       }, 0);
-      const avgStarRating = (sumStarRating / reviewCount).toFixed(1);
+      const avgRating = (sumRating / reviewCount).toFixed(1);
       return (
-        <p className="total-star-rating">
-          Avg Rating: {avgStarRating} of 5 Stars
-        </p>
+        <p className="total-star-rating">Avg Rating: {avgRating} of 5 Stars</p>
       );
     }
   };
 
-  const submitNewReview = () => {
-    const newReview: ReviewObj = {
-      id: campgroundReviews.length + 1,
-      name: reviewUserName,
-      starRating: reviewStarRating,
-      siteNum: reviewSiteNumber,
-      comment: reviewComment,
-    };
-
-    if (+newReview.starRating > 5 || Number.isNaN(+newReview.starRating)) {
-      setReviewSubmitError(
-        "Please enter a valid number 0 - 5 for your star rating"
-      );
-      setTimeout(() => setReviewSubmitError(""), 2000);
+  const submitNewReview = (event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    if (!reviewUserName) {
+      setReviewSubmitMsg("Please enter a name for your review");
+      setTimeout(() => setReviewSubmitMsg(""), 2000);
       return;
     }
 
-    setCampgroundReviews([newReview, ...campgroundReviews]);
-    setReviewUserName("");
-    setReviewStarRating("");
-    setReviewSiteNumber("");
-    setReviewComment("");
+    if (+reviewRating > 5 || Number.isNaN(+reviewRating) || +reviewRating < 1) {
+      setReviewSubmitMsg("Please enter a number 1 - 5 for your star rating");
+      setTimeout(() => setReviewSubmitMsg(""), 2000);
+      return;
+    }
+
+    const newReview: ReviewObj = {
+      id: `new-${campgroundReviews.length + 1}`,
+      name: reviewUserName,
+      rating: +reviewRating,
+      site_name: reviewSiteName,
+      description: reviewDescription,
+      img_file: reviewImg,
+    };
+
+    const reviewPostData = new FormData();
+    reviewPostData.append('name', reviewUserName);
+    reviewPostData.append('rating', reviewRating);
+    reviewPostData.append('site_name', reviewSiteName);
+    reviewPostData.append('description', reviewDescription);
+    if (reviewImg) {
+      reviewPostData.append('img_file', reviewImg);
+    }
+  
+    setReviewSubmitMsg('Posting review...')
+
+    postCampgroundReview(reviewPostData, selectedCampground)
+    .then((response) => {
+      if (response.success) {
+        setCampgroundReviews([ ...campgroundReviews, newReview]);
+        setReviewUserName("");
+        setReviewRating("");
+        setReviewSiteName("");
+        setReviewDescription("");
+        setReviewImg(undefined);
+        setReviewSubmitMsg('Review posted!')
+        setTimeout(() => setReviewSubmitMsg(""), 2000)
+      }
+    })
+    .catch((error) => {
+      const errorMsg = error.toString().split('"')
+      setReviewSubmitMsg(errorMsg[3])
+      setTimeout(() => setReviewSubmitMsg(""), 3500)
+      setReviewImg(undefined);
+    })
   };
 
   const handlePhotoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const photo = event?.target.files;
     if (photo !== null) {
-      console.log(photo[0]);
+      setReviewImg(photo[0]);
     }
   };
 
   const navBackToResults = () => {
     setSelectedCampground("");
-    navigate("/results");
+    navigate(-1);
   };
 
   return (
@@ -295,9 +365,7 @@ const Details = ({
                   <hr className="divider-cg-info" />
                 </div>
                 <div className="cg-details-copy-section">
-                  <p className="cg-details-copy">
-                    {createCostDisplay()}
-                  </p>
+                  <p className="cg-details-copy">{createCostDisplay()}</p>
                   <p className="cg-details-copy">
                     {`Number of reservable sites: ${campgroundDetails?.attributes.number_of_reservation_sites}`}
                   </p>
@@ -319,20 +387,6 @@ const Details = ({
                     {`Wheelchair access: ${campgroundDetails?.attributes.wheelchair_access}`}
                   </p>
                 </div>
-                <section className="cg-activities-section">
-                  <div className="cg-activities-header">
-                    <h3>Activities</h3>
-                    <hr className="divider-cg-activities" />
-                  </div>
-                  <ul className="cg-activities-list">
-                    <li>Wildlife viewing</li>
-                    <li>Hiking</li>
-                    <li>Fishing</li>
-                    <li>Camping</li>
-                    <li>Boating</li>
-                    <li>Biking</li>
-                  </ul>
-                </section>
                 <div className="detail-btns">
                   {createDirectionsButton()}
                   {createBookingButton()}
@@ -358,28 +412,24 @@ const Details = ({
                     onChange={(event) => setReviewUserName(event.target.value)}
                     placeholder="Rick V"
                   />
-                  <label htmlFor="starRating">
-                    Rate your stay on a scale of 0 to 5 stars
+                  <label htmlFor="rating">
+                    Rate your stay on a scale of 1 to 5 stars
                   </label>
                   <input
-                    name="starRating"
+                    name="rating"
                     type="text"
                     maxLength={1}
-                    value={reviewStarRating}
-                    onChange={(event) =>
-                      setReviewStarRating(event.target.value)
-                    }
+                    value={reviewRating}
+                    onChange={(event) => setReviewRating(event.target.value)}
                     placeholder="5"
                   />
-                  <label htmlFor="siteNumber">What site did you stay in?</label>
+                  <label htmlFor="siteName">What site did you stay in?</label>
                   <input
-                    name="siteNumber"
+                    name="siteName"
                     type="text"
                     maxLength={10}
-                    value={reviewSiteNumber}
-                    onChange={(event) =>
-                      setReviewSiteNumber(event.target.value)
-                    }
+                    value={reviewSiteName}
+                    onChange={(event) => setReviewSiteName(event.target.value)}
                     placeholder="A-31"
                   />
                   <label htmlFor="comment">Leave your review</label>
@@ -387,21 +437,23 @@ const Details = ({
                     name="comment"
                     type="text"
                     maxLength={1000}
-                    value={reviewComment}
-                    onChange={(event) => setReviewComment(event.target.value)}
+                    value={reviewDescription}
+                    onChange={(event) =>
+                      setReviewDescription(event.target.value)
+                    }
                     placeholder="I loved this campground!"
                   />
-                  <label htmlFor="photoUpload">Add a photo (optional)</label>
+                  <label htmlFor="photoUpload">Add a JPEG or PNG photo (optional)</label>
                   <input
                     name="photoUpload"
                     type="file"
                     onChange={(event) => handlePhotoUpload(event)}
                   />
                 </form>
-                <p className="review-error">{reviewSubmitError}</p>
+                <p className="review-msg">{reviewSubmitMsg}</p>
                 <button
                   id="submit-review-button"
-                  onClick={() => submitNewReview()}
+                  onClick={(event) => submitNewReview(event)}
                 >
                   Submit review
                 </button>
