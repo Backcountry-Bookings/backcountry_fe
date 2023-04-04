@@ -1,7 +1,7 @@
 import "./Dashboard.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper";
-import { fetchCampgrounds, getCampgroundDetails, sendFavoriteCamps } from "../../ApiCalls";
+import { fetchCampgrounds, sendFavoriteCamps } from "../../ApiCalls";
 import { useEffect, useState } from "react";
 import Card from "../Card/Card";
 
