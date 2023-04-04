@@ -1,10 +1,10 @@
 import "./Dashboard.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper";
-import { fetchCampgrounds, getCampgroundDetails } from "../../ApiCalls";
+import { fetchCampgrounds, sendFavoriteCamps } from "../../ApiCalls";
 import { useEffect, useState } from "react";
 import Card from "../Card/Card";
-import { getFavoriteCamps } from "../../ApiCalls";
+
 import { useNavigate } from "react-router-dom";
 
 //Styling Stuff
@@ -61,46 +61,17 @@ const Dashboard = ({
   const navigate = useNavigate();
 
   useEffect(() => {
-    getFavoriteCamps(1)
-      .then((result) => {
-        if (result) {
-          console.log("favorite camp use effect", result);
-          setFetchedFavoriteCamps(result.data);
-        }
-      })
-      .catch((error) => {
-        console.log(`Error loading favorite campgrounds ${error}`)
-      });
-  }, []);
-
-  useEffect(() => {
-    if (fetchedFavoriteCamps.length > 0) {
-      const favoriteCampIds = fetchedFavoriteCamps.map((camp) => {
-        return camp?.attributes.campsite_id;
-      });
-      const fetchFavoriteCamps = async () => {
-        const favoriteCampArray = await Promise.all(
-          favoriteCampIds.map(async (camp) => {
-            const result = await getCampgroundDetails(camp);
-            if (result) {
-              return result.data;
-            }
-          })
-        );
-        const uniqueFavoriteCamps = Array.from(
-          new Set(
-            favoriteCampArray
-              .filter((camp) => camp !== undefined)
-              .map((camp) => JSON.stringify(camp))
-          )
-        ).map((campString) => JSON.parse(campString));
-        setFavoriteCamps(uniqueFavoriteCamps);
-      };
-      fetchFavoriteCamps();
+    if (favoriteCamps.length > 0) {
+      sendFavoriteCamps(favoriteCamps, 1)
+        .then((responses) => {
+          console.log("Favorite camps updated successfully:", responses);
+        })
+        .catch((error) => {
+          console.error("Failed to update favorite camps:", error);
+        });
     }
-    // eslint-disable-next-line
-  }, []);
-  
+  }, [favoriteCamps]);  
+
   useEffect(() => {
     if (searchType !== "") {
       setDisableSearchbar(false);
@@ -160,7 +131,6 @@ const Dashboard = ({
           setCatchError(true);
           console.log(error);
         });
-
     }
   };
 
