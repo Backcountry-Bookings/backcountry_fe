@@ -98,7 +98,7 @@ const Dashboard = ({
       fetchFavoriteCamps();
     }
     // eslint-disable-next-line
-  }, [fetchedFavoriteCamps]);
+  }, []);
   
   
   useEffect(() => {
