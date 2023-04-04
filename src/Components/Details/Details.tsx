@@ -247,8 +247,8 @@ const Details = ({
       return;
     }
 
-    if (+reviewRating > 5 || Number.isNaN(+reviewRating)) {
-      setReviewSubmitMsg("Please enter a number 0 - 5 for your star rating");
+    if (+reviewRating > 5 || Number.isNaN(+reviewRating) || +reviewRating < 1) {
+      setReviewSubmitMsg("Please enter a number 1 - 5 for your star rating");
       setTimeout(() => setReviewSubmitMsg(""), 2000);
       return;
     }
@@ -411,7 +411,7 @@ const Details = ({
                     placeholder="Rick V"
                   />
                   <label htmlFor="rating">
-                    Rate your stay on a scale of 0 to 5 stars
+                    Rate your stay on a scale of 1 to 5 stars
                   </label>
                   <input
                     name="rating"
