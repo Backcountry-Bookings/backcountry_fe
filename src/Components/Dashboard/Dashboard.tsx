@@ -69,7 +69,6 @@ const Dashboard = ({
         }
       })
       .catch((error) => {
-        setCatchError(true)
         console.log(`Error loading favorite campgrounds ${error}`)
       });
   }, []);
@@ -151,10 +150,16 @@ const Dashboard = ({
     } else {
       setError(false);
       setStateError(false);
-      fetchCampgrounds(searchType, search).then((result) => {
-        setSearchResults(result);
-        navigate("/results");
-      });
+      fetchCampgrounds(searchType, search)
+        .then((result) => {
+          setSearchResults(result);
+          navigate("/results");
+        })
+        .catch((error: string) => {
+          setCatchError(true);
+          console.log(error);
+        });
+
     }
   };
 
