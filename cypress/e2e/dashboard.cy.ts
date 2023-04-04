@@ -124,4 +124,20 @@ describe('template spec', () => {
     cy.get('#EA81BC45-C361-437F-89B8-5C89FB0D0F86')
       .should('be.visible')
   })
+  // it('should remove a favorite campground from the dashboard display when the remove button is clicked', () => {
+  //   cy.get('.dropdown')
+  //     .select('park_name');
+  //   cy.get('.search')
+  //     .type('colorado');
+  //   cy.get('.search-button')
+  //     .click()
+  //   cy.get('#EA81BC45-C361-437F-89B8-5C89FB0D0F86')
+  //     .find('.favorite-button')
+  //     .click()
+  //   cy.get('.site-title')
+  //     .click()
+  //   cy.get('#EA81BC45-C361-437F-89B8-5C89FB0D0F86')
+  //     .find('.unfavorite-button')
+  //     .click()
+  // })
 })
