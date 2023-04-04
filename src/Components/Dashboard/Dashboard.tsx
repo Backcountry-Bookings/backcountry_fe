@@ -260,7 +260,7 @@ const Dashboard = ({
             Please select a type of search/Enter something into the search bar
           </p>
         )}
-        {stateError && <p>State code should be two letters</p>}
+        {stateError && <p className="state-code-prompt">State code should be two letters</p>}
         <br />
       </div>
       {catchError && <p>There may have been an issue with our servers, please try again later</p>}

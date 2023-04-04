@@ -25,6 +25,8 @@
   padding-right: 5px;
 }
 
+.favorite-button,
+.unfavorite-button,
 .card-button {
   background-color: #606C38;
   width: 50vw;
