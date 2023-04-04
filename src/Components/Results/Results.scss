@@ -1,19 +1,22 @@
-@use '../../../abstract/variables' as *;
+@media only screen and (max-width: 768px) {
 
-.results-main {
-  @include centered(column, center)
+  .results-main {
+    @include centered(column, center);
+  }
+
+  .search-error-section {
+    @include centered(column, center);
+  }
+
+  .error-gif {
+    width: 100vw;
+    max-width: 500px;
+  }
+
+  .error-msg {
+    text-align: center;
+  }
 }
 
-.search-error-section {
-  @include centered(column, center);
-}
 
-.error-gif {
-  width: 100vw;
-  max-width: 500px;
-}
-
-.error-msg {
-  text-align: center;
-}
 
