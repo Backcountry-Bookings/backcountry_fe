@@ -60,6 +60,18 @@ const Dashboard = ({
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (favoriteCamps.length > 0) {
+      sendFavoriteCamps(favoriteCamps, 1)
+        .then((responses) => {
+          console.log("Favorite camps updated successfully:", responses);
+        })
+        .catch((error) => {
+          console.error("Failed to update favorite camps:", error);
+        });
+    }
+  }, [favoriteCamps, 1]);
+
+  useEffect(() => {
     if (searchType !== "") {
       setDisableSearchbar(false);
     } else {
