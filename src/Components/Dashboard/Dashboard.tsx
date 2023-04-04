@@ -72,6 +72,18 @@ const Dashboard = ({
   }, [favoriteCamps, 1]);
 
   useEffect(() => {
+    if (favoriteCamps.length > 0) {
+      sendFavoriteCamps(favoriteCamps, 1)
+        .then((responses) => {
+          console.log("Favorite camps sent successfully");
+        })
+        .catch((error) => {
+          console.log("Error sending favorite camps:", error);
+        });
+    }
+  }, [favoriteCamps]);
+
+  useEffect(() => {
     if (searchType !== "") {
       setDisableSearchbar(false);
     } else {
