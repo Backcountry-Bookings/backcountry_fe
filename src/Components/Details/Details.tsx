@@ -74,6 +74,7 @@ const Details = ({
   const [reviewComment, setReviewComment] = useState("");
   const [reviewSubmitError, setReviewSubmitError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [catchError, setCatchError] = useState(false)
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -85,6 +86,7 @@ const Details = ({
         }
       })
       .catch((error) => {
+        setCatchError(true)
         console.log(`Error loading campground details ${error}`);
       });
     // eslint-disable-next-line
@@ -242,7 +244,7 @@ const Details = ({
         <img className="loading-gif" src={isLoadingGif} alt="loading" />
       ) : (
         <div>
-          {!campgroundDetails ? (
+          {!campgroundDetails || catchError ? (
             <div className="error">
               <img
                 className="error-gif"
