@@ -99,9 +99,8 @@ const Dashboard = ({
       fetchFavoriteCamps();
     }
     // eslint-disable-next-line
-  }, [fetchedFavoriteCamps]);
-
-
+  }, []);
+  
   useEffect(() => {
     if (searchType !== "") {
       setDisableSearchbar(false);
@@ -130,8 +129,10 @@ const Dashboard = ({
     };
 
     navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-  }, [setCurrentLocation]);
-
+    
+    setSelectedCampground("")
+    // eslint-disable-next-line
+  }, []);
 
   const updateInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (search !== "" && searchType !== "") {
