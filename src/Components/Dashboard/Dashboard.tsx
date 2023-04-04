@@ -4,6 +4,7 @@ import { Pagination, Autoplay } from "swiper";
 import { fetchCampgrounds, getCampgroundDetails, sendFavoriteCamps } from "../../ApiCalls";
 import { useEffect, useState } from "react";
 import Card from "../Card/Card";
+
 import { useNavigate } from "react-router-dom";
 
 //Styling Stuff
@@ -69,19 +70,7 @@ const Dashboard = ({
           console.error("Failed to update favorite camps:", error);
         });
     }
-  }, [favoriteCamps, 1]);
-
-  useEffect(() => {
-    if (favoriteCamps.length > 0) {
-      sendFavoriteCamps(favoriteCamps, 1)
-        .then((responses) => {
-          console.log("Favorite camps sent successfully");
-        })
-        .catch((error) => {
-          console.log("Error sending favorite camps:", error);
-        });
-    }
-  }, [favoriteCamps]);
+  }, [favoriteCamps]);  
 
   useEffect(() => {
     if (searchType !== "") {
