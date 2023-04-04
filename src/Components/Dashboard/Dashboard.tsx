@@ -73,6 +73,9 @@ const Dashboard = ({
     };
   
     navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+
+    setSelectedCampground("")
+    // eslint-disable-next-line
   }, []);
   
 

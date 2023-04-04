@@ -1,6 +1,7 @@
 import Card from "../Card/Card";
 import "./Results.css";
 import camper from "../../Assets/error.gif";
+import { useEffect } from "react";
 
 interface Props {
   searchResults: SearchResults;
@@ -45,6 +46,12 @@ const Results = ({
   setFavoriteCamps,
   setSelectedCampground,
 }: Props) => {
+
+  useEffect(() => {
+      setSelectedCampground("")
+    // eslint-disable-next-line
+  }, [])
+
   const createCards = () => {
     if (searchResults.data === undefined || searchResults.data.length === 0) {
       return (

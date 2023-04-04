@@ -104,6 +104,7 @@ const Details = ({
       .catch((error) => {
         console.log(`Error loading campground reviews ${error}`);
       });
+    
     // eslint-disable-next-line
   }, []);
 
@@ -253,8 +254,6 @@ const Details = ({
       img_file: reviewImg,
     };
 
-    console.log(newReview)
-
     const reviewPostData = new FormData();
     reviewPostData.append('name', reviewUserName);
     reviewPostData.append('rating', reviewRating);
@@ -298,7 +297,7 @@ const Details = ({
 
   const navBackToResults = () => {
     setSelectedCampground("");
-    navigate("/results");
+    navigate(-1);
   };
 
   return (
