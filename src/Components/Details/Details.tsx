@@ -8,7 +8,7 @@ import { postCampgroundReview } from "../../ApiCalls";
 import { Images } from "../Results/Results";
 import { CampData } from "../Results/Results";
 import { useNavigate } from "react-router";
-
+import { MouseEvent } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper";
 
@@ -79,7 +79,7 @@ const Details = ({
   const [reviewSiteName, setReviewSiteName] = useState("");
   const [reviewDescription, setReviewDescription] = useState("");
   const [reviewImg, setReviewImg] = useState<Blob | undefined>(undefined);
-  const [reviewSubmitError, setReviewSubmitError] = useState("");
+  const [reviewSubmitMsg, setReviewSubmitMsg] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
@@ -110,7 +110,7 @@ const Details = ({
   const formatReviews = (revArr: FetchedReview[]) => {
     const formattedReviews = revArr.map((rev) => {
       const review: ReviewObj = {
-        id: +rev.id,
+        id: `fetched-${rev.id}`,
         name: rev.attributes.name,
         rating: rev.attributes.rating,
         site_name: rev.attributes.site_name,
@@ -230,27 +230,30 @@ const Details = ({
     }
   };
 
-  const submitNewReview = () => {
+  const submitNewReview = (event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
     if (!reviewUserName) {
-      setReviewSubmitError("Please enter a name for your review");
-      setTimeout(() => setReviewSubmitError(""), 2000);
+      setReviewSubmitMsg("Please enter a name for your review");
+      setTimeout(() => setReviewSubmitMsg(""), 2000);
       return;
     }
 
     if (+reviewRating > 5 || Number.isNaN(+reviewRating)) {
-      setReviewSubmitError("Please enter a number 0 - 5 for your star rating");
-      setTimeout(() => setReviewSubmitError(""), 2000);
+      setReviewSubmitMsg("Please enter a number 0 - 5 for your star rating");
+      setTimeout(() => setReviewSubmitMsg(""), 2000);
       return;
     }
 
     const newReview: ReviewObj = {
-      id: campgroundReviews.length + 1,
+      id: `new-${campgroundReviews.length + 1}`,
       name: reviewUserName,
       rating: +reviewRating,
       site_name: reviewSiteName,
       description: reviewDescription,
       img_file: reviewImg,
     };
+
+    console.log(newReview)
 
     const reviewPostData = new FormData();
     reviewPostData.append('name', reviewUserName);
@@ -261,14 +264,29 @@ const Details = ({
       reviewPostData.append('img_file', reviewImg);
     }
   
+    setReviewSubmitMsg('Posting review...')
 
-    setCampgroundReviews([ ...campgroundReviews, newReview]);
-    postCampgroundReview(reviewPostData, selectedCampground);
-    setReviewUserName("");
-    setReviewRating("");
-    setReviewSiteName("");
-    setReviewDescription("");
-    setReviewImg(undefined);
+    postCampgroundReview(reviewPostData, selectedCampground)
+    .then((response) => {
+      if (response.success) {
+        setCampgroundReviews([ ...campgroundReviews, newReview]);
+        setReviewUserName("");
+        setReviewRating("");
+        setReviewSiteName("");
+        setReviewDescription("");
+        setReviewImg(undefined);
+        setReviewSubmitMsg('Review posted!')
+        setTimeout(() => setReviewSubmitMsg(""), 2000)
+      }
+    })
+    .catch((error) => {
+      let errorMsg = error.toString()
+      if (errorMsg.startsWith('Error: Post campground review request failed with status 400')) {
+        setReviewSubmitMsg(`Please upload JPEG or PNG images only`)
+        setTimeout(() => setReviewSubmitMsg(""), 3000)
+        setReviewImg(undefined);
+      }
+    })
   };
 
   const handlePhotoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -363,20 +381,6 @@ const Details = ({
                     {`Wheelchair access: ${campgroundDetails?.attributes.wheelchair_access}`}
                   </p>
                 </div>
-                <section className="cg-activities-section">
-                  <div className="cg-activities-header">
-                    <h3>Activities</h3>
-                    <hr className="divider-cg-activities" />
-                  </div>
-                  <ul className="cg-activities-list">
-                    <li>Wildlife viewing</li>
-                    <li>Hiking</li>
-                    <li>Fishing</li>
-                    <li>Camping</li>
-                    <li>Boating</li>
-                    <li>Biking</li>
-                  </ul>
-                </section>
                 <div className="detail-btns">
                   {createDirectionsButton()}
                   {createBookingButton()}
@@ -433,17 +437,17 @@ const Details = ({
                     }
                     placeholder="I loved this campground!"
                   />
-                  <label htmlFor="photoUpload">Add a photo (optional)</label>
+                  <label htmlFor="photoUpload">Add a JPEG or PNG photo (optional)</label>
                   <input
                     name="photoUpload"
                     type="file"
                     onChange={(event) => handlePhotoUpload(event)}
                   />
                 </form>
-                <p className="review-error">{reviewSubmitError}</p>
+                <p className="review-msg">{reviewSubmitMsg}</p>
                 <button
                   id="submit-review-button"
-                  onClick={() => submitNewReview()}
+                  onClick={(event) => submitNewReview(event)}
                 >
                   Submit review
                 </button>

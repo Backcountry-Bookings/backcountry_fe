@@ -41,7 +41,6 @@ export async function getCampgroundReviews(id: string) {
 }
 
 export async function postCampgroundReview(reviewObj: BodyInit, campID: string) {
-  console.log({reviewObj})
   try {
     const response = await fetch(`https://backcountry-bookings-be.herokuapp.com/api/v1/reviews?user_id=1&campsite_id=${campID}`, {
       method: "POST",

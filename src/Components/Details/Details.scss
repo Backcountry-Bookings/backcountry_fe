@@ -102,29 +102,6 @@ p {
   padding: 1rem 7vw 0rem 7vw;
 }
 
-.cg-activities-section {
-  height: fit-content;
-  padding: 3vh 0vw 3vh 0vw;
-}
-
-.divider-cg-activities {
-  width: 103px;
-  height: 0px;
-  border: 1px solid #f9a03f;
-}
-
-.cg-activities-header {
-  padding: 0vh 0vw 1vh 7vw;
-}
-
-.cg-activities-list {
-  list-style-type: circle;
-  padding-left: 7vw;
-  transform: translateX(22px);
-  font-size: 1.3rem;
-  font-weight: 600;
-}
-
 .detail-btns {
   @include centered(column, center);
 }
@@ -188,10 +165,12 @@ p {
   background-color: $darkGreen;
 }
 
-.review-error {
+.review-msg {
   padding-left: 7vw;
   color: $orange;
   font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 20px;
 }
 
 

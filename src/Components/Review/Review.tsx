@@ -6,7 +6,7 @@ interface Props {
 }
 
 export interface ReviewObj {
-  id: number;
+  id: string;
   name?: string;
   rating: number;
   site_name?: string;
