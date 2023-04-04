@@ -53,6 +53,7 @@ const Dashboard = ({
   const [searchPlaceholder, setSearchPlaceholder] = useState("");
   const [stateError, setStateError] = useState(false);
   const [error, setError] = useState(false);
+  const [catchError, setCatchError] = useState(false)
   const [fetchedFavoriteCamps, setFetchedFavoriteCamps] = useState<
     FavoriteCamps[]
   >([]);
@@ -67,9 +68,9 @@ const Dashboard = ({
           setFetchedFavoriteCamps(result.data);
         }
       })
-      .catch((error) =>
+      .catch((error) => {
         console.log(`Error loading favorite campgrounds ${error}`)
-      );
+      });
   }, []);
 
   useEffect(() => {
@@ -100,7 +101,6 @@ const Dashboard = ({
     // eslint-disable-next-line
   }, []);
   
-  
   useEffect(() => {
     if (searchType !== "") {
       setDisableSearchbar(false);
@@ -123,17 +123,16 @@ const Dashboard = ({
       setCurrentLocation(position.coords);
       console.log(position);
     };
-  
+
     const errorCallback = (error: object) => {
       console.log(error);
     };
-  
-    navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
 
+    navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+    
     setSelectedCampground("")
     // eslint-disable-next-line
   }, []);
-  
 
   const updateInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (search !== "" && searchType !== "") {
@@ -152,10 +151,16 @@ const Dashboard = ({
     } else {
       setError(false);
       setStateError(false);
-      fetchCampgrounds(searchType, search).then((result) => {
-        setSearchResults(result);
-        navigate("/results");
-      });
+      fetchCampgrounds(searchType, search)
+        .then((result) => {
+          setSearchResults(result);
+          navigate("/results");
+        })
+        .catch((error: string) => {
+          setCatchError(true);
+          console.log(error);
+        });
+
     }
   };
 
@@ -170,7 +175,7 @@ const Dashboard = ({
             favoriteCamps={favoriteCamps}
             setFavoriteCamps={setFavoriteCamps}
             setFetchedFavoriteCamps={setFetchedFavoriteCamps}
-            fetchedFavoriteCamps={fetchedFavoriteCamps} 
+            fetchedFavoriteCamps={fetchedFavoriteCamps}
           />
         );
       });
@@ -256,10 +261,11 @@ const Dashboard = ({
             Please select a type of search/Enter something into the search bar
           </p>
         )}
-        {stateError && <p>State code should be two letters</p>}
+        {stateError && <p className="state-code-prompt">State code should be two letters</p>}
         <br />
       </div>
-      { currentLocation ?
+      {catchError && <p>There may have been an issue with our servers, please try again later</p>}
+      {currentLocation ?
         <h3 className="geolocation-msg">Your location: {currentLocation?.latitude}, {currentLocation?.longitude} </h3> :
         <h3 className="geolocation-msg">Please enable location for the best experience</h3>
       }

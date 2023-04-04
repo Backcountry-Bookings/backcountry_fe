@@ -2,9 +2,9 @@
 
 describe('template spec', () => {
   beforeEach(() => {
-    cy.intercept('GET', 'https://backcountry-bookings-be.herokuapp.com/api/v1/campsites?state_code=CO', {fixture: 'stateCode.json'})
-    cy.intercept('GET', 'https://backcountry-bookings-be.herokuapp.com/api/v1/campsites?q=colorado', {fixture: 'q.json'})
-    cy.intercept('GET', 'https://backcountry-bookings-be.herokuapp.com/api/v1/campsites?park_name=colorado', {fixture: 'parkName.json'})
+    cy.intercept('GET', 'https://backcountry-bookings-be.herokuapp.com/api/v1/campsites?state_code=CO', { fixture: 'stateCode.json' })
+    cy.intercept('GET', 'https://backcountry-bookings-be.herokuapp.com/api/v1/campsites?q=colorado', { fixture: 'q.json' })
+    cy.intercept('GET', 'https://backcountry-bookings-be.herokuapp.com/api/v1/campsites?park_name=colorado', { fixture: 'parkName.json' })
     cy.visit('http://localhost:3000/')
   });
   it('should have access to the backcountry bookings website', () => {
@@ -47,7 +47,7 @@ describe('template spec', () => {
     cy.get('.search')
       .type('test');
     cy.get('.search')
-    .should('have.value', 'test')
+      .should('have.value', 'test')
   });
   it('should show search results for state code when searched', () => {
     cy.get('.dropdown')
@@ -81,12 +81,77 @@ describe('template spec', () => {
     cy.get('#EA81BC45-C361-437F-89B8-5C89FB0D0F86')
       .should('be.visible')
   })
-  it('should tell a user to fill out the search if the user clicks search with ', () => {
+  it('should tell a user to fill out the search if the user selects campground name or park without completing the search bar', () => {
     cy.get('.dropdown')
       .select('park_name');
     cy.get('.search-button')
       .click()
     cy.get('.search-prompt')
       .should('be.visible')
+  })
+  it('should tell a user to fill out the search bar in the correct format if the user clicks search on state code without the correct format', () => {
+    cy.get('.dropdown')
+      .select('state_code');
+    cy.get('.search')
+      .type('alabama');
+    cy.get('.search-button')
+      .click()
+    cy.get('.state-code-prompt')
+      .should('be.visible')
+  })
+  it('should display an error component when a search result has no matching campsites', () => {
+    cy.get('.dropdown')
+      .select('state_code');
+    cy.get('.search')
+      .type('te');
+    cy.get('.search-button')
+      .click()
+    cy.get('.error-gif')
+      .should('be.visible')
+  })
+  it('should display favorites on the dashboard when they are favorited from the results page', () => {
+    cy.get('.dropdown')
+      .select('park_name');
+    cy.get('.search')
+      .type('colorado');
+    cy.get('.search-button')
+      .click()
+    cy.get('#EA81BC45-C361-437F-89B8-5C89FB0D0F86')
+      .find('.favorite-button')
+      .click()
+    cy.get('.site-title')
+      .click()
+    cy.get('#EA81BC45-C361-437F-89B8-5C89FB0D0F86')
+      .should('be.visible')
+  })
+  // it('should remove a favorite campground from the dashboard display when the remove button is clicked', () => {
+  //   cy.get('.dropdown')
+  //     .select('park_name');
+  //   cy.get('.search')
+  //     .type('colorado');
+  //   cy.get('.search-button')
+  //     .click()
+  //   cy.get('#EA81BC45-C361-437F-89B8-5C89FB0D0F86')
+  //     .find('.favorite-button')
+  //     .click()
+  //   cy.get('.site-title')
+  //     .click()
+  //   cy.get('#EA81BC45-C361-437F-89B8-5C89FB0D0F86')
+  //     .find('.unfavorite-button')
+  //     .click()
+  // })
+  it('should handle errors', () => {
+    cy.intercept(
+      'GET',
+      'https://backcountry-bookings-be.herokuapp.com/api/v1/campsites?state_code=CO',
+      { statusCode: 500 })
+    cy.get('.dropdown')
+      .select('state_code');
+    cy.get('.search')
+      .type('CO');
+    cy.get('.search-button')
+      .click()
+      cy.get('p')
+      .contains('There may have been an issue')
   })
 })
