@@ -2,9 +2,9 @@
 
 describe('template spec', () => {
   beforeEach(() => {
-    cy.intercept('GET', 'https://backcountry-bookings-be.herokuapp.com/api/v1/campsites?state_code=CO', {fixture: 'stateCode.json'})
-    cy.intercept('GET', 'https://backcountry-bookings-be.herokuapp.com/api/v1/campsites?q=colorado', {fixture: 'q.json'})
-    cy.intercept('GET', 'https://backcountry-bookings-be.herokuapp.com/api/v1/campsites?park_name=colorado', {fixture: 'parkName.json'})
+    cy.intercept('GET', 'https://backcountry-bookings-be.herokuapp.com/api/v1/campsites?state_code=CO', { fixture: 'stateCode.json' })
+    cy.intercept('GET', 'https://backcountry-bookings-be.herokuapp.com/api/v1/campsites?q=colorado', { fixture: 'q.json' })
+    cy.intercept('GET', 'https://backcountry-bookings-be.herokuapp.com/api/v1/campsites?park_name=colorado', { fixture: 'parkName.json' })
     cy.visit('http://localhost:3000/')
   });
   it('should have access to the backcountry bookings website', () => {
@@ -47,7 +47,7 @@ describe('template spec', () => {
     cy.get('.search')
       .type('test');
     cy.get('.search')
-    .should('have.value', 'test')
+      .should('have.value', 'test')
   });
   it('should show search results for state code when searched', () => {
     cy.get('.dropdown')
@@ -88,5 +88,19 @@ describe('template spec', () => {
       .click()
     cy.get('.search-prompt')
       .should('be.visible')
+  })
+  it('should handle errors', () => {
+    cy.intercept(
+      'GET',
+      'https://backcountry-bookings-be.herokuapp.com/api/v1/campsites?state_code=CO',
+      { statusCode: 500 })
+    cy.get('.dropdown')
+      .select('state_code');
+    cy.get('.search')
+      .type('CO');
+    cy.get('.search-button')
+      .click()
+      cy.get('p')
+      .contains('There may have been an issue')
   })
 })
