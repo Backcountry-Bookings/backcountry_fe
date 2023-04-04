@@ -58,13 +58,13 @@ const Card = ({
   const setFavoriteButton = () => {
     if (isFavorite) {
       return (
-        <button className="card-button" onClick={() => removeFavorite()}>
+        <button className="unfavorite-button" onClick={() => removeFavorite()}>
           Remove Favorite
         </button>
       );
     } else {
       return (
-        <button className="card-button" onClick={() => addFavorite()}>
+        <button className="favorite-button" onClick={() => addFavorite()}>
           Add to Favorites
         </button>
       );
