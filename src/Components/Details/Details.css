@@ -80,8 +80,7 @@ p {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: -moz-fit-content;
-  height: fit-content;
+  height: 80vh;
   width: 100vw;
   padding: 4vh;
 }

@@ -1,5 +1,5 @@
-import './Review.css'
-import ReviewStar from '../ReviewStar/ReviewStar';
+import "./Review.css";
+import ReviewStar from "../ReviewStar/ReviewStar";
 
 interface Props {
   data: ReviewObj;
@@ -14,8 +14,7 @@ export interface ReviewObj {
   img_file?: Blob | string;
 }
 
-const Review = ( {data}: Props ) => {
-
+const Review = ({ data }: Props) => {
   const createStars = () => {
     let starArr = []
     for (let i = 0; i < data.rating; i++) {
@@ -32,19 +31,17 @@ const Review = ( {data}: Props ) => {
     }
   }
 
-  return ( 
+  return (
     <div className="user-review">
       <div className="user-review-header">
-        <div className="user-stars">
-          {createStars()}
-        </div>
+        <div className="user-stars">{createStars()}</div>
         <p>{data.name}</p>
       </div>
       <p>Site: {data.site_name}</p>
       <p>{data.description}</p>
       {loadPhoto()}
     </div>
-  )
-}
+  );
+};
 
 export default Review;

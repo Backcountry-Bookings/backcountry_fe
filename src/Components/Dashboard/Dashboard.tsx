@@ -1,10 +1,10 @@
 import "./Dashboard.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper";
-import { fetchCampgrounds } from "../../ApiCalls";
+import { fetchCampgrounds, getCampgroundDetails } from "../../ApiCalls";
 import { useEffect, useState } from "react";
 import Card from "../Card/Card";
-
+import { getFavoriteCamps } from "../../ApiCalls";
 import { useNavigate } from "react-router-dom";
 
 //Styling Stuff
@@ -27,6 +27,16 @@ interface Props {
   favoriteCamps: CampData[];
   setFavoriteCamps: Function;
   setSelectedCampground: Function;
+  setCurrentLocation: Function;
+  currentLocation: undefined | {
+    latitude: string;
+    longitude: string;
+  };
+}
+export interface FavoriteCamps {
+  id: number;
+  type: string;
+  attributes: { campsite_id: string };
 }
 
 const Dashboard = ({
@@ -34,6 +44,8 @@ const Dashboard = ({
   favoriteCamps,
   setFavoriteCamps,
   setSelectedCampground,
+  setCurrentLocation,
+  currentLocation,
 }: Props) => {
   const [searchType, setSearchType] = useState("");
   const [search, setSearch] = useState("");
@@ -41,10 +53,54 @@ const Dashboard = ({
   const [searchPlaceholder, setSearchPlaceholder] = useState("");
   const [stateError, setStateError] = useState(false);
   const [error, setError] = useState(false);
-  const [userLocation, setUserLocation] = useState<any>()
+  const [fetchedFavoriteCamps, setFetchedFavoriteCamps] = useState<
+    FavoriteCamps[]
+  >([]);
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    getFavoriteCamps(1)
+      .then((result) => {
+        if (result) {
+          console.log("favorite camp use effect", result);
+          setFetchedFavoriteCamps(result.data);
+        }
+      })
+      .catch((error) =>
+        console.log(`Error loading favorite campgrounds ${error}`)
+      );
+  }, []);
+
+  useEffect(() => {
+    if (fetchedFavoriteCamps.length > 0) {
+      const favoriteCampIds = fetchedFavoriteCamps.map((camp) => {
+        return camp?.attributes.campsite_id;
+      });
+      const fetchFavoriteCamps = async () => {
+        const favoriteCampArray = await Promise.all(
+          favoriteCampIds.map(async (camp) => {
+            const result = await getCampgroundDetails(camp);
+            if (result) {
+              return result.data;
+            }
+          })
+        );
+        const uniqueFavoriteCamps = Array.from(
+          new Set(
+            favoriteCampArray
+              .filter((camp) => camp !== undefined)
+              .map((camp) => JSON.stringify(camp))
+          )
+        ).map((campString) => JSON.parse(campString));
+        setFavoriteCamps(uniqueFavoriteCamps);
+      };
+      fetchFavoriteCamps();
+    }
+    // eslint-disable-next-line
+  }, [fetchedFavoriteCamps]);
+  
+  
   useEffect(() => {
     if (searchType !== "") {
       setDisableSearchbar(false);
@@ -64,7 +120,7 @@ const Dashboard = ({
 
   useEffect(() => {
     const successCallback = (position: any) => {
-      setUserLocation(position.coords);
+      setCurrentLocation(position.coords);
       console.log(position);
     };
   
@@ -113,10 +169,12 @@ const Dashboard = ({
             key={camp.id}
             favoriteCamps={favoriteCamps}
             setFavoriteCamps={setFavoriteCamps}
+            setFetchedFavoriteCamps={setFetchedFavoriteCamps}
+            fetchedFavoriteCamps={fetchedFavoriteCamps} 
           />
         );
       });
-      return favCamps;
+      return <div className="favorites-container">{favCamps}</div>;
     }
   };
 
@@ -201,8 +259,8 @@ const Dashboard = ({
         {stateError && <p>State code should be two letters</p>}
         <br />
       </div>
-      { userLocation ?
-        <h3 className="geolocation-msg">Your location: {userLocation.latitude}, {userLocation.longitude} </h3> :
+      { currentLocation ?
+        <h3 className="geolocation-msg">Your location: {currentLocation?.latitude}, {currentLocation?.longitude} </h3> :
         <h3 className="geolocation-msg">Please enable location for the best experience</h3>
       }
       <br />

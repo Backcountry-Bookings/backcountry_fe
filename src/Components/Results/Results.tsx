@@ -28,6 +28,8 @@ export interface CampData {
         cost: string;
       }
     ];
+    park_code: string;
+    campsite_id: string;
   };
 }
 
@@ -77,9 +79,12 @@ const Results = ({
           favoriteCamps={favoriteCamps}
           setSelectedCampground={setSelectedCampground}
           setFavoriteCamps={setFavoriteCamps}
+          fetchedFavoriteCamps={[]} 
+          setFetchedFavoriteCamps={() => {}} 
         />
       );
     });
+    
 
     return campgroundCards;
   };
