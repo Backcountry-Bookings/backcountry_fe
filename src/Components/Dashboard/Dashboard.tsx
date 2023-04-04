@@ -130,7 +130,7 @@ const Dashboard = ({
     };
 
     navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-  }, []);
+  }, [setCurrentLocation]);
 
 
   const updateInput = (e: React.ChangeEvent<HTMLInputElement>) => {
