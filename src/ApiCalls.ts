@@ -136,7 +136,7 @@ export async function postCampgroundReview(reviewObj: BodyInit, campID: string) 
       body: reviewObj
     })
     if (!response.ok) {
-      throw new Error(`Post campground review request failed with status ${response.status}`)
+      return response.text().then(text => { throw new Error(text) })
     }
     const reviewResp = await response.json();
     return reviewResp;

@@ -287,12 +287,10 @@ const Details = ({
       }
     })
     .catch((error) => {
-      let errorMsg = error.toString()
-      if (errorMsg.startsWith('Error: Post campground review request failed with status 400')) {
-        setReviewSubmitMsg(`Please upload JPEG or PNG images only`)
-        setTimeout(() => setReviewSubmitMsg(""), 3000)
-        setReviewImg(undefined);
-      }
+      const errorMsg = error.toString().split('"')
+      setReviewSubmitMsg(errorMsg[3])
+      setTimeout(() => setReviewSubmitMsg(""), 3500)
+      setReviewImg(undefined);
     })
   };
 
