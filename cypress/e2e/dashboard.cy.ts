@@ -109,4 +109,19 @@ describe('template spec', () => {
     cy.get('.error-gif')
       .should('be.visible')
   })
+  it('should display favorites on the dashboard when they are favorited from the results page', () => {
+    cy.get('.dropdown')
+      .select('park_name');
+    cy.get('.search')
+      .type('colorado');
+    cy.get('.search-button')
+      .click()
+    cy.get('#EA81BC45-C361-437F-89B8-5C89FB0D0F86')
+      .find('.favorite-button')
+      .click()
+    cy.get('.site-title')
+      .click()
+    cy.get('#EA81BC45-C361-437F-89B8-5C89FB0D0F86')
+      .should('be.visible')
+  })
 })
