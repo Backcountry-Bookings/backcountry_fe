@@ -6,7 +6,9 @@ export async function fetchCampgrounds(pathType: string, searchValue: string) {
       `https://backcountry-bookings-be.herokuapp.com/api/v1/campsites?${pathType}=${searchValue}`
     );
     if (!response.ok) {
-      throw new Error(`Fetch campgrounds request failed with status ${response.status}`);
+      throw new Error(
+        `Fetch campgrounds request failed with status ${response.status}`
+      );
     }
     const campgroundData = await response.json();
     return campgroundData;
@@ -22,7 +24,6 @@ export async function getCampgroundDetails(id: string) {
       `https://backcountry-bookings-be.herokuapp.com/api/v1/campsites/${id}`
     );
     if (!response.ok) {
-      // Get the error message from the server's response, if available
       const errorText = await response.text();
       console.error("Server error response:", errorText);
 
@@ -43,9 +44,9 @@ export async function sendFavoriteCamps(
   userId: number
 ) {
   try {
-    const favoriteCampIds = favoriteCamps.map((camp) => camp.id); // Extract the camp IDs from the favoriteCamps array
+    const favoriteCampIds = favoriteCamps.map((camp) => camp.id);
 
-    console.log("Extracted favorite camp IDs:", favoriteCampIds); // Log the extracted favorite camp IDs
+    console.log("Extracted favorite camp IDs:", favoriteCampIds);
 
     const responses = await Promise.all(
       favoriteCampIds.map(async (campsite_id) => {
@@ -56,14 +57,14 @@ export async function sendFavoriteCamps(
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({ campsite_id }), // Send the single campsite_id in the request body
+            body: JSON.stringify({ campsite_id }),
           }
         );
 
         console.log(
           "Request sent with campsite_id:",
           JSON.stringify({ campsite_id })
-        ); // Log the request body
+        );
 
         if (!response.ok) {
           throw new Error(`Request failed with status ${response.status}`);
@@ -73,8 +74,7 @@ export async function sendFavoriteCamps(
       })
     );
 
-
-    console.log("Server responses:", responses); // Log the server responses
+    console.log("Server responses:", responses);
     return responses;
   } catch (error) {
     console.log(`Failed to send favorite camps data: ${error}`);
@@ -123,32 +123,43 @@ export async function removeFavoriteCamp(favoriteId: number) {
 
 export async function getCampgroundReviews(id: string) {
   try {
-    const response = await fetch(`https://backcountry-bookings-be.herokuapp.com/api/v1/reviews?campsite_id=${id}`)
+    const response = await fetch(
+      `https://backcountry-bookings-be.herokuapp.com/api/v1/reviews?campsite_id=${id}`
+    );
     if (!response.ok) {
-      throw new Error(`Get campground reviews request failed with status ${response.status}`)
+      throw new Error(
+        `Get campground reviews request failed with status ${response.status}`
+      );
     }
     const campReviews = await response.json();
     return campReviews;
   } catch (error) {
-    console.log(`Failed to fetch campground reviews: ${error}`)
+    console.log(`Failed to fetch campground reviews: ${error}`);
     throw error;
   }
 }
 
-export async function postCampgroundReview(reviewObj: BodyInit, campID: string) {
+export async function postCampgroundReview(
+  reviewObj: BodyInit,
+  campID: string
+) {
   try {
-    const response = await fetch(`https://backcountry-bookings-be.herokuapp.com/api/v1/reviews?user_id=1&campsite_id=${campID}`, {
-      method: "POST",
-      body: reviewObj
-    })
+    const response = await fetch(
+      `https://backcountry-bookings-be.herokuapp.com/api/v1/reviews?user_id=1&campsite_id=${campID}`,
+      {
+        method: "POST",
+        body: reviewObj,
+      }
+    );
     if (!response.ok) {
-      return response.text().then(text => { throw new Error(text) })
+      return response.text().then((text) => {
+        throw new Error(text);
+      });
     }
     const reviewResp = await response.json();
     return reviewResp;
   } catch (error) {
-    console.log(`Failed to post campground review: ${error}`)
+    console.log(`Failed to post campground review: ${error}`);
     throw error;
   }
 }
-
