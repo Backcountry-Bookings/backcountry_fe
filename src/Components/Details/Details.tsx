@@ -178,7 +178,7 @@ const Details = ({
           target="_blank"
           rel="noopener noreferrer"
         >
-          <button>Directions</button>
+          <button className="button">Directions</button>
         </a>
       );
     }
@@ -192,7 +192,7 @@ const Details = ({
           target="_blank"
           rel="noopener noreferrer"
         >
-          <button>Go to booking site</button>
+          <button className="button">Go to booking site</button>
         </a>
       );
     }
@@ -203,13 +203,13 @@ const Details = ({
     if (campgroundDetails === undefined) return;
     if (favCampIds.includes(campgroundDetails?.id)) {
       return (
-        <button className="card-button" onClick={() => removeFavorite()}>
+        <button className="button" onClick={() => removeFavorite()}>
           Remove Favorite
         </button>
       );
     } else {
       return (
-        <button className="card-button" onClick={() => addFavorite()}>
+        <button className="button" onClick={() => addFavorite()}>
           Add to Favorites
         </button>
       );
@@ -453,7 +453,8 @@ const Details = ({
                   />
                 </form>
                 <p className="review-msg">{reviewSubmitMsg}</p>
-                <button
+                <button 
+                  className="button"
                   id="submit-review-button"
                   onClick={(event) => submitNewReview(event)}
                 >
@@ -466,7 +467,7 @@ const Details = ({
                 </section>
               </section>
               <div className="detail-btns">
-                <button onClick={() => navBackToResults()}>
+                <button className="button" onClick={() => navBackToResults()}>
                   Back to search results
                 </button>
               </div>

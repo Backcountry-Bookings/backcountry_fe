@@ -13,7 +13,8 @@ p {
   background-color: #283618;
   color: #FBFAF5;
 }
-.detail-main button {
+
+.button {
   height: 6vh;
   width: 75vw;
   max-width: 600px;
