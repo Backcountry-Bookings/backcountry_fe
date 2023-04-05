@@ -138,7 +138,7 @@ const Card = ({
       <p className="card-copy">State: {stateCode()}</p>
       <p className="card-copy">National Park: {parkName()}</p>
       <p className="card-copy">Cost per night: ${cost}</p>
-      <Link
+      <Link className="more-info-link"
         onClick={() => setSelectedCampground(campData.id)}
         to={`/details/${urlCampName()}`}
       >

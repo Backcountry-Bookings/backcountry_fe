@@ -32,8 +32,7 @@
 .unfavorite-button,
 .card-button {
   background-color: $lightGreen;
-  width: 40vw;
-  max-width: 300px;
+  width: 80%;
   height: 35px;
   @include orangeBorderRounded;
   color: $white;
@@ -44,4 +43,9 @@
   text-decoration: none;
   font-family: "Baloo Chettan 2", cursive;
   cursor: pointer;
+  white-space: nowrap;
+}
+
+.more-info-link {
+  width: 100%;
 }
