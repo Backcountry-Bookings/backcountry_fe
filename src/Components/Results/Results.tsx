@@ -2,6 +2,7 @@ import Card from "../Card/Card";
 import "./Results.css";
 import { useEffect } from "react";
 import error from "../../Assets/error.gif";
+import { Link } from "react-router-dom";
 
 interface Props {
   searchResults: SearchResults;
@@ -90,6 +91,7 @@ const Results = ({
             There may have been an issue with your search, click the title to go
             home
           </h3>
+          <Link  className='home-link' to='/'>Return Home</Link>
         </div>
       ) : (
         <div className="card-grid">{createCards()}</div>
