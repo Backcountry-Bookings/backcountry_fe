@@ -38,8 +38,6 @@ p {
 
 .cg-images-container:hover {
   @include centered(column, center);
-  width: 100vw;
-  height:80vh;
   cursor: grab;
 }
 
@@ -224,4 +222,11 @@ p {
   display: flex;
   flex-direction: column;
 
+}
+
+
+@media only screen and (max-width: 768px) {
+  .cg-images-container {
+    height:200px;
+  }
 }
