@@ -68,6 +68,7 @@ interface FetchedReview {
     name: string;
     rating: number;
     site_name: string;
+    created_at: string;
   };
 }
 
@@ -107,6 +108,7 @@ const Details = ({
     getCampgroundReviews(selectedCampground)
       .then((response) => {
         if (response) {
+          console.log('campground reviews response', response.data)
           setCampgroundReviews(formatReviews(response.data));
         }
       })
@@ -122,6 +124,7 @@ const Details = ({
       const review: ReviewObj = {
         id: `fetched-${rev.id}`,
         name: rev.attributes.name,
+        created_at: rev.attributes.created_at,
         rating: rev.attributes.rating,
         site_name: rev.attributes.site_name,
         description: rev.attributes.description,
