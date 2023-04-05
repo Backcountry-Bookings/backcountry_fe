@@ -274,4 +274,11 @@ p {
   .cg-images-container {
     height: 200px;
   }
+}
+.home-link {
+  background-color: #44270D;
+  color: #FBFAF5;
+  text-decoration: none;
+  border: solid 2px #F9A03F;
+  border-radius: 8px;
 }/*# sourceMappingURL=Details.css.map */

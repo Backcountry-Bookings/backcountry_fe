@@ -14,6 +14,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper";
 import errorGif from "../../Assets/error.gif";
 import loading from "../../Assets/is-loading.gif";
+import { Link } from "react-router-dom";
 
 interface Props {
   selectedCampground: string;
@@ -326,6 +327,7 @@ const Details = ({
               <h3>
                 There was an error loading campground info, please return home
               </h3>
+              <Link className='home-link' to='/'>Return Home</Link>
             </div>
           ) : (
             <section className="detail-main">
