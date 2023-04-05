@@ -2,6 +2,7 @@ import Card from "../Card/Card";
 import "./Results.css";
 import { useEffect } from "react";
 import error from "../../Assets/error.gif";
+import { Link } from "react-router-dom";
 
 interface Props {
   searchResults: SearchResults;
@@ -87,9 +88,10 @@ const Results = ({
             alt="Just a little guy camping"
           />
           <h3 className="error-msg">
-            There may have been an issue with your search, click the title to go
-            home
+            There may have been an issue with your search, please return to the home page
           </h3>
+          <br />
+          <Link  className='home-link' to='/'>Return Home</Link>
         </div>
       ) : (
         <div className="card-grid">{createCards()}</div>

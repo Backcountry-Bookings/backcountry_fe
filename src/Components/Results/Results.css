@@ -61,4 +61,11 @@
   .error-msg {
     text-align: center;
   }
+}
+.home-link {
+  background-color: #44270D;
+  color: #FBFAF5;
+  text-decoration: none;
+  border: solid 2px #F9A03F;
+  border-radius: 8px;
 }/*# sourceMappingURL=Results.css.map */
