@@ -12,9 +12,8 @@ import DetailMap from "../DetailMap/DetailMap";
 import { MouseEvent } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper";
-
-import isLoadingGif from "../../Assets/is-loading.gif";
 import errorGif from "../../Assets/error.gif";
+import loading from "../../Assets/is-loading.gif";
 
 interface Props {
   selectedCampground: string;
@@ -311,14 +310,14 @@ const Details = ({
   return (
     <div className="loading">
       {isLoading ? (
-        <img className="loading-gif" src={isLoadingGif} alt="loading" />
+        <img className="loading-gif" src={loading} alt="loading" />
       ) : (
         <div>
           {!campgroundDetails || catchError ? (
             <div className="error">
               <img
                 className="error-gif"
-                src={errorGif}
+                src={ errorGif }
                 alt="There was an error"
               />
               <h3>

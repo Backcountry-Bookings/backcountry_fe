@@ -1,7 +1,7 @@
 import Card from "../Card/Card";
 import "./Results.css";
-import camper from "../../Assets/error.gif";
 import { useEffect } from "react";
+import error from "../../Assets/error.gif";
 
 interface Props {
   searchResults: SearchResults;
@@ -60,7 +60,7 @@ const Results = ({
         <div className="search-error-section">
           <img
             className="error-gif"
-            src={camper}
+            src={error}
             alt="Just a little guy camping"
           />
           <h3 className="error-msg">

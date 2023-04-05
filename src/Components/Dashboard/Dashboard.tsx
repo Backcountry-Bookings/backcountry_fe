@@ -4,11 +4,13 @@ import { Pagination, Autoplay } from "swiper";
 import { fetchCampgrounds, sendFavoriteCamps } from "../../ApiCalls";
 import { useEffect, useState } from "react";
 import Card from "../Card/Card";
+import campfire from "../../Assets/campfire.gif";
+
+
 
 import { useNavigate } from "react-router-dom";
 
 //Styling Stuff
-import campfire from "../../Assets/campfire.gif";
 import swiper1 from "../../Assets/swiperImages/1.jpg";
 import swiper2 from "../../Assets/swiperImages/2.jpg";
 import swiper3 from "../../Assets/swiperImages/3.jpg";
@@ -241,7 +243,7 @@ const Dashboard = ({
       <section className="favorites-section">
         <h2 className="fav-campgrounds-title">Your Favorite Campgrounds</h2>
         {createFavorites()}
-        <img className="campfire" src={campfire} alt="A campfire"></img>
+        <img className="campfire" src={campfire} alt="A campfire" />
       </section>
     </div>
   );
