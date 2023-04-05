@@ -36,6 +36,12 @@
 }
 
 @media only screen and (max-width: 768px) {
+  .card-grid {
+    display: flex;
+    flex-direction: column;
+    justify-content: centered;
+    align-items: center;
+  }
   .results-main {
     display: flex;
     flex-direction: column;
