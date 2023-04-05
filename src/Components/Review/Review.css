@@ -2,9 +2,16 @@
   height: -moz-fit-content;
   height: fit-content;
   padding-bottom: 2vh;
+  background-color: #444444;
+  width: 45%;
+  border-radius: 5px;
+  border: 2px solid black;
+  margin-top: 5vh;
+  padding-left: 1vw;
 }
 .user-review p {
   padding-right: 2vw;
+  overflow-wrap: break-word;
 }
 
 .user-review-header {
@@ -13,6 +20,7 @@
   justify-content: flex-start;
   align-items: center;
   margin-bottom: 1rem;
+  margin-top: 1rem;
 }
 .user-review-header p {
   font-size: 1.5rem;
@@ -21,7 +29,29 @@
 }
 
 .review-image {
-  width: 87vw;
+  width: 80%;
   max-width: 500px;
   border-radius: 5px;
+}
+
+.data-description {
+  margin-bottom: 1vh;
+}
+
+@media only screen and (max-width: 768px) {
+  .user-review {
+    height: -moz-fit-content;
+    height: fit-content;
+    padding-bottom: 2vh;
+    background-color: #444444;
+    width: 90%;
+    border-radius: 5px;
+    border: 2px solid black;
+    margin-top: 5vh;
+    padding-left: 1vw;
+  }
+  .user-review p {
+    padding-right: 2vw;
+    overflow-wrap: break-word;
+  }
 }/*# sourceMappingURL=Review.css.map */

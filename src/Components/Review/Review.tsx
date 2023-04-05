@@ -48,7 +48,7 @@ const Review = ({ data }: Props) => {
       </div>
       <p>Date: {data.created_at ? formatDate(data.created_at) : "N/A"}</p>
       <p>Site: {data.site_name}</p>
-      <p>{data.description}</p>
+      <p className="data-description">{data.description}</p>
       {loadPhoto()}
     </div>
   );
