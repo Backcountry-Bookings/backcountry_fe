@@ -86,26 +86,6 @@ html {
   margin-bottom: 2vh;
 }
 
-.mySwiper {
-  width: 100%;
-  height: 50vh;
-  z-index: 1;
-  position: relative;
-}
-
-.swiper-slide {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.swiper-slide img {
-  width: 100%;
-  height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
-}
-
 .favorites-section {
   display: flex;
   flex-direction: column;
