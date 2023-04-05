@@ -137,6 +137,25 @@ const Dashboard = ({
     }
   };
 
+  const displayNearMeButton = () => {
+    if (currentLocation) {
+      return (
+        <button
+          className="geolocation-button"
+          id="geoButton"
+          // onClick={(event) => fetchNearbyCamps(event)}
+          disabled={!currentLocation}
+        >
+          Campgrounds Near Me
+        </button>
+      );
+    }
+  };
+
+  const fetchNearbyCamps = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+  };
+
   return (
     <div className="dashboard">
       <DashboardSwiper />
@@ -168,6 +187,7 @@ const Dashboard = ({
           >
             Search
           </button>
+          {displayNearMeButton()}
         </form>
         {error && (
           <p className="search-prompt">
