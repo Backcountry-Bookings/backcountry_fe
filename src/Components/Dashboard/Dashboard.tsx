@@ -97,6 +97,20 @@ const Dashboard = ({
     setSearch(e.target.value);
   };
 
+  const fetchNearbyCamps = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    const gpsCoords = `${currentLocation?.latitude},${currentLocation?.longitude}`;
+    fetchCampgrounds("by_dist", gpsCoords)
+    .then((result) => {
+      setSearchResults(result);
+      navigate("/results");
+    })
+    .catch((error: string) => {
+      setCatchError(true);
+      console.log(error);
+    });
+  };
+
   const fetchCamps = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     if (searchType === "state_code" && search.length !== 2) {
@@ -143,17 +157,13 @@ const Dashboard = ({
         <button
           className="geolocation-button"
           id="geoButton"
-          // onClick={(event) => fetchNearbyCamps(event)}
+          onClick={(event) => fetchNearbyCamps(event)}
           disabled={!currentLocation}
         >
           Campgrounds Near Me
         </button>
       );
     }
-  };
-
-  const fetchNearbyCamps = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
   };
 
   return (
