@@ -8,6 +8,7 @@ interface Props {
 export interface ReviewObj {
   id: string;
   name?: string;
+  created_at?: string;
   rating: number;
   site_name?: string;
   description?: string;
@@ -23,6 +24,14 @@ const Review = ({ data }: Props) => {
     return starArr;
   }
 
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    return `${month}/${day}/${year}`;
+  };
+  
   const loadPhoto = () => {
     if (typeof data.img_file === 'string' && data.img_file !== 'No Image') {
       return <img className='review-image' src={data.img_file} alt={`User review ${data.id} - ${data.description}`} />
@@ -37,6 +46,7 @@ const Review = ({ data }: Props) => {
         <div className="user-stars">{createStars()}</div>
         <p>{data.name}</p>
       </div>
+      <p>Date: {data.created_at ? formatDate(data.created_at) : "N/A"}</p>
       <p>Site: {data.site_name}</p>
       <p>{data.description}</p>
       {loadPhoto()}

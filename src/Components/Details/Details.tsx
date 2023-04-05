@@ -12,9 +12,8 @@ import DetailMap from "../DetailMap/DetailMap";
 import { MouseEvent } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper";
-
-import isLoadingGif from "../../Assets/is-loading.gif";
 import errorGif from "../../Assets/error.gif";
+import loading from "../../Assets/is-loading.gif";
 
 interface Props {
   selectedCampground: string;
@@ -69,6 +68,7 @@ interface FetchedReview {
     name: string;
     rating: number;
     site_name: string;
+    created_at: string;
   };
 }
 
@@ -108,13 +108,14 @@ const Details = ({
     getCampgroundReviews(selectedCampground)
       .then((response) => {
         if (response) {
+          console.log('campground reviews response', response.data)
           setCampgroundReviews(formatReviews(response.data));
         }
       })
       .catch((error) => {
         console.log(`Error loading campground reviews ${error}`);
       });
-    
+
     // eslint-disable-next-line
   }, []);
 
@@ -123,6 +124,7 @@ const Details = ({
       const review: ReviewObj = {
         id: `fetched-${rev.id}`,
         name: rev.attributes.name,
+        created_at: rev.attributes.created_at,
         rating: rev.attributes.rating,
         site_name: rev.attributes.site_name,
         description: rev.attributes.description,
@@ -176,7 +178,7 @@ const Details = ({
           target="_blank"
           rel="noopener noreferrer"
         >
-          <button>Directions</button>
+          <button className="button">Directions</button>
         </a>
       );
     }
@@ -190,7 +192,7 @@ const Details = ({
           target="_blank"
           rel="noopener noreferrer"
         >
-          <button>Go to booking site</button>
+          <button className="button">Go to booking site</button>
         </a>
       );
     }
@@ -201,13 +203,13 @@ const Details = ({
     if (campgroundDetails === undefined) return;
     if (favCampIds.includes(campgroundDetails?.id)) {
       return (
-        <button className="card-button" onClick={() => removeFavorite()}>
+        <button className="button" onClick={() => removeFavorite()}>
           Remove Favorite
         </button>
       );
     } else {
       return (
-        <button className="card-button" onClick={() => addFavorite()}>
+        <button className="button" onClick={() => addFavorite()}>
           Add to Favorites
         </button>
       );
@@ -272,28 +274,28 @@ const Details = ({
     if (reviewImg) {
       reviewPostData.append('img_file', reviewImg);
     }
-  
+
     setReviewSubmitMsg('Posting review...')
 
     postCampgroundReview(reviewPostData, selectedCampground)
-    .then((response) => {
-      if (response.success) {
-        setCampgroundReviews([ ...campgroundReviews, newReview]);
-        setReviewUserName("");
-        setReviewRating("");
-        setReviewSiteName("");
-        setReviewDescription("");
+      .then((response) => {
+        if (response.success) {
+          setCampgroundReviews([...campgroundReviews, newReview]);
+          setReviewUserName("");
+          setReviewRating("");
+          setReviewSiteName("");
+          setReviewDescription("");
+          setReviewImg(undefined);
+          setReviewSubmitMsg('Review posted!')
+          setTimeout(() => setReviewSubmitMsg(""), 2000)
+        }
+      })
+      .catch((error) => {
+        const errorMsg = error.toString().split('"')
+        setReviewSubmitMsg(errorMsg[3])
+        setTimeout(() => setReviewSubmitMsg(""), 3500)
         setReviewImg(undefined);
-        setReviewSubmitMsg('Review posted!')
-        setTimeout(() => setReviewSubmitMsg(""), 2000)
-      }
-    })
-    .catch((error) => {
-      const errorMsg = error.toString().split('"')
-      setReviewSubmitMsg(errorMsg[3])
-      setTimeout(() => setReviewSubmitMsg(""), 3500)
-      setReviewImg(undefined);
-    })
+      })
   };
 
   const handlePhotoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -311,14 +313,14 @@ const Details = ({
   return (
     <div className="loading">
       {isLoading ? (
-        <img className="loading-gif" src={isLoadingGif} alt="loading" />
+        <img className="loading-gif" src={loading} alt="loading" />
       ) : (
         <div>
           {!campgroundDetails || catchError ? (
             <div className="error">
               <img
                 className="error-gif"
-                src={errorGif}
+                src={ errorGif }
                 alt="There was an error"
               />
               <h3>
@@ -457,7 +459,8 @@ const Details = ({
                   />
                 </form>
                 <p className="review-msg">{reviewSubmitMsg}</p>
-                <button
+                <button 
+                  className="button"
                   id="submit-review-button"
                   onClick={(event) => submitNewReview(event)}
                 >
@@ -470,7 +473,7 @@ const Details = ({
                 </section>
               </section>
               <div className="detail-btns">
-                <button onClick={() => navBackToResults()}>
+                <button className="button" onClick={() => navBackToResults()}>
                   Back to search results
                 </button>
               </div>

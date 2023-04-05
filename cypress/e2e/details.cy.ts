@@ -22,7 +22,7 @@ describe('details page', () => {
 
     it('should go to the results page', () => {
         cy.get('h2')
-        .contains('Aspenglen Campground')
+            .contains('Aspenglen Campground')
         cy.get('.swiper-slide-active > img')
         cy.get('.cg-desc')
             .contains('Aspenglen Campground is reservation only')
@@ -30,11 +30,11 @@ describe('details page', () => {
             .contains('Cost per night: $30.00')
     })
     it('should have a favorites button', () => {
-        cy.get('.card-button')
+        cy.get('.button')
             .contains('Add to Favorites')
     })
     it('should have a remove from favorites if it is already a favorite', () => {
-        cy.get('.card-button')
+        cy.get('.button')
             .contains('Add to Favorites')
             .click()
             .contains('Remove Favorite')

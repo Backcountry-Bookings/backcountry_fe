@@ -22,7 +22,13 @@ export async function getCampgroundDetails(id: string) {
       `https://backcountry-bookings-be.herokuapp.com/api/v1/campsites/${id}`
     );
     if (!response.ok) {
-      throw new Error(`Get campground details request failed with status ${response.status}`);
+      // Get the error message from the server's response, if available
+      const errorText = await response.text();
+      console.error("Server error response:", errorText);
+
+      throw new Error(
+        `Get campground details request failed with status ${response.status}`
+      );
     }
     const campDetails = await response.json();
     return campDetails;

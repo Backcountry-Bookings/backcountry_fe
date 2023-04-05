@@ -14,20 +14,21 @@ p {
   background-color: $darkGreen;
   color: $white;
   margin-top: 2vh;
+}
 
-  button {
-    height: 6vh;
-    width: 75vw;
-    max-width: 600px;
-    background-color: $lightGreen;
-    color: $white;
-    font-size: 1.5rem;
-    font-family: "Baloo Chettan 2", cursive;
-    font-weight: 800;
-    @include orangeBorderRounded;
-    cursor: pointer;
-    margin-bottom: 4vh;
-  }
+
+.button {
+  height: 6vh;
+  width: 75vw;
+  max-width: 600px;
+  background-color: $lightGreen;
+  color: $white;
+  font-size: 1.5rem;
+  font-family: "Baloo Chettan 2", cursive;
+  font-weight: 800;
+  @include orangeBorderRounded;
+  cursor: pointer;
+  margin-bottom: 4vh;
 }
 
 .cg-images-container {
@@ -56,7 +57,6 @@ p {
   h2 {
     font-size: 2.2rem;
     margin: 3vh 10vw 3vh 10vw;
-    
   }
 }
 
@@ -198,7 +198,6 @@ p {
   border-bottom-right-radius: 5px;
 }
 
-
 .details-swiper {
   width: 100vw;
   max-width: 1200px;
@@ -239,7 +238,6 @@ p {
   @include centered(column, center);
   display: flex;
   flex-direction: column;
-
 }
 
 

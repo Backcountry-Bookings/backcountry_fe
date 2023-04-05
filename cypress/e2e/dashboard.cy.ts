@@ -151,7 +151,7 @@ describe('template spec', () => {
       .type('CO');
     cy.get('.search-button')
       .click()
-      cy.get('p')
+    cy.get('p')
       .contains('There may have been an issue')
   })
 })

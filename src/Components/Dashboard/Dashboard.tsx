@@ -1,25 +1,10 @@
 import "./Dashboard.css";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, Autoplay } from "swiper";
 import { fetchCampgrounds, sendFavoriteCamps } from "../../ApiCalls";
 import { useEffect, useState } from "react";
 import Card from "../Card/Card";
-
-import { useNavigate } from "react-router-dom";
-
-//Styling Stuff
 import campfire from "../../Assets/campfire.gif";
-import swiper1 from "../../Assets/swiperImages/1.jpg";
-import swiper2 from "../../Assets/swiperImages/2.jpg";
-import swiper3 from "../../Assets/swiperImages/3.jpg";
-import swiper4 from "../../Assets/swiperImages/4.jpg";
-import swiper5 from "../../Assets/swiperImages/5.jpg";
-import swiper6 from "../../Assets/swiperImages/6.jpg";
-import swiper7 from "../../Assets/swiperImages/7.jpg";
-import swiper8 from "../../Assets/swiperImages/8.jpg";
-import swiper9 from "../../Assets/swiperImages/9.jpg";
-import "swiper/css";
-import "swiper/css/pagination";
+import DashboardSwiper from "../DashboardSwiper/DashboardSwiper";
+import { useNavigate } from "react-router-dom";
 import { CampData } from "../Results/Results";
 
 interface Props {
@@ -28,10 +13,12 @@ interface Props {
   setFavoriteCamps: Function;
   setSelectedCampground: Function;
   setCurrentLocation: Function;
-  currentLocation: undefined | {
-    latitude: string;
-    longitude: string;
-  };
+  currentLocation:
+    | undefined
+    | {
+        latitude: string;
+        longitude: string;
+      };
 }
 export interface FavoriteCamps {
   id: number;
@@ -53,7 +40,7 @@ const Dashboard = ({
   const [searchPlaceholder, setSearchPlaceholder] = useState("");
   const [stateError, setStateError] = useState(false);
   const [error, setError] = useState(false);
-  const [catchError, setCatchError] = useState(false)
+  const [catchError, setCatchError] = useState(false);
   const [fetchedFavoriteCamps, setFetchedFavoriteCamps] = useState<
     FavoriteCamps[]
   >([]);
@@ -70,7 +57,7 @@ const Dashboard = ({
           console.error("Failed to update favorite camps:", error);
         });
     }
-  }, [favoriteCamps]);  
+  }, [favoriteCamps]);
 
   useEffect(() => {
     if (searchType !== "") {
@@ -92,16 +79,13 @@ const Dashboard = ({
   useEffect(() => {
     const successCallback = (position: any) => {
       setCurrentLocation(position.coords);
-      console.log(position);
     };
 
-    const errorCallback = (error: object) => {
-      console.log(error);
-    };
+    const errorCallback = (error: object) => {};
 
     navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-    
-    setSelectedCampground("")
+
+    setSelectedCampground("");
     // eslint-disable-next-line
   }, []);
 
@@ -155,48 +139,7 @@ const Dashboard = ({
 
   return (
     <div className="dashboard">
-      <Swiper
-        spaceBetween={30}
-        pagination={{
-          clickable: true,
-        }}
-        modules={[Pagination, Autoplay]}
-        speed={400}
-        autoplay={{ delay: 4000 }}
-        slidesPerView={1}
-        className="mySwiper"
-      >
-        <SwiperSlide className="swiper-slide">
-          <img src={swiper1} alt="delicate arch" />
-        </SwiperSlide>
-        <SwiperSlide className="swiper-slide">
-          <img src={swiper2} alt="slot canyon in Utah" />
-        </SwiperSlide>
-        <SwiperSlide className="swiper-slide">
-          <img src={swiper3} alt="El Capitan in Yosemite" />
-        </SwiperSlide>
-        <SwiperSlide className="swiper-slide">
-          <img src={swiper4} alt="River in Yosemite" />
-        </SwiperSlide>
-        <SwiperSlide className="swiper-slide">
-          <img src={swiper5} alt="Waterfall in southern Utah" />
-        </SwiperSlide>
-        <SwiperSlide className="swiper-slide">
-          <img src={swiper6} alt="Alpine lake in Glacier NP" />
-        </SwiperSlide>
-        <SwiperSlide className="swiper-slide">
-          <img src={swiper7} alt="Cabin and dock in Denali NP" />
-        </SwiperSlide>
-        <SwiperSlide className="swiper-slide">
-          <img src={swiper8} alt="Valley in Banff National Park" />
-        </SwiperSlide>
-        <SwiperSlide className="swiper-slide">
-          <img
-            src={swiper9}
-            alt="Lake with mountain in background in Lake Clark National Park"
-          />
-        </SwiperSlide>
-      </Swiper>
+      <DashboardSwiper />
       <div className="search-container">
         <form className="search-form">
           <select
@@ -231,19 +174,31 @@ const Dashboard = ({
             Please select a type of search/Enter something into the search bar
           </p>
         )}
-        {stateError && <p className="state-code-prompt">State code should be two letters</p>}
+        {stateError && (
+          <p className="state-code-prompt">State code should be two letters</p>
+        )}
         <br />
       </div>
-      {catchError && <p>There may have been an issue with our servers, please try again later</p>}
-      {currentLocation ?
-        <h3 className="geolocation-msg">Your location: {currentLocation?.latitude}, {currentLocation?.longitude} </h3> :
-        <h3 className="geolocation-msg">Please enable location for the best experience</h3>
-      }
+      {catchError && (
+        <p>
+          There may have been an issue with our servers, please try again later
+        </p>
+      )}
+      {currentLocation ? (
+        <h3 className="geolocation-msg">
+          Your location: {currentLocation?.latitude},{" "}
+          {currentLocation?.longitude}{" "}
+        </h3>
+      ) : (
+        <h3 className="geolocation-msg">
+          Please enable location for the best experience
+        </h3>
+      )}
       <br />
       <section className="favorites-section">
         <h2 className="fav-campgrounds-title">Your Favorite Campgrounds</h2>
         {createFavorites()}
-        <img className="campfire" src={campfire} alt="A campfire"></img>
+        <img className="campfire" src={campfire} alt="A campfire" />
       </section>
     </div>
   );

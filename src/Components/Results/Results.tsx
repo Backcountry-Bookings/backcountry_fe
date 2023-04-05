@@ -1,7 +1,7 @@
 import Card from "../Card/Card";
 import "./Results.css";
-import camper from "../../Assets/error.gif";
 import { useEffect } from "react";
+import error from "../../Assets/error.gif";
 
 interface Props {
   searchResults: SearchResults;
