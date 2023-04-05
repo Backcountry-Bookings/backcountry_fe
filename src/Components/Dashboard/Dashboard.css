@@ -57,7 +57,8 @@ html {
   position: relative;
 }
 
-.search-button, .geolocation-button {
+.search-button,
+.geolocation-button {
   font: "Kalam", cursive;
   width: 30vw;
   max-width: 100px;

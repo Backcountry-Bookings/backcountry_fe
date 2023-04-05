@@ -44,6 +44,7 @@ const Dashboard = ({
   const [fetchedFavoriteCamps, setFetchedFavoriteCamps] = useState<
     FavoriteCamps[]
   >([]);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -99,16 +100,19 @@ const Dashboard = ({
 
   const fetchNearbyCamps = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
+    setLoading(true);
     const gpsCoords = `${currentLocation?.latitude},${currentLocation?.longitude}`;
     fetchCampgrounds("by_dist", gpsCoords)
-    .then((result) => {
-      setSearchResults(result);
-      navigate("/results");
-    })
-    .catch((error: string) => {
-      setCatchError(true);
-      console.log(error);
-    });
+      .then((result) => {
+        setLoading(false);
+        setSearchResults(result);
+        navigate("/results");
+      })
+      .catch((error: string) => {
+        setLoading(false);
+        setCatchError(true);
+        console.log(error);
+      });
   };
 
   const fetchCamps = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -152,7 +156,7 @@ const Dashboard = ({
   };
 
   const displayNearMeButton = () => {
-    if (currentLocation) {
+    if (currentLocation && !loading) {
       return (
         <button
           className="geolocation-button"
@@ -161,6 +165,17 @@ const Dashboard = ({
           disabled={!currentLocation}
         >
           Campgrounds Near Me
+        </button>
+      );
+    } else if (currentLocation && loading) {
+      return (
+        <button
+          className="geolocation-button"
+          id="geoButton"
+          onClick={(event) => fetchNearbyCamps(event)}
+          disabled={!currentLocation}
+        >
+          Finding Campgrounds Near You
         </button>
       );
     }
