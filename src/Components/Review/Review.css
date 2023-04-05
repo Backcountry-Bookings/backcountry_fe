@@ -2,6 +2,11 @@
   height: -moz-fit-content;
   height: fit-content;
   padding-bottom: 2vh;
+  background-color: #444444;
+  width: 40%;
+  border-radius: 5px;
+  border: 2px solid black;
+  margin-top: 5vh;
 }
 .user-review p {
   padding-right: 2vw;

@@ -3,7 +3,11 @@
 .user-review {
   height: fit-content;
   padding-bottom: 2vh;
-
+  background-color: $grey;
+  width: 40%;
+  border-radius: 5px;
+  border: 2px solid black;
+  margin-top: 5vh;
   p {
     padding-right: 2vw;
   }
