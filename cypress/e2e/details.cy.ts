@@ -52,6 +52,6 @@ describe('details page', () => {
         cy.reload()
         cy.get('.error-gif')
         cy.get('h3')
-            .contains('There was an error loading campground info, please return home')
+            .contains('There was an error loading campground info')
     })
 })

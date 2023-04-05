@@ -327,6 +327,7 @@ const Details = ({
               <h3>
                 There was an error loading campground info, please return to the home page
               </h3>
+              <br />
               <Link className='home-link' to='/'>Return Home</Link>
             </div>
           ) : (
