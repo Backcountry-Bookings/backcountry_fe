@@ -11,6 +11,7 @@
 
 .card-image {
   width: 90%;
+  height: 55%;
   margin-top: 5%;
   border-radius: 5px;
   max-height: 700px;
@@ -29,8 +30,7 @@
 .unfavorite-button,
 .card-button {
   background-color: #606C38;
-  width: 50vw;
-  max-width: 300px;
+  width: 80%;
   height: 35px;
   box-shadow: 0px 0px 0px 2px #F9A03F;
   border: none;
@@ -43,4 +43,9 @@
   text-decoration: none;
   font-family: "Baloo Chettan 2", cursive;
   cursor: pointer;
+  white-space: nowrap;
+}
+
+.more-info-link {
+  width: 100%;
 }/*# sourceMappingURL=Card.css.map */

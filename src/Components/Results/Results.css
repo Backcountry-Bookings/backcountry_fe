@@ -1,8 +1,22 @@
 .results-main {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+}
+
+.search-error-section.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  margin-right: 1%;
 }
 
 .search-error-section {
@@ -19,4 +33,32 @@
 
 .error-msg {
   text-align: center;
+}
+
+@media only screen and (max-width: 768px) {
+  .card-grid {
+    display: flex;
+    flex-direction: column;
+    justify-content: centered;
+    align-items: center;
+  }
+  .results-main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .search-error-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .error-gif {
+    width: 100vw;
+    max-width: 500px;
+  }
+  .error-msg {
+    text-align: center;
+  }
 }/*# sourceMappingURL=Results.css.map */

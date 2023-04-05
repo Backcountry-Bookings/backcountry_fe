@@ -8,5 +8,6 @@
     "Searchbar",
     "btns",
     "imgs"
-  ]
+  ],
+  "liveSassCompile.settings.showOutputWindowOn": "Debug"
 }

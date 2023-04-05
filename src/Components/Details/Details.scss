@@ -13,7 +13,9 @@ p {
   width: 100vw;
   background-color: $darkGreen;
   color: $white;
+  margin-top: 2vh;
 }
+
 
 .button {
   height: 6vh;
@@ -32,6 +34,12 @@ p {
 .cg-images-container {
   @include centered(column, center);
   width: 100vw;
+  height:80vh;
+}
+
+.cg-images-container:hover {
+  @include centered(column, center);
+  cursor: grab;
 }
 
 .cg-images {
@@ -89,6 +97,12 @@ p {
 
 .cg-details-header {
   padding: 0vh 0vw 1vh 7vw;
+}
+
+.divider-amenities-info {
+  width: 115px;
+  height: 0px;
+  border: 1px solid #f9a03f;
 }
 
 .cg-details-copy-section {
@@ -172,6 +186,18 @@ p {
   margin-bottom: 20px;
 }
 
+.reservation-info {
+  background-color: $grey;
+  border: 2px solid black;
+  border-left: none;
+  margin-top: 1vh;
+  margin-bottom: 1vh;
+  width: 90%;
+  padding-bottom: 2vh;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
 .details-swiper {
   width: 100vw;
   max-width: 1200px;
@@ -212,4 +238,11 @@ p {
   @include centered(column, center);
   display: flex;
   flex-direction: column;
+}
+
+
+@media only screen and (max-width: 768px) {
+  .cg-images-container {
+    height:200px;
+  }
 }

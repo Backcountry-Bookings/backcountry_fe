@@ -57,20 +57,9 @@ const Results = ({
   const createCards = () => {
     if (searchResults.data === undefined || searchResults.data.length === 0) {
       return (
-        <div className="search-error-section">
-          <img
-            className="error-gif"
-            src={error}
-            alt="Just a little guy camping"
-          />
-          <h3 className="error-msg">
-            There may have been an issue with your search, click the title to go
-            home
-          </h3>
-        </div>
+        <div></div>
       );
     }
-
     let campgroundCards = searchResults.data.map((camp) => {
       return (
         <Card
@@ -80,15 +69,33 @@ const Results = ({
           setSelectedCampground={setSelectedCampground}
           setFavoriteCamps={setFavoriteCamps}
           fetchedFavoriteCamps={[]}
-          setFetchedFavoriteCamps={() => { }}
+          setFetchedFavoriteCamps={() => {}}
         />
       );
     });
 
-
     return campgroundCards;
   };
-  return <section className="results-main">{createCards()}</section>;
+
+  return (
+    <section className="results-main">
+      {searchResults.data === undefined || searchResults.data.length === 0 ? (
+        <div className="search-error-section centered">
+          <img
+            className="error-gif"
+            src={camper}
+            alt="Just a little guy camping"
+          />
+          <h3 className="error-msg">
+            There may have been an issue with your search, click the title to go
+            home
+          </h3>
+        </div>
+      ) : (
+        <div className="card-grid">{createCards()}</div>
+      )}
+    </section>
+  );
 };
 
 export default Results;

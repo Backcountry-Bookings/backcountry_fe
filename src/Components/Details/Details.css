@@ -12,6 +12,7 @@ p {
   width: 100vw;
   background-color: #283618;
   color: #FBFAF5;
+  margin-top: 2vh;
 }
 
 .button {
@@ -36,6 +37,15 @@ p {
   justify-content: center;
   align-items: center;
   width: 100vw;
+  height: 80vh;
+}
+
+.cg-images-container:hover {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: grab;
 }
 
 .cg-images {
@@ -104,6 +114,12 @@ p {
 
 .cg-details-header {
   padding: 0vh 0vw 1vh 7vw;
+}
+
+.divider-amenities-info {
+  width: 115px;
+  height: 0px;
+  border: 1px solid #f9a03f;
 }
 
 .cg-details-copy-section {
@@ -192,6 +208,18 @@ p {
   margin-bottom: 20px;
 }
 
+.reservation-info {
+  background-color: #444444;
+  border: 2px solid black;
+  border-left: none;
+  margin-top: 1vh;
+  margin-bottom: 1vh;
+  width: 90%;
+  padding-bottom: 2vh;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
 .details-swiper {
   width: 100vw;
   max-width: 1200px;
@@ -240,4 +268,10 @@ p {
   align-items: center;
   display: flex;
   flex-direction: column;
+}
+
+@media only screen and (max-width: 768px) {
+  .cg-images-container {
+    height: 200px;
+  }
 }/*# sourceMappingURL=Details.css.map */

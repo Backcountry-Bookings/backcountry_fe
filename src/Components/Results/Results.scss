@@ -1,7 +1,24 @@
-@use '../../../abstract/variables' as *;
+@use "../../../abstract/variables" as *;
 
 .results-main {
-  @include centered(column, center)
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.search-error-section.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  margin-right: 1%;
 }
 
 .search-error-section {
@@ -17,3 +34,26 @@
   text-align: center;
 }
 
+@media only screen and (max-width: 768px) {
+  .card-grid {
+    @include centered(column, centered)
+  }
+
+  .results-main {
+    @include centered(column, center);
+  }
+
+  .search-error-section {
+    @include centered(column, center);
+  }
+
+  .error-gif {
+    width: 100vw;
+    max-width: 500px;
+  }
+
+  .error-msg {
+    text-align: center;
+  }
+
+}
