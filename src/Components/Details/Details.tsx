@@ -365,13 +365,19 @@ const Details = ({
                   <hr className="divider-cg-info" />
                 </div>
                 <div className="cg-details-copy-section">
-                  <p className="cg-details-copy">{createCostDisplay()}</p>
-                  <p className="cg-details-copy">
-                    {`Number of reservable sites: ${campgroundDetails?.attributes.number_of_reservation_sites}`}
-                  </p>
-                  <p className="cg-details-copy">
-                    {`Reservation info: ${campgroundDetails?.attributes.reservation_info}`}
-                  </p>
+                  <div className="reservation-info">
+                    <p className="cg-details-copy">{createCostDisplay()}</p>
+                    <p className="cg-details-copy">
+                      {`Number of reservable sites: ${campgroundDetails?.attributes.number_of_reservation_sites}`}
+                    </p>
+                    <p className="cg-details-copy">
+                      {`Reservation info: ${campgroundDetails?.attributes.reservation_info}`}
+                    </p>
+                  </div>
+                  <div className="cg-details-header">
+                    <h3>Amenities</h3>
+                    <hr className="divider-amenities-info" />
+                  </div>
                   <p className="cg-details-copy">{`Toilets: ${campgroundDetails?.attributes.toilets[0]}`}</p>
                   <p className="cg-details-copy">{`Showers: ${campgroundDetails?.attributes.showers[0]}`}</p>
                   <p className="cg-details-copy">{`Cell coverage: ${campgroundDetails?.attributes.cell_coverage}`}</p>
