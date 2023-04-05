@@ -70,7 +70,6 @@ const Results = ({
         </div>
       );
     }
-
     let campgroundCards = searchResults.data.map((camp) => {
       return (
         <Card

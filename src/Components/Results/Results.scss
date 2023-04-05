@@ -1,3 +1,24 @@
+@use "../../../abstract/variables" as *;
+
+.results-main {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+}
+
+.search-error-section {
+  @include centered(column, center);
+}
+
+.error-gif {
+  width: 100vw;
+  max-width: 500px;
+}
+
+.error-msg {
+  text-align: center;
+}
+
 @media only screen and (max-width: 768px) {
 
   .results-main {
@@ -16,7 +37,5 @@
   .error-msg {
     text-align: center;
   }
+
 }
-
-
-

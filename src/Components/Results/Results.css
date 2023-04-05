@@ -1,8 +1,7 @@
 .results-main {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
 }
 
 .search-error-section {
@@ -19,4 +18,26 @@
 
 .error-msg {
   text-align: center;
+}
+
+@media only screen and (max-width: 768px) {
+  .results-main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .search-error-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .error-gif {
+    width: 100vw;
+    max-width: 500px;
+  }
+  .error-msg {
+    text-align: center;
+  }
 }/*# sourceMappingURL=Results.css.map */
