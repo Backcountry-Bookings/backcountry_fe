@@ -99,6 +99,12 @@ p {
   padding: 0vh 0vw 1vh 7vw;
 }
 
+.divider-amenities-info {
+  width: 115px;
+  height: 0px;
+  border: 1px solid #f9a03f;
+}
+
 .cg-details-copy-section {
   padding-bottom: 2vh;
 }
@@ -178,6 +184,18 @@ p {
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 20px;
+}
+
+.reservation-info {
+  background-color: $grey;
+  border: 2px solid black;
+  border-left: none;
+  margin-top: 1vh;
+  margin-bottom: 1vh;
+  width: 90%;
+  padding-bottom: 2vh;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
 
