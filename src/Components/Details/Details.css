@@ -12,6 +12,7 @@ p {
   width: 100vw;
   background-color: #283618;
   color: #FBFAF5;
+  margin-top: 2vh;
 }
 .detail-main button {
   height: 6vh;
@@ -35,6 +36,17 @@ p {
   justify-content: center;
   align-items: center;
   width: 100vw;
+  height: 80vh;
+}
+
+.cg-images-container:hover {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 80vh;
+  cursor: grab;
 }
 
 .cg-images {

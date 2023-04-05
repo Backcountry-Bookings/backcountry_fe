@@ -13,6 +13,7 @@ p {
   width: 100vw;
   background-color: $darkGreen;
   color: $white;
+  margin-top: 2vh;
 
   button {
     height: 6vh;
@@ -32,6 +33,14 @@ p {
 .cg-images-container {
   @include centered(column, center);
   width: 100vw;
+  height:80vh;
+}
+
+.cg-images-container:hover {
+  @include centered(column, center);
+  width: 100vw;
+  height:80vh;
+  cursor: grab;
 }
 
 .cg-images {
