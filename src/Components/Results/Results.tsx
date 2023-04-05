@@ -50,7 +50,7 @@ const Results = ({
 }: Props) => {
 
   useEffect(() => {
-      setSelectedCampground("")
+    setSelectedCampground("")
     // eslint-disable-next-line
   }, [])
 
@@ -79,12 +79,12 @@ const Results = ({
           favoriteCamps={favoriteCamps}
           setSelectedCampground={setSelectedCampground}
           setFavoriteCamps={setFavoriteCamps}
-          fetchedFavoriteCamps={[]} 
-          setFetchedFavoriteCamps={() => {}} 
+          fetchedFavoriteCamps={[]}
+          setFetchedFavoriteCamps={() => { }}
         />
       );
     });
-    
+
 
     return campgroundCards;
   };

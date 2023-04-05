@@ -114,7 +114,7 @@ const Details = ({
       .catch((error) => {
         console.log(`Error loading campground reviews ${error}`);
       });
-    
+
     // eslint-disable-next-line
   }, []);
 
@@ -272,28 +272,28 @@ const Details = ({
     if (reviewImg) {
       reviewPostData.append('img_file', reviewImg);
     }
-  
+
     setReviewSubmitMsg('Posting review...')
 
     postCampgroundReview(reviewPostData, selectedCampground)
-    .then((response) => {
-      if (response.success) {
-        setCampgroundReviews([ ...campgroundReviews, newReview]);
-        setReviewUserName("");
-        setReviewRating("");
-        setReviewSiteName("");
-        setReviewDescription("");
+      .then((response) => {
+        if (response.success) {
+          setCampgroundReviews([...campgroundReviews, newReview]);
+          setReviewUserName("");
+          setReviewRating("");
+          setReviewSiteName("");
+          setReviewDescription("");
+          setReviewImg(undefined);
+          setReviewSubmitMsg('Review posted!')
+          setTimeout(() => setReviewSubmitMsg(""), 2000)
+        }
+      })
+      .catch((error) => {
+        const errorMsg = error.toString().split('"')
+        setReviewSubmitMsg(errorMsg[3])
+        setTimeout(() => setReviewSubmitMsg(""), 3500)
         setReviewImg(undefined);
-        setReviewSubmitMsg('Review posted!')
-        setTimeout(() => setReviewSubmitMsg(""), 2000)
-      }
-    })
-    .catch((error) => {
-      const errorMsg = error.toString().split('"')
-      setReviewSubmitMsg(errorMsg[3])
-      setTimeout(() => setReviewSubmitMsg(""), 3500)
-      setReviewImg(undefined);
-    })
+      })
   };
 
   const handlePhotoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {

@@ -70,7 +70,7 @@ const Dashboard = ({
           console.error("Failed to update favorite camps:", error);
         });
     }
-  }, [favoriteCamps]);  
+  }, [favoriteCamps]);
 
   useEffect(() => {
     if (searchType !== "") {
@@ -92,15 +92,13 @@ const Dashboard = ({
   useEffect(() => {
     const successCallback = (position: any) => {
       setCurrentLocation(position.coords);
-      console.log(position);
     };
 
     const errorCallback = (error: object) => {
-      console.log(error);
     };
 
     navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-    
+
     setSelectedCampground("")
     // eslint-disable-next-line
   }, []);
