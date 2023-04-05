@@ -88,9 +88,9 @@ const Results = ({
             alt="Just a little guy camping"
           />
           <h3 className="error-msg">
-            There may have been an issue with your search, click the title to go
-            home
+            There may have been an issue with your search, please return to the home page
           </h3>
+          <br />
           <Link  className='home-link' to='/'>Return Home</Link>
         </div>
       ) : (
