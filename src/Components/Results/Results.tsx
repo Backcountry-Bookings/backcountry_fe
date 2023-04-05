@@ -83,7 +83,7 @@ const Results = ({
         <div className="search-error-section centered">
           <img
             className="error-gif"
-            src={camper}
+            src={error}
             alt="Just a little guy camping"
           />
           <h3 className="error-msg">
