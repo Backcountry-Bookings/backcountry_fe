@@ -162,7 +162,11 @@ describe('template spec', () => {
     cy.get('#geoButton')
     .contains('Campgrounds Near Me')
   })
-  it('should bring you to camps near you', () => {
-    
+  it('should bring not bring up camps if theres none near you', () => {
+    cy.intercept('GET', 'https://backcountry-bookings-be.herokuapp.com/api/v1/campsites?by_dist=41.6885205,-72.7591666')
+    cy.get('#geoButton')
+    .click()
+    cy.get('.error-msg')
+    .contains('There may have been an issue')
   })
 })
