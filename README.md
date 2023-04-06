@@ -1,4 +1,8 @@
+<img src="src/Assets/backcountryLogo.png" alt="Image" width="200" height="200">
+
+
 # Backcountry Bookings
+
 
 
 ### Learning Goals:
@@ -50,5 +54,5 @@ Some challenges included:
 
 Some wins included:
 - Implementing Typescript correctly. There is zero use of "any" across all Typescript files. 
-- Implementing google maps. As a relevent piece to any modern web app, it was very beneficial to learn how to utilize it during this project. 
+- Implementing Google Maps. As a relevent piece to any modern web app, it was very beneficial to learn how to utilize it during this project. 
 - Effective use of Sass. This helped to enforce styling patterns and cut down on the lines of code and complexity of our CSS files. 
