@@ -155,18 +155,54 @@ describe('template spec', () => {
       .contains('There may have been an issue')
   })
   it('should display your location', () => {
+    cy.window().then((win) => {
+      cy.stub(win.navigator.geolocation, 'getCurrentPosition')
+        .callsFake((successCallback) => {
+          const fakePosition = {
+            coords: {
+              latitude: 40.0170553,
+              longitude: -105.0889
+            }
+          }
+          successCallback(fakePosition);
+        })
+    })
     cy.get('.geolocation-msg')
     .contains('Your location:')
   })
   it('should have a campgrounds near me button', () => {
+    cy.window().then((win) => {
+      cy.stub(win.navigator.geolocation, 'getCurrentPosition')
+        .callsFake((successCallback) => {
+          const fakePosition = {
+            coords: {
+              latitude: 40.0170553,
+              longitude: -105.0889
+            }
+          }
+          successCallback(fakePosition);
+        })
+    })
     cy.get('#geoButton')
     .contains('Campgrounds Near Me')
   })
   it('should bring not bring up camps if theres none near you', () => {
-    cy.intercept('GET', 'https://backcountry-bookings-be.herokuapp.com/api/v1/campsites?by_dist=41.6885205,-72.7591666')
+    cy.window().then((win) => {
+      cy.stub(win.navigator.geolocation, 'getCurrentPosition')
+        .callsFake((successCallback) => {
+          const fakePosition = {
+            coords: {
+              latitude: 40.0170553,
+              longitude: -105.0889
+            }
+          }
+          successCallback(fakePosition);
+        })
+    })
+    cy.intercept('GET', 'https://backcountry-bookings-be.herokuapp.com/api/v1/campsites?by_dist=40.0170553,-105.0889')
     cy.get('#geoButton')
     .click()
-    cy.get('.error-msg')
-    .contains('There may have been an issue')
+    cy.get('#F7CE47A2-A770-449F-8085-0DF17DD432EB > .card-name')
+    .contains('Longs Peak Camp')
   })
 })
