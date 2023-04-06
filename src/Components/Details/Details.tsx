@@ -259,6 +259,7 @@ const Details = ({
     const newReview: ReviewObj = {
       id: `new-${campgroundReviews.length + 1}`,
       name: reviewUserName,
+      created_at: new Date().toLocaleDateString(),
       rating: +reviewRating,
       site_name: reviewSiteName,
       description: reviewDescription,
