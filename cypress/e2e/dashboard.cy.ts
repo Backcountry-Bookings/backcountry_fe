@@ -124,22 +124,22 @@ describe('template spec', () => {
     cy.get('#EA81BC45-C361-437F-89B8-5C89FB0D0F86')
       .should('be.visible')
   })
-  // it('should remove a favorite campground from the dashboard display when the remove button is clicked', () => {
-  //   cy.get('.dropdown')
-  //     .select('park_name');
-  //   cy.get('.search')
-  //     .type('colorado');
-  //   cy.get('.search-button')
-  //     .click()
-  //   cy.get('#EA81BC45-C361-437F-89B8-5C89FB0D0F86')
-  //     .find('.favorite-button')
-  //     .click()
-  //   cy.get('.site-title')
-  //     .click()
-  //   cy.get('#EA81BC45-C361-437F-89B8-5C89FB0D0F86')
-  //     .find('.unfavorite-button')
-  //     .click()
-  // })
+  it('should remove a favorite campground from the dashboard display when the remove button is clicked', () => {
+    cy.get('.dropdown')
+      .select('park_name');
+    cy.get('.search')
+      .type('colorado');
+    cy.get('.search-button')
+      .click()
+    cy.get('#EA81BC45-C361-437F-89B8-5C89FB0D0F86')
+      .find('.favorite-button')
+      .click()
+    cy.get('.site-title')
+      .click()
+    cy.get('#EA81BC45-C361-437F-89B8-5C89FB0D0F86')
+      .find('.unfavorite-button')
+      .click()
+  })
   it('should handle errors', () => {
     cy.intercept(
       'GET',
@@ -153,5 +153,16 @@ describe('template spec', () => {
       .click()
     cy.get('p')
       .contains('There may have been an issue')
+  })
+  it('should display your location', () => {
+    cy.get('.geolocation-msg')
+    .contains('Your location:')
+  })
+  it('should have a campgrounds near me button', () => {
+    cy.get('#geoButton')
+    .contains('Campgrounds Near Me')
+  })
+  it('should bring you to camps near you', () => {
+    
   })
 })
