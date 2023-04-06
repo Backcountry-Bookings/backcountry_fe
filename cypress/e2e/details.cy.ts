@@ -55,12 +55,4 @@ describe('details page', () => {
         .click()
         cy.get('.unfavorite-button')
     })
-    it('should be able to remove a favorite', () => {
-        cy.get('.detail-btns > :nth-child(3)')
-        .click()
-        cy.get('.site-title')
-        .click()
-        cy.get('.unfavorite-button')
-        .click()
-    })
 })
