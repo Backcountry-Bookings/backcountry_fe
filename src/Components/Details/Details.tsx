@@ -103,6 +103,7 @@ const Details = ({
       })
       .catch((error) => {
         setCatchError(true)
+        setIsLoading(false)
         console.log(`Error loading campground details ${error}`);
       });
 
