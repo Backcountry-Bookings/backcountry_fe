@@ -205,4 +205,23 @@ describe('template spec', () => {
     cy.get('#F7CE47A2-A770-449F-8085-0DF17DD432EB > .card-name')
     .contains('Longs Peak Camp')
   })
+  it('it should show an error if there are no sites near you', () => {
+    cy.window().then((win) => {
+      cy.stub(win.navigator.geolocation, 'getCurrentPosition')
+        .callsFake((successCallback) => {
+          const fakePosition = {
+            coords: {
+              latitude: 41.6885222,
+              longitude: -72.7591813
+            }
+          }
+          successCallback(fakePosition);
+        })
+    })
+    cy.intercept('GET', 'https://backcountry-bookings-be.herokuapp.com/api/v1/campsites?by_dist=41.6885222, -72.7591813')
+    cy.get('#geoButton')
+    .click()
+    cy.get('.error-msg')
+    .contains('There may have been an issue with your search')
+  })
 })
