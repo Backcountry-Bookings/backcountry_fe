@@ -13,7 +13,6 @@ const containerStyle = {
 };
 
 export default function DetailMap({ lat, lng }: Props) {
-  // eslint-disable-next-line
   const [map, setMap] = useState<google.maps.Map | null>(null);
 
   const key: string = process.env.REACT_APP_GOOGLE_MAPS_API_KEY!;

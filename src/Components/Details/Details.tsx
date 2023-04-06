@@ -116,8 +116,6 @@ const Details = ({
       .catch((error) => {
         console.log(`Error loading campground reviews ${error}`);
       });
-
-    // eslint-disable-next-line
   }, []);
 
   const formatReviews = (revArr: FetchedReview[]) => {

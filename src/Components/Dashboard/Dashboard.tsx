@@ -87,11 +87,8 @@ const Dashboard = ({
     };
 
     const errorCallback = (error: object) => {};
-
     navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-
     setSelectedCampground("");
-    // eslint-disable-next-line
   }, []);
 
   const updateInput = (e: React.ChangeEvent<HTMLInputElement>) => {
