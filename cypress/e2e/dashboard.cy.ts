@@ -124,22 +124,22 @@ describe('template spec', () => {
     cy.get('#EA81BC45-C361-437F-89B8-5C89FB0D0F86')
       .should('be.visible')
   })
-  // it('should remove a favorite campground from the dashboard display when the remove button is clicked', () => {
-  //   cy.get('.dropdown')
-  //     .select('park_name');
-  //   cy.get('.search')
-  //     .type('colorado');
-  //   cy.get('.search-button')
-  //     .click()
-  //   cy.get('#EA81BC45-C361-437F-89B8-5C89FB0D0F86')
-  //     .find('.favorite-button')
-  //     .click()
-  //   cy.get('.site-title')
-  //     .click()
-  //   cy.get('#EA81BC45-C361-437F-89B8-5C89FB0D0F86')
-  //     .find('.unfavorite-button')
-  //     .click()
-  // })
+  it('should remove a favorite campground from the dashboard display when the remove button is clicked', () => {
+    cy.get('.dropdown')
+      .select('park_name');
+    cy.get('.search')
+      .type('colorado');
+    cy.get('.search-button')
+      .click()
+    cy.get('#EA81BC45-C361-437F-89B8-5C89FB0D0F86')
+      .find('.favorite-button')
+      .click()
+    cy.get('.site-title')
+      .click()
+    cy.get('#EA81BC45-C361-437F-89B8-5C89FB0D0F86')
+      .find('.unfavorite-button')
+      .click()
+  })
   it('should handle errors', () => {
     cy.intercept(
       'GET',
@@ -153,5 +153,75 @@ describe('template spec', () => {
       .click()
     cy.get('p')
       .contains('There may have been an issue')
+  })
+  it('should display your location', () => {
+    cy.window().then((win) => {
+      cy.stub(win.navigator.geolocation, 'getCurrentPosition')
+        .callsFake((successCallback) => {
+          const fakePosition = {
+            coords: {
+              latitude: 40.0170553,
+              longitude: -105.0889
+            }
+          }
+          successCallback(fakePosition);
+        })
+    })
+    cy.get('.geolocation-msg')
+    .contains('Your location:')
+  })
+  it('should have a campgrounds near me button', () => {
+    cy.window().then((win) => {
+      cy.stub(win.navigator.geolocation, 'getCurrentPosition')
+        .callsFake((successCallback) => {
+          const fakePosition = {
+            coords: {
+              latitude: 40.0170553,
+              longitude: -105.0889
+            }
+          }
+          successCallback(fakePosition);
+        })
+    })
+    cy.get('#geoButton')
+    .contains('Campgrounds Near Me')
+  })
+  it('should bring not bring up camps if theres none near you', () => {
+    cy.window().then((win) => {
+      cy.stub(win.navigator.geolocation, 'getCurrentPosition')
+        .callsFake((successCallback) => {
+          const fakePosition = {
+            coords: {
+              latitude: 40.0170553,
+              longitude: -105.0889
+            }
+          }
+          successCallback(fakePosition);
+        })
+    })
+    cy.intercept('GET', 'https://backcountry-bookings-be.herokuapp.com/api/v1/campsites?by_dist=40.0170553,-105.0889')
+    cy.get('#geoButton')
+    .click()
+    cy.get('#F7CE47A2-A770-449F-8085-0DF17DD432EB > .card-name')
+    .contains('Longs Peak Camp')
+  })
+  it('it should show an error if there are no sites near you', () => {
+    cy.window().then((win) => {
+      cy.stub(win.navigator.geolocation, 'getCurrentPosition')
+        .callsFake((successCallback) => {
+          const fakePosition = {
+            coords: {
+              latitude: 41.6885222,
+              longitude: -72.7591813
+            }
+          }
+          successCallback(fakePosition);
+        })
+    })
+    cy.intercept('GET', 'https://backcountry-bookings-be.herokuapp.com/api/v1/campsites?by_dist=41.6885222, -72.7591813')
+    cy.get('#geoButton')
+    .click()
+    cy.get('.error-msg')
+    .contains('There may have been an issue with your search')
   })
 })

@@ -48,6 +48,13 @@ describe('details page', () => {
         cy.get('.user-review-form > h3')
             .contains('Review this campground')
     })
+    it('should be able to add a favorite', () => {
+        cy.get('.detail-btns > :nth-child(3)')
+        .click()
+        cy.get('.site-title')
+        .click()
+        cy.get('.unfavorite-button')
+    })
     it('should handle errors', () => {
         cy.reload()
         cy.get('.error-gif')
