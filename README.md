@@ -44,11 +44,11 @@ Ryan, Craig, Rick, and Colin worked on this project for 18 days. We are both in 
 
 ### Wins + Challenges:
 Some challenges included: 
-- Successfully implemented glide.js, which can be more technically challenging than others like slider.js
-- Created a site using React and Router, the latest technologies that we've learned at Turing
-- Stuck to our original layout design despite tricky formatting issues
+- Working with importing files and sending them to the backend. Specifically how to utilize form data to send files when posting reviews and their images.
+- Working with Typescript while doing a project. As a strictly typed language, attention to detail is crucial to the utilization of Typescript and while it effectively reduced the amount of bugs it generally took longer to build.
 
 
 Some wins included:
-- Implementing a several new forms of tech can be tedious as we had to slowly work our way through our notes and documentation, rather than relying on past experience
-- Glide.js can be difficult to work with and probably took more time than a different option would have
+- Implementing Typescript correctly. There is zero use of "any" across all Typescript files. 
+- Implementing google maps. As a relevent piece to any modern web app, it was very beneficial to learn how to utilize it during this project. 
+- Effective use of Sass. This helped to enforce styling patterns and cut down on the lines of code and complexity of our CSS files. 
