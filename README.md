@@ -31,7 +31,7 @@ Welcome to Backcountry Bookings - your ultimate destination for all your camping
 
 
 ### Context:
-Ryan, Craig, Rick, and Colin worked on this project for 18 days. We are both in our 3rd week in our fourth module in Turing. 
+Ryan, Craig, Rick, and Colin worked on this project for 16 days. We are both in our 3rd week in our fourth module in Turing. 
 
 
 ### Contributors:
