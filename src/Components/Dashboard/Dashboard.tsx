@@ -20,6 +20,7 @@ interface Props {
         longitude: string;
       };
 }
+
 export interface FavoriteCamps {
   id: number;
   type: string;
@@ -78,16 +79,16 @@ const Dashboard = ({
   }, [searchType]);
 
   useEffect(() => {
-    const successCallback = (position: any) => {
-      setCurrentLocation(position.coords);
+    const successCallback = (position: GeolocationPosition) => {
+      setCurrentLocation({
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude
+      });
     };
 
     const errorCallback = (error: object) => {};
-
     navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-
     setSelectedCampground("");
-    // eslint-disable-next-line
   }, []);
 
   const updateInput = (e: React.ChangeEvent<HTMLInputElement>) => {

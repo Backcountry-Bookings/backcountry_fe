@@ -103,6 +103,7 @@ const Details = ({
       })
       .catch((error) => {
         setCatchError(true)
+        setIsLoading(false)
         console.log(`Error loading campground details ${error}`);
       });
 
@@ -116,8 +117,6 @@ const Details = ({
       .catch((error) => {
         console.log(`Error loading campground reviews ${error}`);
       });
-
-    // eslint-disable-next-line
   }, []);
 
   const formatReviews = (revArr: FetchedReview[]) => {
@@ -261,6 +260,7 @@ const Details = ({
     const newReview: ReviewObj = {
       id: `new-${campgroundReviews.length + 1}`,
       name: reviewUserName,
+      created_at: new Date().toLocaleDateString(),
       rating: +reviewRating,
       site_name: reviewSiteName,
       description: reviewDescription,

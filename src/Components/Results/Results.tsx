@@ -52,7 +52,6 @@ const Results = ({
 
   useEffect(() => {
     setSelectedCampground("")
-    // eslint-disable-next-line
   }, [])
 
   const createCards = () => {

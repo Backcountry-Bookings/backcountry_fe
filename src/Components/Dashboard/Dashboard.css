@@ -97,6 +97,13 @@ html {
   width: 100vw;
 }
 
+.favorites-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .geolocation-msg {
   text-align: center;
 }
@@ -104,4 +111,13 @@ html {
 #geoButton {
   width: 50vw;
   max-width: 300px;
+}
+
+@media only screen and (max-width: 768px) {
+  #geoButton {
+    width: -moz-fit-content;
+    width: fit-content;
+    padding-left: 5vw;
+    padding-right: 5vw;
+  }
 }/*# sourceMappingURL=Dashboard.css.map */

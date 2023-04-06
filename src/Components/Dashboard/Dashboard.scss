@@ -80,6 +80,10 @@ html {
   width: 100vw;
 }
 
+.favorites-container {
+  @include centered(column, center)
+}
+
 .geolocation-msg {
   text-align: center;
 }
@@ -88,3 +92,14 @@ html {
   width: 50vw;
   max-width: 300px;
 }
+
+@media only screen and (max-width: 768px) {
+  #geoButton {
+    width: fit-content;
+    padding-left: 5vw;
+    padding-right: 5vw;
+  }
+}
+
+
+  
