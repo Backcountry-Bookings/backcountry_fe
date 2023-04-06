@@ -1,48 +1,52 @@
 https://backcountrybookings.herokuapp.com/
 
-# Getting Started with Create React App
+# Rancid Tomatillos
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+### Learning Goals:
+- Use an agile process to turn well defined requirements into deployed and production ready software
+- Gain experience dividing applications into components and domains of responsibilities to facilitate multi-developer teams. Service oriented        architecture concepts and patterns are highly encouraged.
+- Explore and implement new concepts, patterns, or libraries that have not been explicitly taught while at Turing (Typescript)
+- Gain experience using continuous integration tools to build and automate the deployment of features
+- Build applications that execute in development, test, CI, and production environments
+- Focus on communication between front-end and back-end teams in order to complete and deploy features that have been outlined by the project spec
 
-In the project directory, you can run:
 
-### `npm start`
+### Abstract:
+Meet the next best thing to Rotten Tomatos... Moldy Turnips!! Choose from a list of movies and select a specific movie to see more details. Navigate to and from the selected movies page using React router.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Installation Instructions:
+- Fork the repository found here: https://github.com/RyanBaer42/rancid_tomatillos
+- Clone down your new, forked repo. While cloning, name it what you want your local repo to be named, and run git clone.
+- cd into the repository
+- Install NPM packages by running npm install in your terminal
+- Start the server by running npm start in your repo
+- After starting the server, the project will run at http://localhost:3000/
 
-### `npm test`
+### Preview of App:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+https://user-images.githubusercontent.com/113728354/218590181-cf967a48-3caf-4d6a-9050-5120c9da1943.mp4
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Context:
+Ryan and Craig worked on this project for 13 days. We are both in our 3rd week in our third module in Turing. 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+### Contributors:
+- [Ryan Baer (he/him)](https://www.linkedin.com/in/ryan-baer-33311114a/)
+- [Craig Weller (he/him)](https://www.linkedin.com/in/craig-weller/)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Wins + Challenges:
+Some challenges included: 
+- Successfully implemented glide.js, which can be more technically challenging than others like slider.js
+- Created a site using React and Router, the latest technologies that we've learned at Turing
+- Stuck to our original layout design despite tricky formatting issues
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Some wins included:
+- Implementing a several new forms of tech can be tedious as we had to slowly work our way through our notes and documentation, rather than relying on past experience
+- Glide.js can be difficult to work with and probably took more time than a different option would have
